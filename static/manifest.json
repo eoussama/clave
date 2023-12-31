@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "version": "0.0.1",
+  "name": "Clave",
+  "short_name": "Clave",
+  "description": "The only clipboard manager that matters.",
+  "action": {
+    "default_title": "Clave",
+    "default_icon": "favicon.png",
+    "default_popup": "index.html"
+  },
+  "icons": {
+    "48": "favicon.png"
+  }
+}
