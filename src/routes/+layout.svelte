@@ -1,5 +1,8 @@
-<script>
+<script lang="ts">
 	import '../style/main.scss';
+
+	import Head from '$lib/layout/head.svelte';
+	import Foot from '$lib/layout/foot.svelte';
 </script>
 
 <svelte:head>
@@ -7,14 +10,25 @@
 </svelte:head>
 
 <div class="root">
-	<slot />
+	<Head />
+
+	<main class="body">
+		<slot />
+	</main>
+
+	<Foot />
 </div>
 
 <style lang="scss">
 	.root {
-		border: 1px dashed grey;
-
+		width: 100%;
 		height: 100%;
-		width: 350px;
+
+		display: flex;
+		flex-direction: column;
+
+		.body {
+			flex: 1;
+		}
 	}
 </style>
