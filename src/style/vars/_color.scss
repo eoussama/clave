@@ -1,0 +1,15 @@
+@use '../utils/color';
+
+
+
+$color-primary-light: #383f51;
+$color-primary-rgb-light: color.colorToRgb($color-primary-light);
+$color-primary-hsl-light: color.colorToHsl($color-primary-light);
+
+$color-secondary-light: #dddbf1;
+$color-secondary-rgb-light: color.colorToRgb($color-secondary-light);
+$color-secondary-hsl-light: color.colorToHsl($color-secondary-light);
+
+$color-error: #e43922;
+$color-error-rgb: color.colorToRgb($color-error);
+$color-error-hsl: color.colorToHsl($color-error);
