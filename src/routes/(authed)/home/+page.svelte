@@ -1,9 +1,18 @@
-<script lang="ts"></script>
+<script lang="ts">
+	import ClipList from '$lib/view/clip-list.svelte';
+	import ClipAdd from '$lib/controls/clip-add.svelte';
+</script>
 
-<div class="add">
-  <input type="text" placeholder="Content...">
+<div class="head">
+	<ClipAdd />
+</div>
+
+<div class="content">
+	<ClipList />
 </div>
 
 <style lang="scss">
-  .add {}
+	.content {
+		margin-top: 16px;
+	}
 </style>

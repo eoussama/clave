@@ -1,11 +1,5 @@
 <header class="head">
-  <nav>
-    <ul>
-      <li><a href="/">Home</a></li>
-      <li><a href="/login">Login</a></li>
-      <li><a href="/settings">Settings</a></li>
-    </ul>
-  </nav>
+  Head
 </header>
 
 <style lang="scss">
