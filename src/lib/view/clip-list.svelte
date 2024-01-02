@@ -1,6 +1,7 @@
 <script lang="ts">
-	import type { TClip } from '../../core/types/clip.type';
+	import ClipSearch from '$lib/controls/clip-search.svelte';
 	import ClipItem from './clip-item.svelte';
+	import type { TClip } from '../../core/types/clip.type';
 
 	const clips: Array<TClip> = [
 		{
@@ -29,6 +30,10 @@
 
 <div class="clips">
 	<ul class="clips-list">
+		<li class="clips-item">
+			<ClipSearch />
+		</li>
+
 		{#each clips as clip}
 			<li class="clips-item">
 				<ClipItem {clip} />
@@ -46,7 +51,7 @@
 			padding: 0;
 			list-style-type: none;
 
-      border-radius: 5px;
+			border-radius: 5px;
 			border: 1px solid whitesmoke;
 
 			#{$root}-item:not(:last-of-type) {
