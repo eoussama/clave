@@ -1,6 +1,5 @@
-<!-- TODO: Copy status when clicked -->
-
 <script lang="ts">
+	import { fade, fly } from 'svelte/transition';
 	import MdCheck from 'svelte-icons/md/MdCheck.svelte';
 	import MdVisibility from 'svelte-icons/md/MdVisibility.svelte';
 	import MdContentCopy from 'svelte-icons/md/MdContentCopy.svelte';
@@ -73,9 +72,21 @@
 			{#if clip.sensitive}
 				<button class="clip__control clip__control--visibility" on:click={onToggleVisibility}>
 					{#if visible}
-						<MdVisibilityOff />
+						<span
+							class="clip__control-icon"
+							in:fade={{ duration: 200 }}
+							out:fade={{ duration: 200 }}
+						>
+							<MdVisibilityOff />
+						</span>
 					{:else}
-						<MdVisibility />
+						<span
+							class="clip__control-icon"
+							in:fade={{ duration: 200 }}
+							out:fade={{ duration: 200 }}
+						>
+							<MdVisibility />
+						</span>
 					{/if}
 				</button>
 			{/if}
@@ -86,9 +97,21 @@
 				on:click={onCopy}
 			>
 				{#if copied}
-					<MdCheck />
+					<span
+						class="clip__control-icon"
+						in:fly={{ y: 15, duration: 200 }}
+						out:fly={{ y: -15, duration: 200 }}
+					>
+						<MdCheck />
+					</span>
 				{:else}
-					<MdContentCopy />
+					<span
+						class="clip__control-icon"
+						in:fly={{ y: 15, duration: 200 }}
+						out:fly={{ y: -15, duration: 200 }}
+					>
+						<MdContentCopy />
+					</span>
 				{/if}
 			</button>
 		</div>
@@ -149,6 +172,7 @@
 
 					width: 18px;
 					height: 18px;
+					position: relative;
 
 					opacity: 0.6;
 					color: rgb(184, 184, 184);
@@ -159,6 +183,11 @@
 					display: flex;
 					align-items: center;
 					justify-content: center;
+
+					&-icon {
+						display: flex;
+						position: absolute;
+					}
 
 					&--copied {
 						color: #22c01c;
