@@ -47,10 +47,13 @@
 				outline: none;
 				background-color: transparent;
 
+				font-size: 14px;
+				font-weight: var(--font-weight-regular);
+				font-family: var(--font-family-primary);
+
 				&::placeholder {
 					font-size: 12px;
 					font-weight: var(--font-weight-light);
-					font-family: var(--font-family-primary);
 				}
 			}
 		}
@@ -60,14 +63,13 @@
 
 			#{$root}__control {
 				#{$root}__icon {
-					opacity: 0.5;
 					cursor: pointer;
 
 					transition-duration: 0.2s;
-					transition-property: opacity;
+					transition-property: color;
 
 					&:hover {
-						opacity: 1;
+						color: rgba(var(--color-primary-rgb), 0.8);
 					}
 				}
 
@@ -81,12 +83,11 @@
 			width: 22px;
 			height: 22px;
 
-			opacity: 0.6;
-			color: rgb(192, 192, 192);
+			color: rgba(var(--color-primary-rgb), 0.4);
 		}
 
 		&:focus-within {
-			border-color: rgba(128, 128, 128, 0.116);
+			border-color: rgba(var(--color-primary-rgb), 0.2);
 		}
 	}
 </style>

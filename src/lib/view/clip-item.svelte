@@ -61,11 +61,11 @@
 	};
 </script>
 
-<div class="clip">
-	<button class="clip__content" on:click={onCopy}>
+<div class="clip" class:clip--sensitive={clip.sensitive}>
+	<button class="clip__box" on:click={onCopy}>
 		<div class="clip__info">
 			<h4 class="clip__title">{clip.title}</h4>
-			<p class="clip__content">{content}</p>
+			<p class="clip__content" class:clip__content--hidden={!visible}>{content}</p>
 		</div>
 
 		<div class="clip__controls">
@@ -122,7 +122,7 @@
 	.clip {
 		$root: &;
 
-		&__content {
+		&__box {
 			all: unset;
 
 			width: 100%;
@@ -130,8 +130,8 @@
 			box-sizing: border-box;
 			padding: 2px 10px;
 
-			display: flex;
 			cursor: pointer;
+			display: flex;
 
 			transition-duration: 0.2s;
 			transition-property: background-color;
@@ -174,11 +174,10 @@
 					height: 18px;
 					position: relative;
 
-					opacity: 0.6;
-					color: rgb(184, 184, 184);
+					color: rgba(var(--color-primary-rgb), 0.4);
 
 					transition-duration: 0.2s;
-					transition-property: opacity;
+					transition-property: color;
 
 					display: flex;
 					align-items: center;
@@ -190,11 +189,11 @@
 					}
 
 					&--copied {
-						color: #22c01c;
+						color: var(--color-success);
 					}
 
 					&:hover {
-						opacity: 1;
+						color: rgba(var(--color-primary-rgb), 0.8);
 					}
 
 					&:not(:last-of-type) {
@@ -204,10 +203,22 @@
 			}
 
 			&:hover {
-				background-color: rgb(250, 250, 250);
+				background-color: rgba(var(--color-secondary-rgb), 0.3);
 
 				#{$root}__controls {
 					opacity: 1;
+				}
+			}
+		}
+
+		&--sensitive {
+			#{$root}__box {
+				#{$root}__info {
+					#{$root}__content {
+						&--hidden {
+							filter: blur(3px);
+						}
+					}
 				}
 			}
 		}

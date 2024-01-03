@@ -3,57 +3,45 @@
 
 
 :root {
-  --color-primary-light: #{color.$color-primary-light};
-  --color-primary-rgb-light: #{color.$color-primary-rgb-light};
-  --color-primary-hsl-light: #{color.$color-primary-hsl-light};
+  --color-primary: #{color.$color-primary-light};
+  --color-primary-rgb: #{color.$color-primary-rgb-light};
+  --color-primary-hsl: #{color.$color-primary-hsl-light};
 
-  --color-secondary-light: #{color.$color-secondary-light};
-  --color-secondary-rgb-light: #{color.$color-secondary-rgb-light};
-  --color-secondary-hsl-light: #{color.$color-secondary-hsl-light};
+  --color-secondary: #{color.$color-secondary-light};
+  --color-secondary-rgb: #{color.$color-secondary-rgb-light};
+  --color-secondary-hsl: #{color.$color-secondary-hsl-light};
 
-  --color-text-light: #{color.$color-text-light};
-  --color-text-rgb-light: #{color.$color-text-rgb-light};
-  --color-text-hsl-light: #{color.$color-text-hsl-light};
+  --color-text: #{color.$color-text-light};
+  --color-text-rgb: #{color.$color-text-rgb-light};
+  --color-text-hsl: #{color.$color-text-hsl-light};
 
-  --color-primary-dark: #{color.$color-primary-dark};
-  --color-primary-rgb-dark: #{color.$color-primary-rgb-dark};
-  --color-primary-hsl-dark: #{color.$color-primary-hsl-dark};
+  --color-success: #{color.$color-success-light};
+  --color-success-rgb: #{color.$color-success-rgb-light};
+  --color-success-hsl: #{color.$color-success-hsl-light};
 
-  --color-secondary-dark: #{color.$color-secondary-dark};
-  --color-secondary-rgb-dark: #{color.$color-secondary-rgb-dark};
-  --color-secondary-hsl-dark: #{color.$color-secondary-hsl-dark};
+  --color-failure: #{color.$color-failure-light};
+  --color-failure-rgb: #{color.$color-failure-rgb-light};
+  --color-failure-hsl: #{color.$color-failure-hsl-light};
 
-  --color-text-dark: #{color.$color-text-dark};
-  --color-text-rgb-dark: #{color.$color-text-rgb-dark};
-  --color-text-hsl-dark: #{color.$color-text-hsl-dark};
+  .dark {    
+    --color-primary: #{color.$color-primary-dark};
+    --color-primary-rgb: #{color.$color-primary-rgb-dark};
+    --color-primary-hsl: #{color.$color-primary-hsl-dark};
+    
+    --color-secondary: #{color.$color-secondary-dark};
+    --color-secondary-rgb: #{color.$color-secondary-rgb-dark};
+    --color-secondary-hsl: #{color.$color-secondary-hsl-dark};
 
-  --color-primary: var(--color-primary-light);
-  --color-primary-rgb: var(--color-primary-rgb-light);
-  --color-primary-hsl: var(--color-primary-hsl-light);
+    --color-text: #{color.$color-text-dark};
+    --color-text-rgb: #{color.$color-text-rgb-dark};
+    --color-text-hsl: #{color.$color-text-hsl-dark};
 
-  --color-secondary: var(--color-secondary-light);
-  --color-secondary-rgb: var(--color-secondary-rgb-light);
-  --color-secondary-hsl: var(--color-secondary-hsl-light);
+    --color-success: #{color.$color-success-dark};
+    --color-success-rgb: #{color.$color-success-rgb-dark};
+    --color-success-hsl: #{color.$color-success-hsl-dark};
 
-  --color-error: #{color.$color-error};
-  --color-error-rgb: #{color.$color-error-rgb};
-  --color-error-hsl: #{color.$color-error-hsl};
-
-  --color-text: var(--color-text-light);
-  --color-text-rgb: var(--color-text-rgb-light);
-  --color-text-hsl: var(--color-text-hsl-light);
-  
-  .dark {
-    --color-text: var(--color-text-dark);
-    --color-text-rgb: var(--color-text-rgb-dark);
-    --color-text-hsl: var(--color-text-hsl-dark);
-
-    --color-primary: var(--color-primary-dark);
-    --color-primary-rgb: var(--color-primary-rgb-dark);
-    --color-primary-hsl: var(--color-primary-hsl-dark);
-  
-    --color-secondary: var(--color-secondary-dark);
-    --color-secondary-rgb: var(--color-secondary-rgb-dark);
-    --color-secondary-hsl: var(--color-secondary-hsl-dark);
+    --color-failure: #{color.$color-failure-dark};
+    --color-failure-rgb: #{color.$color-failure-rgb-dark};
+    --color-failure-hsl: #{color.$color-failure-hsl-dark};
   }
 }

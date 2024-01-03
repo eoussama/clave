@@ -20,21 +20,21 @@
 		cursor: pointer;
 		user-select: none;
 
-		font-size: 12px;
+		font-size: 11px;
 		text-align: center;
 
-		background-color: whitesmoke;
+		background-color: hsl(var(--color-primary-hsl), 90%);
 
 		transition-duration: 0.2s;
 		transition-property: background-color;
 
 		&__link {
 			text-decoration: none;
-			color: var(--color-text);
+			color: hsl(var(--color-primary-hsl), 50%);
 		}
 
 		&:hover {
-			background-color: rgb(238, 238, 238);
+			background-color: hsl(var(--color-primary-hsl), 86%);
 		}
 	}
 </style>
