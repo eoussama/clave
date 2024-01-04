@@ -1,7 +1,10 @@
 <script lang="ts">
-	import ClipSearch from '$lib/controls/clip-search.svelte';
 	import ClipItem from './clip-item.svelte';
+	import { slide } from 'svelte/transition';
+	import ClipSearch from '$lib/controls/clip-search.svelte';
 	import type { TClip } from '../../core/types/clip.type';
+
+	export let unfocused: boolean;
 
 	const MAX_DATA = 13;
 	const clips: Array<TClip> = new Array(MAX_DATA).fill(null).map((e) => ({
@@ -23,13 +26,13 @@
 
 <div class="clips">
 	<ul class="clips-list">
-		<li class="clips-item clips-item--search">
+		<li class="clips-item clips-item--search" class:clips-item--unfocused={unfocused}>
 			<ClipSearch bind:searchTerm />
 		</li>
 
 		<div class="clips-items">
 			{#each filteredClips as clip}
-				<li class="clips-item">
+				<li class="clips-item" class:clips-item--unfocused={unfocused} in:slide out:slide>
 					<ClipItem {clip} />
 				</li>
 			{/each}
@@ -56,17 +59,19 @@
 				height: 100%;
 
 				overflow: auto;
-				max-height: 465px;
+				max-height: 400px;
 			}
 
 			#{$root}-item {
 				&--search {
-					z-index: 1;
-
 					top: 0;
 					position: sticky;
 
 					background-color: hsl(var(--color-primary-hsl), 97%);
+				}
+
+				&--unfocused {
+					z-index: -1;
 				}
 
 				&:not(:last-of-type) {
