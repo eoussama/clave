@@ -1,11 +1,13 @@
-<script type="ts">
+<script lang="ts">
 	import MdSearch from 'svelte-icons/md/MdSearch.svelte';
 	import MdFilterList from 'svelte-icons/md/MdFilterList.svelte';
+
+	export let searchTerm: string = '';
 </script>
 
 <div class="search">
 	<div class="search__box">
-		<input class="search__input" type="search" placeholder="Search..." />
+		<input class="search__input" type="search" placeholder="Search..." bind:value={searchTerm} />
 		<div class="search__icon">
 			<MdSearch />
 		</div>
@@ -53,6 +55,7 @@
 
 				&::placeholder {
 					font-size: 12px;
+					color: var(--color-primary);
 					font-weight: var(--font-weight-light);
 				}
 			}

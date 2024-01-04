@@ -3,7 +3,7 @@
 	import ClipItem from './clip-item.svelte';
 	import type { TClip } from '../../core/types/clip.type';
 
-	const MAX_DATA = 10;
+	const MAX_DATA = 13;
 	const clips: Array<TClip> = new Array(MAX_DATA).fill(null).map((e) => ({
 		id: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER).toString(10 + 26),
 		content: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER).toString(10 + 26),
@@ -11,19 +11,29 @@
 		sensitive: Boolean(Math.floor(Math.random() + 0.5)),
 		tags: []
 	}));
+
+	let searchTerm: string;
+
+	$: filteredClips = clips.filter(
+		(e) =>
+			searchTerm?.toLowerCase().includes(e.title.toLowerCase()) ||
+			e.title.toLowerCase().includes(searchTerm?.toLowerCase())
+	);
 </script>
 
 <div class="clips">
 	<ul class="clips-list">
-		<li class="clips-item">
-			<ClipSearch />
+		<li class="clips-item clips-item--search">
+			<ClipSearch bind:searchTerm />
 		</li>
 
-		{#each clips as clip}
-			<li class="clips-item">
-				<ClipItem {clip} />
-			</li>
-		{/each}
+		<div class="clips-items">
+			{#each filteredClips as clip}
+				<li class="clips-item">
+					<ClipItem {clip} />
+				</li>
+			{/each}
+		</div>
 	</ul>
 </div>
 
@@ -41,8 +51,27 @@
 			border-radius: 5px;
 			border: 1px solid $border-color;
 
-			#{$root}-item:not(:last-of-type) {
-				border-bottom: 1px solid $border-color;
+			#{$root}-items {
+				width: 100%;
+				height: 100%;
+
+				overflow: auto;
+				max-height: 465px;
+			}
+
+			#{$root}-item {
+				&--search {
+					z-index: 1;
+
+					top: 0;
+					position: sticky;
+
+					background-color: hsl(var(--color-primary-hsl), 97%);
+				}
+
+				&:not(:last-of-type) {
+					border-bottom: 1px solid $border-color;
+				}
 			}
 		}
 	}
