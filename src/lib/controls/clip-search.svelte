@@ -34,6 +34,9 @@
 		border: 2px solid transparent;
 		background-color: transparent;
 
+		transition-duration: 0.2s;
+		transition-property: border-color;
+
 		&__box {
 			flex: 1;
 			display: flex;
