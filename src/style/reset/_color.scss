@@ -1,0 +1,47 @@
+@use '../vars/color';
+
+
+
+:root {
+  --color-primary: #{color.$color-primary-light};
+  --color-primary-rgb: #{color.$color-primary-rgb-light};
+  --color-primary-hsl: #{color.$color-primary-hsl-light};
+
+  --color-secondary: #{color.$color-secondary-light};
+  --color-secondary-rgb: #{color.$color-secondary-rgb-light};
+  --color-secondary-hsl: #{color.$color-secondary-hsl-light};
+
+  --color-text: #{color.$color-text-light};
+  --color-text-rgb: #{color.$color-text-rgb-light};
+  --color-text-hsl: #{color.$color-text-hsl-light};
+
+  --color-success: #{color.$color-success-light};
+  --color-success-rgb: #{color.$color-success-rgb-light};
+  --color-success-hsl: #{color.$color-success-hsl-light};
+
+  --color-failure: #{color.$color-failure-light};
+  --color-failure-rgb: #{color.$color-failure-rgb-light};
+  --color-failure-hsl: #{color.$color-failure-hsl-light};
+
+  .dark {    
+    --color-primary: #{color.$color-primary-dark};
+    --color-primary-rgb: #{color.$color-primary-rgb-dark};
+    --color-primary-hsl: #{color.$color-primary-hsl-dark};
+    
+    --color-secondary: #{color.$color-secondary-dark};
+    --color-secondary-rgb: #{color.$color-secondary-rgb-dark};
+    --color-secondary-hsl: #{color.$color-secondary-hsl-dark};
+
+    --color-text: #{color.$color-text-dark};
+    --color-text-rgb: #{color.$color-text-rgb-dark};
+    --color-text-hsl: #{color.$color-text-hsl-dark};
+
+    --color-success: #{color.$color-success-dark};
+    --color-success-rgb: #{color.$color-success-rgb-dark};
+    --color-success-hsl: #{color.$color-success-hsl-dark};
+
+    --color-failure: #{color.$color-failure-dark};
+    --color-failure-rgb: #{color.$color-failure-rgb-dark};
+    --color-failure-hsl: #{color.$color-failure-hsl-dark};
+  }
+}
