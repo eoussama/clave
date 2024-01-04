@@ -1,9 +1,11 @@
-<!-- TODO: Highlight animation to draw attention to the add button -->
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte';
 	import MdAdd from 'svelte-icons/md/MdAdd.svelte';
 
+	const dispatcher = createEventDispatcher();
+
 	function onClick(e: MouseEvent) {
-		console.log('add');
+		dispatcher('create');
 	}
 </script>
 
@@ -19,18 +21,21 @@
 <style lang="scss">
 	.add {
 		$root: &;
-
+		z-index: 2;
+		
 		position: relative;
 		border-radius: 5px;
-
+		
 		outline-offset: 0;
 		outline: 1px solid transparent;
-
+		
 		transition-duration: 0.2s;
 		transition-property: transform outline-offset;
-
+		
 		&__box {
 			all: inherit;
+			
+			z-index: 2;
 			cursor: pointer;
 
 			z-index: 0;
@@ -56,13 +61,13 @@
 
 			#{$root}__message {
 				width: 100%;
-				padding: 10px 12px;
+				padding: 15px;
 
 				border: none;
 				outline: none;
 				background-color: transparent;
 
-				font-size: 12px;
+				font-size: 14px;
 				font-weight: var(--font-weight-light);
 				font-family: var(--font-family-primary);
 
