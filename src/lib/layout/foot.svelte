@@ -23,18 +23,18 @@
 		font-size: 11px;
 		text-align: center;
 
-		background-color: hsl(var(--color-primary-hsl), 90%);
+		background-color: hsl(var(--color-primary-hsl), 98%);
 
 		transition-duration: 0.2s;
 		transition-property: background-color;
 
 		&__link {
 			text-decoration: none;
-			color: hsl(var(--color-primary-hsl), 50%);
+			color: hsl(var(--color-primary-hsl), 70%);
 		}
 
 		&:hover {
-			background-color: hsl(var(--color-primary-hsl), 86%);
+			background-color: hsl(var(--color-primary-hsl), 95%);
 		}
 	}
 </style>
