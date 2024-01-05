@@ -7,7 +7,7 @@ export class FirebaseHelper {
 
   private static app: FirebaseApp;
 
-  static getConfig() {
+  private static getConfig() {
     return {
       appId: config.PUBLIC_FIREBASE_APP_ID,
       apiKey: config.PUBLIC_FIREBASE_API_KEY,
@@ -19,8 +19,16 @@ export class FirebaseHelper {
     }
   }
 
-  static init(): void {
+  private static init(): void {
     const config = this.getConfig();
     this.app = initializeApp(config);
+  }
+
+  static getApp(): FirebaseApp {
+    if (!this.app) {
+      this.init();
+    }
+
+    return this.app;
   }
 }

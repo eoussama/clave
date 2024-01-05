@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
 	import { createEventDispatcher } from 'svelte';
+
 	import MdAdd from 'svelte-icons/md/MdAdd.svelte';
 	import MdClose from 'svelte-icons/md/MdClose.svelte';
+	import { AuthHelper } from '../../core/helpers/auth.felper';
 
 	export let send: any;
 	export let receive: any;
