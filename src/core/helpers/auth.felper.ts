@@ -1,4 +1,4 @@
-import { getAuth, type Auth } from 'firebase/auth';
+import { getAuth, type Auth, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
 import { FirebaseHelper } from './firebase.helper';
 
 
@@ -18,5 +18,17 @@ export class AuthHelper {
     }
 
     return this.auth;
+  }
+
+  static login(): void {
+    const auth = this.getAuth();
+    const provider = new GoogleAuthProvider();
+
+    signInWithPopup(auth, provider);
+  }
+
+  static logout(): void {
+    const auth = this.getAuth();
+    signOut(auth);
   }
 }
