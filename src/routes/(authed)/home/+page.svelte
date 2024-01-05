@@ -75,7 +75,7 @@
 		width: 100%;
 		height: 100%;
 
-		backdrop-filter: blur(6px);
-		background-color: rgba(var(--color-primary-rgb), 0.3);
+		backdrop-filter: blur(8px);
+		background-color: rgba(var(--color-secondary-rgb), 0.4);
 	}
 </style>
