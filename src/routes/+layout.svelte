@@ -3,6 +3,24 @@
 
 	import Head from '$lib/layout/head.svelte';
 	import Foot from '$lib/layout/foot.svelte';
+	import { onAuthStateChanged } from 'firebase/auth';
+	import { AuthHelper } from '../core/helpers/auth.felper';
+	import { goto } from '$app/navigation';
+	import { Route } from '../core/enums/route.enum';
+	import { onMount } from 'svelte';
+
+	onMount(() => {
+		const auth = AuthHelper.getAuth();
+		onAuthStateChanged(auth, (user) => {
+			if (user) {
+				console.log('logged in');
+				goto(Route.Home);
+			} else {
+				console.log('not logged in');
+				goto(Route.Login);
+			}
+		});
+	});
 </script>
 
 <svelte:head>
