@@ -1,4 +1,6 @@
 import { getAuth, type Auth, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
+import { FiremittHelper } from '@eoussama/firemitt';
+
 import { FirebaseHelper } from './firebase.helper';
 
 
@@ -24,7 +26,15 @@ export class AuthHelper {
     const auth = this.getAuth();
     const provider = new GoogleAuthProvider();
 
-    signInWithPopup(auth, provider);
+    // signInWithPopup(auth, provider);
+    FiremittHelper.auth({
+      url: 'https://ouss.es/fireguard',
+      config: {
+        name: 'Clave',
+        firebase: FirebaseHelper.getConfig(),
+        logo: 'https://github.com/eoussama/clave/blob/main/static/favicon.png?raw=true'
+      }
+    })
   }
 
   static logout(): void {

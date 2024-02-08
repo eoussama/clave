@@ -7,7 +7,12 @@ export class FirebaseHelper {
 
   private static app: FirebaseApp;
 
-  private static getConfig() {
+  private static init(): void {
+    const config = this.getConfig();
+    this.app = initializeApp(config);
+  }
+
+  static getConfig() {
     return {
       appId: config.PUBLIC_FIREBASE_APP_ID,
       apiKey: config.PUBLIC_FIREBASE_API_KEY,
@@ -17,11 +22,6 @@ export class FirebaseHelper {
       storageBucket: config.PUBLIC_FIREBASE_STORAGE_BUCKET,
       messagingSenderId: config.PUBLIC_FIREBASE_MESSAGING_SENDER_ID
     }
-  }
-
-  private static init(): void {
-    const config = this.getConfig();
-    this.app = initializeApp(config);
   }
 
   static getApp(): FirebaseApp {
