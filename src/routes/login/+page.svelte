@@ -1,8 +1,14 @@
 <script lang="ts">
-	import { AuthHelper } from '../../core/helpers/auth.felper';
+	import { AuthHelper } from '$lib/core/helpers/auth.felper';
 
 	const onLogin = () => {
-		AuthHelper.login();
+		AuthHelper.login()
+			.then((user) => {
+				console.log({ user });
+			})
+			.catch((err) => {
+				console.error(err);
+			});
 	};
 </script>
 
