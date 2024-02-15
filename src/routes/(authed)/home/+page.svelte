@@ -1,8 +1,9 @@
 <script lang="ts">
-	import ClipList from '$lib/view/clip-list.svelte';
-	import ClipAdd from '$lib/controls/clip-add.svelte';
-	import ClipModal from '$lib/view/clip-modal.svelte';
 	import { crossfade, fade } from 'svelte/transition';
+
+	import ClipList from '$lib/components/view/clip-list.svelte';
+	import ClipAdd from '$lib/components/controls/clip-add.svelte';
+	import ClipModal from '$lib/components/view/clip-modal.svelte';
 
 	let unfocus: boolean;
 	let clipModal: boolean;
@@ -75,7 +76,7 @@
 		width: 100%;
 		height: 100%;
 
-		backdrop-filter: blur(6px);
-		background-color: rgba(var(--color-primary-rgb), 0.3);
+		backdrop-filter: blur(8px);
+		background-color: rgba(var(--color-secondary-rgb), 0.4);
 	}
 </style>

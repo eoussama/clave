@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
 	import { createEventDispatcher } from 'svelte';
+
 	import MdAdd from 'svelte-icons/md/MdAdd.svelte';
 	import MdClose from 'svelte-icons/md/MdClose.svelte';
+	import { AuthHelper } from '$lib/core/helpers/auth.felper';
 
 	export let send: any;
 	export let receive: any;
@@ -20,6 +22,20 @@
 		out:send={{ key: 'clipflip', duration: 400 }}
 		in:receive={{ key: 'clipflip', duration: 400 }}
 	>
+		<div class="modal__head">
+			<h3 class="modal__title">Create Clip</h3>
+
+			<button
+				class="modal__control modal__control--close"
+				on:click={onClose}
+				in:fade={{ duration: 200 }}
+			>
+				<div class="modal__icon">
+					<MdClose />
+				</div>
+			</button>
+		</div>
+
 		<div class="modal__inputs">
 			<input class="modal__input modal__input--title" type="text" placeholder="Optional title..." />
 
@@ -28,16 +44,6 @@
 				placeholder="Enter the content to save..."
 			></textarea>
 		</div>
-
-		<button
-			class="modal__control modal__control--close"
-			on:click={onClose}
-			in:fade={{ duration: 3800 }}
-		>
-			<div class="modal__icon">
-				<MdClose />
-			</div>
-		</button>
 
 		<div class="modal__controls">
 			<button class="modal__control modal__control--add">
@@ -69,9 +75,10 @@
 		max-width: 350px;
 
 		&__box {
+			$spacing: 16px;
+
 			overflow: hidden;
 			background-color: hsl(var(--color-primary-hsl), 95%);
-			// background-color: hsl(var(--color-primary-hsl), 70%);
 
 			border-radius: 6px;
 			box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
@@ -82,9 +89,34 @@
 			width: 100%;
 			min-height: 400px;
 
-			#{$root}__inputs {
-				$spacing: 16px;
+			#{$root}__head {
+				padding: $spacing $spacing 0 $spacing;
 
+				display: flex;
+				flex-direction: row;
+
+				#{$root}__title {
+					font-size: 16px;
+					font-weight: var(--font-weight-bold);
+					color: hsl(var(--color-primary-hsl), 45%);
+				}
+
+				#{$root}__control {
+					&--close {
+						margin-left: auto;
+						color: hsl(var(--color-primary-hsl), 60%);
+
+						transition-duration: 0.2s;
+						transition-property: color;
+
+						&:hover {
+							color: hsl(var(--color-primary-hsl), 50%);
+						}
+					}
+				}
+			}
+
+			#{$root}__inputs {
 				flex: 1;
 				display: flex;
 				flex-direction: column;
@@ -156,21 +188,6 @@
 			#{$root}__control {
 				all: unset;
 				cursor: pointer;
-
-				&--close {
-					position: absolute;
-					top: 15px;
-					right: -10px;
-
-					color: hsl(var(--color-primary-hsl), 60%);
-
-					transition-duration: 0.2s;
-					transition-property: color;
-
-					&:hover {
-						color: hsl(var(--color-primary-hsl), 50%);
-					}
-				}
 
 				#{$root}__icon {
 					width: 24px;

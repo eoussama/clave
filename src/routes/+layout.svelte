@@ -1,8 +1,27 @@
 <script lang="ts">
 	import '../style/main.scss';
 
-	import Head from '$lib/layout/head.svelte';
-	import Foot from '$lib/layout/foot.svelte';
+	import { onMount } from 'svelte';
+	import { onAuthStateChanged } from 'firebase/auth';
+
+	import Head from '$lib/components/layout/head.svelte';
+	import Foot from '$lib/components/layout/foot.svelte';
+
+	import { Page } from '$lib/core/enums/page.enum';
+	import { AuthHelper } from '$lib/core/helpers/auth.felper';
+	import { NavigationHelper } from '$lib/core/helpers/navigation.helper';
+
+	onMount(() => {
+		const auth = AuthHelper.getAuth();
+
+		onAuthStateChanged(auth, (user) => {
+			if (user) {
+				NavigationHelper.navigate(Page.Home);
+			} else {
+				NavigationHelper.navigate(Page.Login);
+			}
+		});
+	});
 </script>
 
 <svelte:head>

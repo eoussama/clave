@@ -1,6 +1,6 @@
 {
 	"name": "clave",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"private": true,
 	"scripts": {
 		"dev": "vite dev",
@@ -35,6 +35,8 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@eoussama/firemitt": "^0.1.5",
+		"firebase": "^10.7.1",
 		"svelte-icons": "^2.1.0"
 	},
 	"packageManager": "pnpm@8.13.1"
