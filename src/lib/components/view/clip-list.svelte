@@ -1,8 +1,8 @@
 <script lang="ts">
 	import ClipItem from './clip-item.svelte';
 	import { slide } from 'svelte/transition';
-	import ClipSearch from '$lib/controls/clip-search.svelte';
-	import type { TClip } from '../../core/types/clip.type';
+	import ClipSearch from '$lib/components/controls/clip-search.svelte';
+	import type { TClip } from '$lib/core/types/clip.type';
 
 	export let unfocused: boolean;
 

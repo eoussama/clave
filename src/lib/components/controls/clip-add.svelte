@@ -22,19 +22,19 @@
 	.add {
 		$root: &;
 		z-index: 2;
-		
+
 		position: relative;
 		border-radius: 5px;
-		
+
 		outline-offset: 0;
 		outline: 1px solid transparent;
-		
+
 		transition-duration: 0.2s;
 		transition-property: transform outline-offset;
-		
+
 		&__box {
 			all: inherit;
-			
+
 			z-index: 2;
 			cursor: pointer;
 

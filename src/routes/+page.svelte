@@ -1,11 +1,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { goto } from '$app/navigation';
-	import { Route } from '../core/enums/route.enum';
 
-
+	import { Page } from '$lib/core/enums/page.enum';
+	import { NavigationHelper } from '$lib/core/helpers/navigation.helper';
 
 	onMount(() => {
-		goto(Route.Home);
+		NavigationHelper.navigate(Page.Home);
 	});
 </script>

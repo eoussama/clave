@@ -4,7 +4,7 @@
 	import MdVisibility from 'svelte-icons/md/MdVisibility.svelte';
 	import MdContentCopy from 'svelte-icons/md/MdContentCopy.svelte';
 	import MdVisibilityOff from 'svelte-icons/md/MdVisibilityOff.svelte';
-	import type { TClip } from '../../core/types/clip.type';
+	import type { TClip } from '$lib/core/types/clip.type';
 
 	export let clip: TClip;
 	let visible = false;
