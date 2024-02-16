@@ -59,7 +59,7 @@
 				height: 100%;
 
 				overflow: auto;
-				max-height: 400px;
+				max-height: 360px;
 			}
 
 			#{$root}-item {
