@@ -39,7 +39,9 @@
 </svelte:head>
 
 <div class="root">
-	<Head />
+	{#if $appStore.user}
+		<Head />
+	{/if}
 
 	<main class="body">
 		<slot />

@@ -1,7 +1,10 @@
 <script lang="ts">
-	import { appStore } from '$lib/core/stores/app.store';
 	import { AuthHelper } from '$lib/core/helpers/auth.felper';
 
+	/**
+	 * @description
+	 * Logs user out.
+	 */
 	const onLogout = () => {
 		AuthHelper.logout();
 	};
@@ -10,9 +13,7 @@
 <header class="head">
 	Head
 
-	{#if $appStore.user}
-		<button on:click={onLogout}>Logout</button>
-	{/if}
+	<button on:click={onLogout}>Logout</button>
 </header>
 
 <style lang="scss">
