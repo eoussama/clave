@@ -8,6 +8,8 @@
 	import Foot from '$lib/components/layout/foot.svelte';
 
 	import { Page } from '$lib/core/enums/page.enum';
+	import { appStore } from '$lib/core/stores/app.store';
+
 	import { AuthHelper } from '$lib/core/helpers/auth.felper';
 	import { NavigationHelper } from '$lib/core/helpers/navigation.helper';
 
@@ -16,6 +18,14 @@
 
 		onAuthStateChanged(auth, (user) => {
 			if (user) {
+				appStore.login(user);
+			} else {
+				appStore.logout();
+			}
+		});
+
+		appStore.subscribe((e) => {
+			if (AuthHelper.isLoggedIn()) {
 				NavigationHelper.navigate(Page.Home);
 			} else {
 				NavigationHelper.navigate(Page.Login);
