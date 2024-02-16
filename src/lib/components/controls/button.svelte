@@ -42,11 +42,12 @@
 		</div>
 	{/if}
 
-	<div class="control__label">{label}</div>
+	<div class="btn__label">{label}</div>
 </button>
 
 <style lang="scss">
 	.btn {
+		$root: &;
 		cursor: pointer;
 
 		display: flex;
@@ -71,8 +72,9 @@
 		transition-duration: 0.2s;
 		transition-property: background-color;
 
-		&:hover {
-			background-color: hsl(var(--color-secondary-hsl), 85%);
+		&__label {
+			transition-duration: 0.2s;
+			transition-property: transform;
 		}
 
 		&__icon {
@@ -80,6 +82,14 @@
 
 			width: 16px;
 			margin-right: 12px;
+		}
+
+		&:hover {
+			background-color: hsl(var(--color-secondary-hsl), 85%);
+
+			#{$root}__label {
+				transform: translateX(4px);
+			}
 		}
 
 		&--primary {
