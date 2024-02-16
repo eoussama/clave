@@ -62,7 +62,6 @@
 
 		.body {
 			flex: 1;
-			padding: 16px;
 		}
 	}
 </style>

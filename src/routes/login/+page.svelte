@@ -52,6 +52,33 @@
 		width: 100%;
 		height: 100%;
 
+		--s: 60px;
+		--c1: #ffffff;
+		--c2: hsl(var(--color-primary-hsl), 98%);
+
+		background:
+			repeating-conic-gradient(var(--c1) 0 25%, #0000 0 50%) 0 0 / calc(4 * var(--s))
+				calc(2 * var(--s)),
+			conic-gradient(#0000 50%, var(--c2) 0) calc(var(--s) / 2) 0 / calc(2 * var(--s)) 1%,
+			radial-gradient(var(--c2) 70%, var(--c1) 72%) 0 0 / var(--s) var(--s);
+
+		animation-name: background-scroll;
+		animation-duration: 10s;
+		animation-fill-mode: both;
+		animation-direction: normal;
+		animation-timing-function: linear;
+		animation-iteration-count: infinite;
+
+		@keyframes background-scroll {
+			from {
+				background-position: 0;
+			}
+
+			to {
+				background-position: 240px;
+			}
+		}
+
 		.head {
 			width: 100%;
 
@@ -70,9 +97,10 @@
 			}
 
 			.message {
-				max-width: 200px;
+				max-width: 220px;
 				margin-top: 20px;
 
+				font-size: 16px;
 				text-align: center;
 			}
 		}
