@@ -62,6 +62,11 @@ export class AuthHelper {
           config: {
             name: config.PUBLIC_FIREGUARD_NAME,
             logo: config.PUBLIC_FIREGUARD_LOGO,
+            theme: {
+              text: '#2D3250',
+              primary: '#61A3BA',
+              secondary: '#FFFFDD'
+            },
             firebase: FirebaseHelper.getConfig()
           }
         })

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { AuthHelper } from '$lib/core/helpers/auth.felper';
+	import { AuthHelper } from '$lib/core/helpers/auth.helper';
 
 	/**
 	 * @description

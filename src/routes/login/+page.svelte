@@ -3,7 +3,7 @@
 	import FaGoogle from 'svelte-icons/fa/FaGoogle.svelte';
 
 	import Button from '$lib/components/controls/button.svelte';
-	import { AuthHelper } from '$lib/core/helpers/auth.felper';
+	import { AuthHelper } from '$lib/core/helpers/auth.helper';
 
 	/**
 	 * @description

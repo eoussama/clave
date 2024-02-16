@@ -10,7 +10,7 @@
 	import { Page } from '$lib/core/enums/page.enum';
 	import { appStore } from '$lib/core/stores/app.store';
 
-	import { AuthHelper } from '$lib/core/helpers/auth.felper';
+	import { AuthHelper } from '$lib/core/helpers/auth.helper';
 	import { NavigationHelper } from '$lib/core/helpers/navigation.helper';
 
 	onMount(() => {
