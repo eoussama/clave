@@ -1,4 +1,6 @@
 import * as config from '$env/static/public';
+import { get } from 'svelte/store';
+
 import { FiremittHelper } from '@eoussama/firemitt';
 
 import {
@@ -11,6 +13,7 @@ import {
 } from 'firebase/auth';
 
 import { FirebaseHelper } from './firebase.helper';
+import { appStore } from '../stores/app.store';
 
 
 
@@ -59,6 +62,11 @@ export class AuthHelper {
           config: {
             name: config.PUBLIC_FIREGUARD_NAME,
             logo: config.PUBLIC_FIREGUARD_LOGO,
+            theme: {
+              text: '#2D3250',
+              primary: '#61A3BA',
+              secondary: '#FFFFDD'
+            },
             firebase: FirebaseHelper.getConfig()
           }
         })
@@ -81,5 +89,13 @@ export class AuthHelper {
   static logout(): void {
     const auth = this.getAuth();
     signOut(auth);
+  }
+
+  /**
+   * @description
+   * Checks if user is logged in.
+   */
+  static isLoggedIn(): boolean {
+    return Boolean(get(appStore).user);
   }
 }

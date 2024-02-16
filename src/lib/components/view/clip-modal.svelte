@@ -4,7 +4,7 @@
 
 	import MdAdd from 'svelte-icons/md/MdAdd.svelte';
 	import MdClose from 'svelte-icons/md/MdClose.svelte';
-	import { AuthHelper } from '$lib/core/helpers/auth.felper';
+	import { AuthHelper } from '$lib/core/helpers/auth.helper';
 
 	export let send: any;
 	export let receive: any;

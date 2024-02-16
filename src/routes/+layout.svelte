@@ -8,7 +8,9 @@
 	import Foot from '$lib/components/layout/foot.svelte';
 
 	import { Page } from '$lib/core/enums/page.enum';
-	import { AuthHelper } from '$lib/core/helpers/auth.felper';
+	import { appStore } from '$lib/core/stores/app.store';
+
+	import { AuthHelper } from '$lib/core/helpers/auth.helper';
 	import { NavigationHelper } from '$lib/core/helpers/navigation.helper';
 
 	onMount(() => {
@@ -16,6 +18,14 @@
 
 		onAuthStateChanged(auth, (user) => {
 			if (user) {
+				appStore.login(user);
+			} else {
+				appStore.logout();
+			}
+		});
+
+		appStore.subscribe((e) => {
+			if (AuthHelper.isLoggedIn()) {
 				NavigationHelper.navigate(Page.Home);
 			} else {
 				NavigationHelper.navigate(Page.Login);
@@ -29,7 +39,9 @@
 </svelte:head>
 
 <div class="root">
-	<Head />
+	{#if $appStore.user}
+		<Head />
+	{/if}
 
 	<main class="body">
 		<slot />
@@ -50,7 +62,6 @@
 
 		.body {
 			flex: 1;
-			padding: 16px;
 		}
 	}
 </style>
