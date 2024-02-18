@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
+	import FaCircleNotch from 'svelte-icons/fa/FaCircleNotch.svelte';
+
 	import type { TNullable } from '$lib/core/types/nullable.type';
 
 	/**
@@ -22,6 +24,18 @@
 
 	/**
 	 * @description
+	 * The loading state of the button
+	 */
+	export let loading: boolean = false;
+
+	/**
+	 * @description
+	 * The label of the button when the loader is active
+	 */
+	export let loadingLabel: TNullable<string> = null;
+
+	/**
+	 * @description
 	 * Event dispatcher
 	 */
 	const dispatch = createEventDispatcher();
@@ -35,14 +49,24 @@
 	const onClick = (e: MouseEvent) => dispatch('click', { e });
 </script>
 
-<button class="btn" class:btn--primary={primary} on:click={onClick}>
+<button
+	class="btn"
+	disabled={loading}
+	class:btn--loading={loading}
+	class:btn--primary={primary}
+	on:click={onClick}
+>
 	{#if icon}
 		<div class="btn__icon">
-			<svelte:component this={icon} />
+			{#if loading}
+				<FaCircleNotch />
+			{:else}
+				<svelte:component this={icon} />
+			{/if}
 		</div>
 	{/if}
 
-	<div class="btn__label">{label}</div>
+	<div class="btn__label">{loading ? loadingLabel ?? label : label}</div>
 </button>
 
 <style lang="scss">
@@ -84,7 +108,12 @@
 			margin-right: 12px;
 		}
 
-		&:hover {
+		&:disabled {
+			cursor: wait;
+			opacity: 0.8;
+		}
+
+		&:hover:not(:disabled) {
 			background-color: hsl(var(--color-secondary-hsl), 85%);
 
 			#{$root}__label {
@@ -97,8 +126,28 @@
 			color: var(--color-secondary);
 			background-color: hsl(var(--color-primary-hsl), 55%);
 
-			&:hover {
+			&:hover:not(:disabled) {
 				background-color: hsl(var(--color-primary-hsl), 45%);
+			}
+		}
+
+		&--loading {
+			#{$root}__icon {
+				animation-duration: 1s;
+				animation-name: loader-spin;
+				animation-fill-mode: forwards;
+				animation-timing-function: linear;
+				animation-iteration-count: infinite;
+			}
+		}
+
+		@keyframes loader-spin {
+			from {
+				transform: rotate(0deg);
+			}
+
+			to {
+				transform: rotate(360deg);
 			}
 		}
 	}

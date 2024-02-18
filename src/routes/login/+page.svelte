@@ -7,16 +7,25 @@
 
 	/**
 	 * @description
+	 * The state of loggin-in.
+	 */
+	let loggingIn: boolean = false;
+
+	/**
+	 * @description
 	 * Logs user in.
 	 */
 	const onLogin = () => {
+		loggingIn = true;
+
 		AuthHelper.login()
 			.then((user) => {
 				console.log({ user });
 			})
 			.catch((err) => {
 				console.error(err);
-			});
+			})
+			.finally(() => (loggingIn = false));
 	};
 </script>
 
@@ -37,7 +46,14 @@
 		</div>
 
 		<div class="controls" in:fly={{ y: 5, duration: 500, delay: 300 }}>
-			<Button label="Continue with Google" icon={FaGoogle} primary on:click={onLogin} />
+			<Button
+				primary
+				icon={FaGoogle}
+				loading={loggingIn}
+				label="Continue with Google"
+				loadingLabel="Logging-in..."
+				on:click={onLogin}
+			/>
 		</div>
 	</div>
 </div>
