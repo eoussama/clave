@@ -2,7 +2,6 @@
 	import '../style/main.scss';
 
 	import { onMount } from 'svelte';
-	import { onAuthStateChanged } from 'firebase/auth';
 
 	import Head from '$lib/components/layout/head.svelte';
 	import Foot from '$lib/components/layout/foot.svelte';
@@ -14,16 +13,6 @@
 	import { NavigationHelper } from '$lib/core/helpers/navigation.helper';
 
 	onMount(() => {
-		const auth = AuthHelper.getAuth();
-
-		onAuthStateChanged(auth, (user) => {
-			if (user) {
-				appStore.login(user);
-			} else {
-				appStore.logout();
-			}
-		});
-
 		appStore.subscribe((e) => {
 			if (AuthHelper.isLoggedIn()) {
 				NavigationHelper.navigate(Page.Home);
