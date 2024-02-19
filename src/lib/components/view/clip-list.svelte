@@ -9,15 +9,13 @@
 	export let unfocused: boolean;
 
 	const MAX_DATA = 13;
-	const clips: Array<TClip> =
-		[] ??
-		new Array(MAX_DATA).fill(null).map((e) => ({
-			id: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER).toString(10 + 26),
-			content: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER).toString(10 + 26),
-			title: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER).toString(10 + 26),
-			sensitive: Boolean(Math.floor(Math.random() + 0.5)),
-			tags: []
-		}));
+	const clips: Array<TClip> = new Array(MAX_DATA).fill(null).map((e) => ({
+		id: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER).toString(10 + 26),
+		content: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER).toString(10 + 26),
+		title: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER).toString(10 + 26),
+		sensitive: Boolean(Math.floor(Math.random() + 0.5)),
+		tags: []
+	}));
 
 	let searchTerm: string;
 
@@ -32,12 +30,12 @@
 	<Empty empty={clips.length === 0}>
 		<div slot="note" class="clips-empty">
 			<div class="clips-empty__icon">
-				<img src="./images/empty.svg" alt="no clips image" />
+				<img src="./images/empty.svg" alt="no clips" />
 			</div>
 
 			<div class="clips-empty__message">
 				<p>No clips saved!</p>
-				<p>Save your clipboard with <kbd>Ctrl</kbd> + <kbd>P</kbd></p>
+				<p>Save your clipboard with <kbd>Ctrl</kbd> + <kbd>V</kbd></p>
 			</div>
 		</div>
 
