@@ -1,5 +1,7 @@
 <script lang="ts">
+	import Empty from './empty.svelte';
 	import ClipItem from './clip-item.svelte';
+
 	import { slide } from 'svelte/transition';
 	import ClipSearch from '$lib/components/controls/clip-search.svelte';
 	import type { TClip } from '$lib/core/types/clip.type';
@@ -7,13 +9,15 @@
 	export let unfocused: boolean;
 
 	const MAX_DATA = 13;
-	const clips: Array<TClip> = new Array(MAX_DATA).fill(null).map((e) => ({
-		id: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER).toString(10 + 26),
-		content: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER).toString(10 + 26),
-		title: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER).toString(10 + 26),
-		sensitive: Boolean(Math.floor(Math.random() + 0.5)),
-		tags: []
-	}));
+	const clips: Array<TClip> =
+		[] ??
+		new Array(MAX_DATA).fill(null).map((e) => ({
+			id: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER).toString(10 + 26),
+			content: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER).toString(10 + 26),
+			title: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER).toString(10 + 26),
+			sensitive: Boolean(Math.floor(Math.random() + 0.5)),
+			tags: []
+		}));
 
 	let searchTerm: string;
 
@@ -25,24 +29,58 @@
 </script>
 
 <div class="clips">
-	<ul class="clips-list">
-		<li class="clips-item clips-item--search" class:clips-item--unfocused={unfocused}>
-			<ClipSearch bind:searchTerm />
-		</li>
+	<Empty empty={clips.length === 0}>
+		<div slot="note" class="clips-empty">
+			<div class="clips-empty__icon">
+				<img src="./images/empty.svg" alt="no clips image" />
+			</div>
 
-		<div class="clips-items">
-			{#each filteredClips as clip}
-				<li class="clips-item" class:clips-item--unfocused={unfocused} in:slide out:slide>
-					<ClipItem {clip} />
-				</li>
-			{/each}
+			<div class="clips-empty__message">
+				<p>No clips saved!</p>
+				<p>Save your clipboard with <kbd>Ctrl</kbd> + <kbd>P</kbd></p>
+			</div>
 		</div>
-	</ul>
+
+		<ul slot="content" class="clips-list">
+			<li class="clips-item clips-item--search" class:clips-item--unfocused={unfocused}>
+				<ClipSearch bind:searchTerm />
+			</li>
+
+			<div class="clips-items">
+				{#each filteredClips as clip}
+					<li class="clips-item" class:clips-item--unfocused={unfocused} in:slide out:slide>
+						<ClipItem {clip} />
+					</li>
+				{/each}
+			</div>
+		</ul>
+	</Empty>
 </div>
 
 <style lang="scss">
 	.clips {
 		$root: &;
+
+		&-empty {
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+			justify-content: center;
+
+			padding: 40px;
+
+			&__message {
+				margin-top: 20px;
+			}
+
+			&__icon {
+				width: 100px;
+
+				img {
+					width: 100%;
+				}
+			}
+		}
 
 		&-list {
 			$border-color: hsl(var(--color-primary-hsl), 95%);
