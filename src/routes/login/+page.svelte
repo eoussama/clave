@@ -136,7 +136,7 @@
 				position: relative;
 
 				width: 100%;
-				margin: 10px 0;
+				margin: var(--spacing-padding) 0;
 				text-align: center;
 
 				&__text {
