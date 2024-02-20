@@ -6,9 +6,12 @@ import { AuthHelper } from '$lib/core/helpers/auth.helper';
 
 
 (() => {
+  appStore.init();
   const auth = AuthHelper.getAuth();
 
   onAuthStateChanged(auth, (user) => {
+    appStore.load();
+
     if (user) {
       appStore.login(user);
     } else {
