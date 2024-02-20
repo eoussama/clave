@@ -35,9 +35,9 @@
 			<img src="./images/logo.png" alt="Clave Logo" />
 		</div>
 
-		<div class="message" in:fly={{ y: 5, duration: 500, delay: 100 }}>
+		<h1 class="message" in:fly={{ y: 5, duration: 500, delay: 100 }}>
 			The only clipboard manager that matters
-		</div>
+		</h1>
 	</div>
 
 	<div class="foot">
@@ -113,11 +113,14 @@
 			}
 
 			.message {
-				max-width: 220px;
+				max-width: 250px;
 				margin-top: 20px;
 
 				font-size: 16px;
 				text-align: center;
+				font-weight: var(--font-weight-bold);
+
+				color: var(--color-primary);
 			}
 		}
 
