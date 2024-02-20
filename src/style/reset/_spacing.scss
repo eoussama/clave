@@ -1,7 +1,14 @@
+@use '../vars/spacing';
+
 *,
 *::before,
 *::after {
   margin: 0;
   box-sizing: border-box;
+
   font-weight: normal;
+}
+
+:root {
+  --spacing-padding: #{spacing.$spacing-padding};
 }

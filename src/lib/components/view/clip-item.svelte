@@ -128,7 +128,7 @@
 			width: 100%;
 			height: 100%;
 			box-sizing: border-box;
-			padding: 2px 10px;
+			padding: 2px var(--spacing-padding);
 
 			cursor: pointer;
 			display: flex;
@@ -197,7 +197,7 @@
 					}
 
 					&:not(:last-of-type) {
-						margin-right: 10px;
+						margin-right: var(--spacing-padding);
 					}
 				}
 			}

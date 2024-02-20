@@ -12,6 +12,12 @@
 
 	/**
 	 * @description
+	 * If this is an icon only button
+	 */
+	export let iconOnly: boolean = false;
+
+	/**
+	 * @description
 	 * The label of the button
 	 */
 	export let label: string = 'Click Me!';
@@ -52,6 +58,7 @@
 <button
 	class="btn"
 	disabled={loading}
+	class:btn--icon={iconOnly}
 	class:btn--loading={loading}
 	class:btn--primary={primary}
 	on:click={onClick}
@@ -66,12 +73,19 @@
 		</div>
 	{/if}
 
-	<div class="btn__label">{loading ? loadingLabel ?? label : label}</div>
+	{#if !iconOnly}
+		<div class="btn__label">{loading ? loadingLabel ?? label : label}</div>
+	{/if}
 </button>
 
 <style lang="scss">
 	.btn {
 		$root: &;
+
+		--button-text-color: var(--color-primary);
+		--button-bg-color: var(--color-secondary);
+		--button-border-color: var(--color-primary);
+
 		cursor: pointer;
 
 		display: flex;
@@ -84,11 +98,11 @@
 
 		width: 100%;
 		max-width: 250px;
-
 		border-radius: 5px;
-		color: var(--color-primary);
-		border: 1px solid var(--color-primary);
-		background-color: var(--color-secondary);
+
+		color: var(--button-text-color);
+		background-color: var(--button-bg-color);
+		border: 1px solid var(--button-border-color);
 
 		font-family: var(--font-primary);
 		font-weight: var(--font-weight-regular);
@@ -113,21 +127,24 @@
 			opacity: 0.8;
 		}
 
-		&:hover:not(:disabled) {
-			background-color: hsl(var(--color-secondary-hsl), 85%);
+		&:hover {
+			&:not(:disabled) {
+				--button-bg-color: hsl(var(--color-secondary-hsl), 85%);
 
-			#{$root}__label {
-				transform: translateX(4px);
+				#{$root}__label {
+					transform: translateX(4px);
+				}
 			}
 		}
 
 		&--primary {
 			border: none;
-			color: var(--color-secondary);
-			background-color: hsl(var(--color-primary-hsl), 55%);
+
+			--button-text-color: var(--color-secondary);
+			--button-bg-color: hsl(var(--color-primary-hsl), 55%);
 
 			&:hover:not(:disabled) {
-				background-color: hsl(var(--color-primary-hsl), 45%);
+				--button-bg-color: hsl(var(--color-primary-hsl), 45%);
 			}
 		}
 
@@ -138,6 +155,30 @@
 				animation-fill-mode: forwards;
 				animation-timing-function: linear;
 				animation-iteration-count: infinite;
+			}
+		}
+
+		&--icon {
+			border: none;
+			padding: 5px;
+
+			--button-text-color: var(--color-primary);
+			--button-bg-color: hsl(var(--color-secondary-hsl), 95%);
+
+			#{$root}__icon {
+				margin-right: 0;
+			}
+
+			&:hover:not(:disabled) {
+				--button-bg-color: hsl(var(--color-secondary-hsl), 80%);
+			}
+
+			&.btn--primary {
+				--button-bg-color: hsl(var(--color-primary-hsl), 88%);
+
+				&:hover:not(:disabled) {
+					--button-bg-color: hsl(var(--color-primary-hsl), 84%);
+				}
 			}
 		}
 
