@@ -14,4 +14,10 @@ export type TAppState = {
    * The logged in user.
    */
   user: TNullable<User>
+
+  /**
+   * @description
+   * If the app is loaded
+   */
+  loaded: boolean
 }

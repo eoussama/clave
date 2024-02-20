@@ -11,6 +11,7 @@
 
 	import { AuthHelper } from '$lib/core/helpers/auth.helper';
 	import { NavigationHelper } from '$lib/core/helpers/navigation.helper';
+	import Loader from '$lib/components/layout/loader.svelte';
 
 	onMount(() => {
 		appStore.subscribe((e) => {
@@ -28,13 +29,15 @@
 </svelte:head>
 
 <div class="root">
-	{#if $appStore.user}
-		<Head />
-	{/if}
+	<Loader>
+		{#if $appStore.user}
+			<Head />
+		{/if}
 
-	<main class="body">
-		<slot />
-	</main>
+		<main class="body">
+			<slot />
+		</main>
+	</Loader>
 
 	<Foot />
 </div>
@@ -51,6 +54,9 @@
 
 		.body {
 			flex: 1;
+
+			width: 100%;
+			height: 100%;
 		}
 	}
 </style>
