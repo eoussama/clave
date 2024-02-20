@@ -4,6 +4,6 @@
 
 <style lang="scss">
 	.authed {
-		padding: 10px;
+		padding: var(--spacing-padding);
 	}
 </style>

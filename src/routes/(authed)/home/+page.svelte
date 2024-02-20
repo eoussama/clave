@@ -62,7 +62,7 @@
 		}
 
 		.content {
-			margin-top: 16px;
+			margin-top: var(--spacing-padding);
 		}
 	}
 
