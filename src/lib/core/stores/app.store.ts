@@ -17,6 +17,7 @@ export const appStore: TAppStore = (() => {
     subscribe,
 
     init: () => set(initialAppState),
+    load: () => update(state => ({ ...state, loaded: true })),
     logout: () => update(state => ({ ...state, user: null })),
     login: (user: User) => update(state => ({ ...state, user: { ...user } }))
   }

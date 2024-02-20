@@ -25,6 +25,12 @@ export type TAppStore = {
 
   /**
    * @description
+   * Method to mark the app as loaded.
+   */
+  load: () => void
+
+  /**
+   * @description
    * Logs user off.
    */
   logout: () => void

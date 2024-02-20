@@ -7,5 +7,6 @@ import type { TAppState } from '../types/app-state.type';
  * Represents the initial state of the application.
  */
 export const initialAppState: TAppState = {
-  user: null
+  user: null,
+  loaded: false
 };
