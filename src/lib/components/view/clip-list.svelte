@@ -59,6 +59,9 @@
 	.clips {
 		$root: &;
 
+		width: 100%;
+		height: 100%;
+
 		&-empty {
 			display: flex;
 			align-items: center;
@@ -90,12 +93,16 @@
 			border-radius: 5px;
 			border: 1px solid $border-color;
 
+			width: 100%;
+			height: 100%;
+			max-height: calc(100% - 12px);
+
 			#{$root}-items {
+				overflow: auto;
+
 				width: 100%;
 				height: 100%;
-
-				overflow: auto;
-				max-height: 360px;
+				max-height: calc(100% - 42px);
 			}
 
 			#{$root}-item {

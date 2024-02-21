@@ -1,27 +1,10 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
-
 	import { appStore } from '$lib/core/stores/app.store';
-
-	/**
-	 * @description
-	 * If the app is loading.
-	 */
-	let loading: boolean = true;
-
-	onMount(() => {
-		appStore.subscribe((state) => {
-			if (state.loaded) {
-				loading = false;
-				console.log('app loaded');
-			}
-		});
-	});
 </script>
 
 <div class="loader">
-	{#if loading}
+	{#if $appStore.loading}
 		<div class="loader__content">
 			<div class="logo" in:fly={{ y: 5, duration: 500 }}>
 				<img src="./images/logo.png" alt="Clave Logo" />

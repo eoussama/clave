@@ -25,9 +25,15 @@ export type TAppStore = {
 
   /**
    * @description
-   * Method to mark the app as loaded.
+   * Method to start the loader.
    */
-  load: () => void
+  startLoading: () => void
+
+  /**
+   * @description
+   * Method to finish the loader.
+   */
+  finishLoading: () => void
 
   /**
    * @description

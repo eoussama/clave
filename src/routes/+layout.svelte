@@ -1,26 +1,47 @@
 <script lang="ts">
 	import '../style/main.scss';
 
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
+	import { derived, type Unsubscriber } from 'svelte/store';
 
 	import Head from '$lib/components/layout/head.svelte';
 	import Foot from '$lib/components/layout/foot.svelte';
+	import Loader from '$lib/components/layout/loader.svelte';
 
 	import { Page } from '$lib/core/enums/page.enum';
 	import { appStore } from '$lib/core/stores/app.store';
 
 	import { AuthHelper } from '$lib/core/helpers/auth.helper';
 	import { NavigationHelper } from '$lib/core/helpers/navigation.helper';
-	import Loader from '$lib/components/layout/loader.svelte';
+
+	/**
+	 * @description
+	 * The subscription clean up function.
+	 */
+	let unsubscribe: Unsubscriber;
+
+	/**
+	 * @description
+	 * The auth store.
+	 */
+	let authStore = derived(appStore, () => AuthHelper.isLoggedIn());
 
 	onMount(() => {
-		appStore.subscribe((e) => {
-			if (AuthHelper.isLoggedIn()) {
+		appStore.finishLoading();
+
+		unsubscribe = authStore.subscribe((loggedIn: boolean) => {
+			if (loggedIn) {
 				NavigationHelper.navigate(Page.Home);
 			} else {
 				NavigationHelper.navigate(Page.Login);
 			}
 		});
+	});
+
+	onDestroy(() => {
+		if (unsubscribe) {
+			unsubscribe();
+		}
 	});
 </script>
 
@@ -28,7 +49,7 @@
 	<title>Clave</title>
 </svelte:head>
 
-<div class="root">
+<div class="root" class:root--authed={$appStore.user}>
 	<Loader>
 		{#if $appStore.user}
 			<Head />
@@ -57,6 +78,12 @@
 
 			width: 100%;
 			height: 100%;
+		}
+
+		&--authed {
+			.body {
+				max-height: calc(100% - 60px);
+			}
 		}
 	}
 </style>

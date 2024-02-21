@@ -20,8 +20,16 @@
 
 <style lang="scss">
 	.empty {
+		width: 100%;
+		height: 100%;
+
 		&__note {
 			text-align: center;
+		}
+
+		&__content {
+			width: 100%;
+			height: 100%;
 		}
 	}
 </style>
