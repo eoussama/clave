@@ -17,15 +17,7 @@
 	 */
 	const onLogin = () => {
 		loggingIn = true;
-
-		AuthHelper.login()
-			.then((user) => {
-				console.log({ user });
-			})
-			.catch((err) => {
-				console.error(err);
-			})
-			.finally(() => (loggingIn = false));
+		AuthHelper.login().finally(() => (loggingIn = false));
 	};
 </script>
 
