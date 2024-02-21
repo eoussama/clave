@@ -2,6 +2,7 @@ import { base } from '$app/paths';
 import { goto } from '$app/navigation';
 
 import type { Page } from '../enums/page.enum';
+import { appStore } from '../stores/app.store';
 
 
 
@@ -18,6 +19,13 @@ export class NavigationHelper {
    * @param page The page to navigate to
    */
   static navigate(page: Page): Promise<void> {
-    return goto(`${base}/${page}`, { replaceState: true });
+    appStore.startLoading();
+
+    return goto(`${base}/${page}`, { replaceState: true })
+      .finally(() => {
+        setTimeout(() => {
+          appStore.finishLoading();
+        }, 0);
+      });
   }
 }
