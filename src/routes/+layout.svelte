@@ -49,7 +49,7 @@
 	<title>Clave</title>
 </svelte:head>
 
-<div class="root">
+<div class="root" class:root--authed={$appStore.user}>
 	<Loader>
 		{#if $appStore.user}
 			<Head />
@@ -78,6 +78,12 @@
 
 			width: 100%;
 			height: 100%;
+		}
+
+		&--authed {
+			.body {
+				max-height: calc(100% - 60px);
+			}
 		}
 	}
 </style>

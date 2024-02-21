@@ -57,12 +57,21 @@
 
 <style lang="scss">
 	.root {
+		$head-height: 50px;
+
+		width: 100%;
+		height: 100%;
+
 		.head {
-			height: 50px;
+			height: $head-height;
 		}
 
 		.content {
+			width: 100%;
+			height: 100%;
+
 			margin-top: var(--spacing-padding);
+			max-height: calc(100% - $head-height);
 		}
 	}
 
