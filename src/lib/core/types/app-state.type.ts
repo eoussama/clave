@@ -17,7 +17,7 @@ export type TAppState = {
 
   /**
    * @description
-   * If the app is loaded
+   * If the app is loading.
    */
-  loaded: boolean
+  loading: boolean
 }
