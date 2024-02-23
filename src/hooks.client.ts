@@ -1,5 +1,3 @@
-import { onAuthStateChanged } from 'firebase/auth';
-
 import { appStore } from '$lib/core/stores/app.store';
 import { AuthHelper } from '$lib/core/helpers/auth.helper';
 
@@ -10,8 +8,8 @@ import { AuthHelper } from '$lib/core/helpers/auth.helper';
   appStore.startLoading();
 
   const auth = AuthHelper.getAuth();
-
-  onAuthStateChanged(auth, (user) => {
+  
+  auth.onAuthStateChanged(user => {
     if (user) {
       appStore.login(user);
     } else {

@@ -27,8 +27,6 @@
 	let authStore = derived(appStore, () => AuthHelper.isLoggedIn());
 
 	onMount(() => {
-		appStore.finishLoading();
-
 		unsubscribe = authStore.subscribe((loggedIn: boolean) => {
 			if (loggedIn) {
 				NavigationHelper.navigate(Page.Home);
