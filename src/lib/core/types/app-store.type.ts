@@ -2,6 +2,7 @@ import type { Invalidator, Subscriber, Unsubscriber } from 'svelte/store';
 import type { User } from 'firebase/auth';
 
 import type { TAppState } from './app-state.type';
+import type { TUserData } from './user-data.type';
 
 
 
@@ -46,6 +47,7 @@ export type TAppStore = {
    * Logs user in.
    *
    * @param user The user that logged in.
+   * @param data The user data.
    */
-  login: (user: User) => void
+  login: (user: User, data: TUserData) => void
 }
