@@ -8,12 +8,18 @@ dependencies:
   '@eoussama/firemitt':
     specifier: ^0.1.5
     version: 0.1.5
+  base-64:
+    specifier: ^1.0.0
+    version: 1.0.0
   firebase:
     specifier: ^10.7.1
     version: 10.7.1
   svelte-icons:
     specifier: ^2.1.0
     version: 2.1.0
+  utf8:
+    specifier: ^3.0.0
+    version: 3.0.0
 
 devDependencies:
   '@sveltejs/adapter-auto':
@@ -34,6 +40,9 @@ devDependencies:
   '@typescript-eslint/parser':
     specifier: ^6.0.0
     version: 6.17.0(eslint@8.56.0)(typescript@5.3.3)
+  chrome-types:
+    specifier: ^0.1.269
+    version: 0.1.269
   eslint:
     specifier: ^8.56.0
     version: 8.56.0
@@ -1403,6 +1412,10 @@ packages:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
     dev: true
 
+  /base-64@1.0.0:
+    resolution: {integrity: sha512-kwDPIFCGx0NZHog36dj+tHiwP4QMzsZ3AgMViUBKI0+V5n4U0ufTCUMhnQ04diaRI8EX/QcPfql7zlhZ7j4zgg==}
+    dev: false
+
   /binary-extensions@2.2.0:
     resolution: {integrity: sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==}
     engines: {node: '>=8'}
@@ -1510,6 +1523,10 @@ packages:
       readdirp: 3.6.0
     optionalDependencies:
       fsevents: 2.3.3
+    dev: true
+
+  /chrome-types@0.1.269:
+    resolution: {integrity: sha512-p1UULc48qtmc/BsBUFEUZddIOwb+Cb/MYLMpoLBPpjMxYo+1wKkkN/oAwwqeHTy+b5mFYfOLXtKE0McfFVgijw==}
     dev: true
 
   /cliui@8.0.1:
@@ -3082,6 +3099,10 @@ packages:
     dependencies:
       punycode: 2.3.1
     dev: true
+
+  /utf8@3.0.0:
+    resolution: {integrity: sha512-E8VjFIQ/TyQgp+TZfS6l8yp/xWppSAHzidGiRrqe4bK4XP9pTRyKFgGJpO3SN7zdX4DeomTrwaseCHovfpFcqQ==}
+    dev: false
 
   /util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
