@@ -14,6 +14,10 @@
 	const onClose = () => {
 		dispatcher('close');
 	};
+
+	const onValidate = () => {
+		console.log('validate');
+	}
 </script>
 
 <div class="modal">
@@ -46,7 +50,7 @@
 		</div>
 
 		<div class="modal__controls">
-			<button class="modal__control modal__control--add">
+			<button class="modal__control modal__control--add" on:click={onValidate}>
 				<div class="modal__icon">
 					<MdAdd />
 				</div>
