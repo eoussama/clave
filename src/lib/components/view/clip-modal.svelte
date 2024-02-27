@@ -1,13 +1,22 @@
 <script lang="ts">
+	import { v4 as uuid } from 'uuid';
+
 	import { fade } from 'svelte/transition';
 	import { createEventDispatcher } from 'svelte';
 
 	import MdAdd from 'svelte-icons/md/MdAdd.svelte';
 	import MdClose from 'svelte-icons/md/MdClose.svelte';
-	import { AuthHelper } from '$lib/core/helpers/auth.helper';
+
+	import type { TTag } from '$lib/core/types/tag.type';
+	import type { TClip } from '$lib/core/types/clip.type';
 
 	export let send: any;
 	export let receive: any;
+
+	let title: string = '';
+	let content: string = '';
+	let tags: Array<TTag> = [];
+	let sensitive: boolean = false;
 
 	const dispatcher = createEventDispatcher();
 
@@ -16,8 +25,16 @@
 	};
 
 	const onValidate = () => {
-		console.log('validate');
-	}
+		const clip: TClip = {
+			tags,
+			title,
+			content,
+			sensitive,
+			id: uuid()
+		};
+
+		console.log({ clip });
+	};
 </script>
 
 <div class="modal">
@@ -41,9 +58,15 @@
 		</div>
 
 		<div class="modal__inputs">
-			<input class="modal__input modal__input--title" type="text" placeholder="Optional title..." />
+			<input
+				type="text"
+				placeholder="Optional title..."
+				class="modal__input modal__input--title"
+				bind:value={title}
+			/>
 
 			<textarea
+				bind:value={content}
 				class="modal__input modal__input--content"
 				placeholder="Enter the content to save..."
 			></textarea>
