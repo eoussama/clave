@@ -1,9 +1,12 @@
 import { writable } from 'svelte/store';
 import type { User } from 'firebase/auth';
 
+import { initialAppState } from '../consts/app-store.const';
+
+import type { TClip } from '../types/clip.type';
+import type { TSettings } from '../types/settings.type';
 import type { TAppStore } from '../types/app-store.type';
 import type { TUserData } from '../types/user-data.type';
-import { initialAppState } from '../consts/app-store.const';
 
 
 
@@ -23,6 +26,9 @@ export const appStore: TAppStore = (() => {
     finishLoading: () => update(state => ({ ...state, loading: false })),
 
     logout: () => update(state => ({ ...state, user: null, data: null })),
-    login: (user: User, data: TUserData) => update(state => ({ ...state, user, data }))
+    login: (user: User, data: TUserData) => update(state => ({ ...state, user, data })),
+
+    updateClips: (clips: Array<TClip>) => update(state => ({ ...state, data: { ...state.data, clips } as TUserData })),
+    updateSettings: (settings: TSettings) => update(state => ({ ...state, data: { ...state.data, settings } as TUserData }))
   }
 })();
