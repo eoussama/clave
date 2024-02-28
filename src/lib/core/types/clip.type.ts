@@ -1,4 +1,5 @@
 import type { TTag } from './tag.type';
+import type { ClipType } from '../enums/clip-type.enum';
 
 
 
@@ -24,7 +25,13 @@ export type TClip = {
    * @description
    * The clipped content.
    */
-  content: string | Blob;
+  content: string;
+
+  /**
+   * @description
+   * The type of the clipped content.
+   */
+  type: ClipType,
 
   /**
    * @description
