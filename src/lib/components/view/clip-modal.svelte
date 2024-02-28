@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { v4 as uuid } from 'uuid';
-
 	import { fade } from 'svelte/transition';
 	import { createEventDispatcher } from 'svelte';
 
@@ -9,6 +7,7 @@
 
 	import type { TTag } from '$lib/core/types/tag.type';
 	import type { TClip } from '$lib/core/types/clip.type';
+	import { ClipHelper } from '$lib/core/helpers/clip.helper';
 
 	export let send: any;
 	export let receive: any;
@@ -24,16 +23,16 @@
 		dispatcher('close');
 	};
 
-	const onValidate = () => {
-		const clip: TClip = {
-			tags,
+	const onValidate = async () => {
+		const clip: Partial<TClip> = {
 			title,
-			content,
-			sensitive,
-			id: uuid()
+			content
 		};
 
-		console.log({ clip });
+		ClipHelper.create(clip).then((e) => {
+			console.log(`Created clip ID ${e.id}.`);
+			onClose();
+		});
 	};
 </script>
 
