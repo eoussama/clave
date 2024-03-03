@@ -29,7 +29,8 @@ export class ClipHelper {
         title: clip.title ?? '',
         content: clip.content ?? '',
         type: clip.type ?? ClipType.Text,
-        sensitive: clip.sensitive ?? false
+        sensitive: clip.sensitive ?? false,
+        creationTime: clip?.creationTime ?? Date.now()
       };
 
       this.add(newClip);
