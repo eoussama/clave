@@ -17,6 +17,12 @@ export type TClip = {
 
   /**
    * @description
+   * The timestamp of the creation of the clip.
+   */
+  creationTime: number;
+
+  /**
+   * @description
    * The title of the clip.
    */
   title: string;
