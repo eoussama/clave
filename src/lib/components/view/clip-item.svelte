@@ -1,12 +1,15 @@
 <script lang="ts">
 	import { fade, fly } from 'svelte/transition';
+
 	import MdCheck from 'svelte-icons/md/MdCheck.svelte';
 	import MdVisibility from 'svelte-icons/md/MdVisibility.svelte';
 	import MdContentCopy from 'svelte-icons/md/MdContentCopy.svelte';
 	import MdVisibilityOff from 'svelte-icons/md/MdVisibilityOff.svelte';
+
 	import type { TClip } from '$lib/core/types/clip.type';
 
 	export let clip: TClip;
+
 	let visible = false;
 	let copied = false;
 
@@ -49,6 +52,7 @@
 		if (typeof clip.content === 'string') {
 			navigator.clipboard.writeText(clip.content);
 		} else {
+			// TODO: copy logic
 			const clipboard = [new ClipboardItem({ [clip.content.type]: clip.content })];
 			navigator.clipboard.write(clipboard);
 		}
