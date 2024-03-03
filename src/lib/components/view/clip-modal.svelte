@@ -8,6 +8,7 @@
 	import type { TTag } from '$lib/core/types/tag.type';
 	import type { TClip } from '$lib/core/types/clip.type';
 	import { ClipHelper } from '$lib/core/helpers/clip.helper';
+	import Toggle from '../controls/toggle.svelte';
 
 	export let send: any;
 	export let receive: any;
@@ -26,7 +27,8 @@
 	const onValidate = async () => {
 		const clip: Partial<TClip> = {
 			title,
-			content
+			content,
+			sensitive
 		};
 
 		ClipHelper.create(clip).then((e) => {
@@ -69,6 +71,8 @@
 				class="modal__input modal__input--content"
 				placeholder="Enter the content to save..."
 			></textarea>
+
+			<Toggle label="Sensitive" bind:value={sensitive} />
 		</div>
 
 		<div class="modal__controls">
