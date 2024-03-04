@@ -1,33 +1,28 @@
 <script lang="ts">
+	import { slide } from 'svelte/transition';
+
 	import Empty from './empty.svelte';
 	import ClipItem from './clip-item.svelte';
+	import ClipSearch from '../controls/clip-search.svelte';
 
-	import { slide } from 'svelte/transition';
-	import ClipSearch from '$lib/components/controls/clip-search.svelte';
-	import type { TClip } from '$lib/core/types/clip.type';
+	import { appStore } from '$lib/core/stores/app.store';
 
 	export let unfocused: boolean;
 
-	const MAX_DATA = 13;
-	const clips: Array<TClip> = new Array(MAX_DATA).fill(null).map((e) => ({
-		id: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER).toString(10 + 26),
-		content: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER).toString(10 + 26),
-		title: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER).toString(10 + 26),
-		sensitive: Boolean(Math.floor(Math.random() + 0.5)),
-		tags: []
-	}));
-
 	let searchTerm: string;
 
-	$: filteredClips = clips.filter(
-		(e) =>
-			searchTerm?.toLowerCase().includes(e.title.toLowerCase()) ||
-			e.title.toLowerCase().includes(searchTerm?.toLowerCase())
-	);
+	$: filteredClips =
+		$appStore.data?.clips?.filter(
+			(e) =>
+				!searchTerm ||
+				searchTerm.length === 0 ||
+				searchTerm?.toLowerCase().includes(e.title.toLowerCase()) ||
+				e.title.toLowerCase().includes(searchTerm?.toLowerCase())
+		) ?? [];
 </script>
 
 <div class="clips">
-	<Empty empty={clips.length === 0}>
+	<Empty empty={filteredClips.length === 0}>
 		<div slot="note" class="clips-empty">
 			<div class="clips-empty__icon">
 				<img src="./images/empty.svg" alt="no clips" />
