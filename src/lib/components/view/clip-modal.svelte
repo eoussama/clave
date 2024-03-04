@@ -2,7 +2,9 @@
 	import { fade } from 'svelte/transition';
 	import { createEventDispatcher } from 'svelte';
 
+	import Tags from '../controls/tags.svelte';
 	import Toggle from '../controls/toggle.svelte';
+
 	import MdAdd from 'svelte-icons/md/MdAdd.svelte';
 	import MdClose from 'svelte-icons/md/MdClose.svelte';
 
@@ -62,6 +64,7 @@
 			<div class="modal__inputs">
 				<input
 					type="text"
+					name="title"
 					placeholder="Optional title..."
 					class="modal__input modal__input--title"
 					bind:value={title}
@@ -69,12 +72,14 @@
 
 				<textarea
 					required
+					name="content"
 					bind:value={content}
 					class="modal__input modal__input--content"
 					placeholder="Enter the content to save..."
 				></textarea>
 
 				<Toggle label="Sensitive" bind:value={sensitive} />
+				<Tags placeholder="Tags" />
 			</div>
 
 			<div class="modal__controls">
@@ -84,8 +89,6 @@
 					</div>
 				</button>
 			</div>
-
-			<ul class="modal__tags"></ul>
 		</form>
 	</div>
 </div>
@@ -229,12 +232,6 @@
 						width: 24px;
 						height: 24px;
 					}
-				}
-
-				#{$root}__tags {
-					margin: 0;
-					padding: 0;
-					list-style-type: none;
 				}
 			}
 		}
