@@ -12,7 +12,7 @@
 	 * @description
 	 * The inserted tags
 	 */
-	let tags: Array<TTag> = [];
+	export let value: Array<TTag> = [];
 
 	/**
 	 * @description
@@ -29,7 +29,7 @@
 	const createTag = (name: string): void => {
 		if (name.length > 0) {
 			const tag = { id: uuid(), name };
-			tags = [...tags, tag];
+			value = [...value, tag];
 		}
 	};
 
@@ -38,7 +38,7 @@
 	 * Deletes a tag
 	 */
 	const deleteTag = (tag: TTag): void => {
-		tags = [...tags.filter((e) => e.id !== tag.id)];
+		value = [...value.filter((e) => e.id !== tag.id)];
 	};
 
 	/**
@@ -46,9 +46,9 @@
 	 * Deletes the latest inserted tag
 	 */
 	const deleteLastTag = (): void => {
-		if (tags.length > 0) {
-			tags.pop();
-			tags = [...tags];
+		if (value.length > 0) {
+			value.pop();
+			value = [...value];
 		}
 	};
 
@@ -83,7 +83,7 @@
 </script>
 
 <ul class="tags">
-	{#each tags as tag}
+	{#each value as tag}
 		<li class="tag-item">
 			<button class="tag" type="button" on:click={() => deleteTag(tag)}>{tag.name}</button>
 		</li>

@@ -28,6 +28,7 @@
 
 	const onValidate = async () => {
 		const clip: Partial<TClip> = {
+			tags,
 			title,
 			content,
 			sensitive
@@ -79,7 +80,7 @@
 				></textarea>
 
 				<Toggle label="Sensitive" bind:value={sensitive} />
-				<Tags placeholder="Tags" />
+				<Tags placeholder="Tags" bind:value={tags} />
 			</div>
 
 			<div class="modal__controls">
