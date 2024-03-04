@@ -31,7 +31,7 @@
 
 <div class="toggle">
 	<div class="toggle__label">{label}</div>
-	<button class="toggle__button" on:click={onClick}>{value ? 'ON' : 'OFF'}</button>
+	<button type="button" class="toggle__button" on:click={onClick}>{value ? 'ON' : 'OFF'}</button>
 </div>
 
 <style lang="scss">
