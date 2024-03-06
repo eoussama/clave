@@ -37,8 +37,9 @@ export class ClipHelper {
       };
 
       this.add(newClip).then(() => resolve(newClip)).catch(reject);
-    })
+    });
   }
+
   /**
    * @description
    * Updates an existing clip
@@ -52,7 +53,23 @@ export class ClipHelper {
       } else {
         reject();
       }
-    })
+    });
+  }
+
+  /**
+   * @description
+   * Deletes an existing clip
+   *
+   * @param clip The clip to delete
+   */
+  static delete(clip: TClip): Promise<TClip> {
+    return new Promise(async (resolve, reject) => {
+      if (await this.exists(clip.id)) {
+        this.remove(clip).then(() => resolve(clip)).catch(reject);
+      } else {
+        reject();
+      }
+    });
   }
 
   private static get(clipId: string): Promise<TNullable<TClip>> {
@@ -110,6 +127,36 @@ export class ClipHelper {
         const clipIndex = updatedUserData.clips.findIndex(e => e.id === clip.id);
 
         updatedUserData.clips = [...clips.slice(0, clipIndex), clip, ...clips.slice(clipIndex + 1)]
+
+        if (clipIndex !== -1) {
+          UserHelper
+            .set(userData?.id, updatedUserData)
+            .then(() => resolve())
+            .catch(() => reject());
+        } else {
+          reject();
+        }
+      } else {
+        reject();
+      }
+    });
+  }
+
+  private static remove(clip: TClip): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const userData = get(appStore).data;
+
+      if (userData) {
+        const updatedUserData: TUserData = {
+          id: userData.id,
+          settings: userData.settings ?? {},
+          clips: [...(userData.clips ?? [])]
+        };
+
+        const clips = [...updatedUserData.clips];
+        const clipIndex = updatedUserData.clips.findIndex(e => e.id === clip.id);
+
+        updatedUserData.clips = [...clips.slice(0, clipIndex), ...clips.slice(clipIndex + 1)]
 
         if (clipIndex !== -1) {
           UserHelper
