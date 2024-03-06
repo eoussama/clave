@@ -4,6 +4,7 @@
 
 	import MdEdit from 'svelte-icons/md/MdEdit.svelte';
 	import MdCheck from 'svelte-icons/md/MdCheck.svelte';
+	import MdDelete from 'svelte-icons/md/MdDelete.svelte';
 	import MdVisibility from 'svelte-icons/md/MdVisibility.svelte';
 	import MdContentCopy from 'svelte-icons/md/MdContentCopy.svelte';
 	import MdVisibilityOff from 'svelte-icons/md/MdVisibilityOff.svelte';
@@ -16,6 +17,14 @@
 
 	let visible = false;
 	let copied = false;
+
+	const tmpAuth = () => {
+		if (!visible && clip.sensitive) {
+			return prompt('Password') === '123';
+		}
+
+		return true;
+	};
 
 	$: content = clip.sensitive && !visible ? hideContent(clip.content) : clip.content;
 
@@ -31,30 +40,32 @@
 	};
 
 	const onCopy = () => {
-		if (!visible && clip.sensitive) {
-			if (prompt('Password') !== '123') {
-				return;
-			}
+		if (!tmpAuth()) {
+			return;
 		}
 
 		copy();
 	};
 
 	const onEdit = () => {
-		if (!visible && clip.sensitive) {
-			if (prompt('Password') !== '123') {
-				return;
-			}
+		if (!tmpAuth()) {
+			return;
+		}
+
+		dispatcher('edit');
+	};
+
+	const onDelete = () => {
+		if (!tmpAuth()) {
+			return;
 		}
 
 		dispatcher('edit');
 	};
 
 	const onToggleVisibility = () => {
-		if (!visible && clip.sensitive) {
-			if (prompt('Password') !== '123') {
-				return;
-			}
+		if (!tmpAuth()) {
+			return;
 		}
 
 		visible = !visible;
@@ -85,6 +96,12 @@
 		</div>
 
 		<div class="clip__controls">
+			<button class="clip__control clip__control--delete" on:click|stopPropagation={onDelete}>
+				<span class="clip__control-icon">
+					<MdDelete />
+				</span>
+			</button>
+
 			<button class="clip__control clip__control--edit" on:click|stopPropagation={onEdit}>
 				<span class="clip__control-icon">
 					<MdEdit />
