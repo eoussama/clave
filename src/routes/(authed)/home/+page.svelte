@@ -10,6 +10,8 @@
 	import type { TClip } from '$lib/core/types/clip.type';
 	import type { TNullable } from '$lib/core/types/nullable.type';
 
+	import { ClipHelper } from '$lib/core/helpers/clip.helper';
+
 	let unfocus: boolean;
 	let selectedClip: TNullable<TClip>;
 
@@ -26,6 +28,14 @@
 		selectedClip = e.detail;
 		clipModalMode = Interaction.Update;
 		clipModalVisible = true;
+	};
+
+	const onDelete = (e: CustomEvent) => {
+		selectedClip = e.detail;
+
+		if (confirm('Do you want to delete this clip?')) {
+			ClipHelper.delete(selectedClip as TClip);
+		}
 	};
 
 	const onClose = () => {
@@ -61,7 +71,7 @@
 	</div>
 
 	<div class="content">
-		<ClipList unfocused={unfocus} on:edit={onEdit} />
+		<ClipList unfocused={unfocus} on:edit={onEdit} on:delete={onDelete} />
 	</div>
 </div>
 
