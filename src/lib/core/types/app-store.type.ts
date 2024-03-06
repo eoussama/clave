@@ -1,7 +1,10 @@
 import type { Invalidator, Subscriber, Unsubscriber } from 'svelte/store';
 import type { User } from 'firebase/auth';
 
+import type { TClip } from './clip.type';
 import type { TAppState } from './app-state.type';
+import type { TUserData } from './user-data.type';
+import type { TSettings } from './settings.type';
 
 
 
@@ -46,6 +49,23 @@ export type TAppStore = {
    * Logs user in.
    *
    * @param user The user that logged in.
+   * @param data The user data.
    */
-  login: (user: User) => void
+  login: (user: User, data: TUserData) => void
+
+  /**
+   * @description
+   * Updates the clips.
+   *
+   * @param clips The clips to update.
+   */
+  updateClips: (clips: Array<TClip>) => void
+
+  /**
+   * @description
+   * Updates the settings.
+   *
+   * @param settings The settings to update.
+   */
+  updateSettings: (settings: TSettings) => void
 }

@@ -14,11 +14,5 @@ export enum ClipType {
    * @description
    * File content.
    */
-  File = 2,
-
-  /**
-   * @description
-   * Image content.
-   */
-  Image = 3
+  File = 2
 }

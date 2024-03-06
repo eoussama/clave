@@ -8,5 +8,6 @@ import type { TAppState } from '../types/app-state.type';
  */
 export const initialAppState: TAppState = {
   user: null,
+  data: null,
   loading: true
 };

@@ -1,7 +1,18 @@
 /**
  * @description
- * Clip tag definition.
+ * Clip tag definition
  */
 export type TTag = {
-  name: string;
+
+  /**
+   * @description
+   * The ID of the tag
+   */
+  id: string
+
+  /**
+   * @description
+   * The name of the tag
+   */
+  name: string
 };

@@ -1,4 +1,5 @@
 import type { TTag } from './tag.type';
+import type { ClipType } from '../enums/clip-type.enum';
 
 
 
@@ -12,29 +13,41 @@ export type TClip = {
    * @description
    * The UUID of the clip.
    */
-  id: string;
+  id: string
+
+  /**
+   * @description
+   * The timestamp of the creation of the clip.
+   */
+  creationTime: number
 
   /**
    * @description
    * The title of the clip.
    */
-  title: string;
+  title: string
 
   /**
    * @description
    * The clipped content.
    */
-  content: string | Blob;
+  content: string
+
+  /**
+   * @description
+   * The type of the clipped content.
+   */
+  type: ClipType
 
   /**
    * @description
    * Relevant tags.
    */
-  tags: Array<TTag>;
+  tags: Array<TTag>
 
   /**
    * @description
    * If the clip is sensitive/private/secret.
    */
-  sensitive: boolean;
+  sensitive: boolean
 };

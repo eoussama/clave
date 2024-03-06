@@ -1,19 +1,89 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
 
-	import MdAdd from 'svelte-icons/md/MdAdd.svelte';
+	import Tags from '../controls/tags.svelte';
+	import Toggle from '../controls/toggle.svelte';
+
+	import MdCheck from 'svelte-icons/md/MdCheck.svelte';
 	import MdClose from 'svelte-icons/md/MdClose.svelte';
-	import { AuthHelper } from '$lib/core/helpers/auth.helper';
+
+	import { ClipHelper } from '$lib/core/helpers/clip.helper';
+
+	import type { TTag } from '$lib/core/types/tag.type';
+	import type { TClip } from '$lib/core/types/clip.type';
+	import type { TNullable } from '$lib/core/types/nullable.type';
+
+	import { Interaction } from '$lib/core/enums/interaction.enum';
 
 	export let send: any;
 	export let receive: any;
+	export let mode: Interaction;
+	export let clip: TNullable<TClip>;
+
+	let title: string = '';
+	let content: string = '';
+	let tags: Array<TTag> = [];
+	let sensitive: boolean = false;
 
 	const dispatcher = createEventDispatcher();
+
+	const getModalTitle = () => {
+		let modalTitle: string;
+
+		switch (mode) {
+			case Interaction.Creation: {
+				modalTitle = 'Create clip';
+				break;
+			}
+
+			case Interaction.Update: {
+				modalTitle = 'Update clip';
+				break;
+			}
+
+			default: {
+				modalTitle = 'Clip detail';
+			}
+		}
+
+		return modalTitle;
+	};
 
 	const onClose = () => {
 		dispatcher('close');
 	};
+
+	const onValidate = async () => {
+		const validatedClip: Partial<TClip> = {
+			tags,
+			title,
+			content,
+			sensitive,
+			id: mode === Interaction.Update ? clip?.id : undefined
+		};
+
+		try {
+			if (mode === Interaction.Creation) {
+				await ClipHelper.create(validatedClip);
+			} else {
+				await ClipHelper.update(validatedClip as TClip);
+			}
+		} finally {
+			onClose();
+		}
+	};
+
+	$: readonly = mode === Interaction.View;
+
+	onMount(() => {
+		if (Interaction.Update) {
+			tags = clip?.tags ?? tags;
+			title = clip?.title ?? title;
+			content = clip?.content ?? content;
+			sensitive = clip?.sensitive ?? sensitive;
+		}
+	});
 </script>
 
 <div class="modal">
@@ -22,39 +92,53 @@
 		out:send={{ key: 'clipflip', duration: 400 }}
 		in:receive={{ key: 'clipflip', duration: 400 }}
 	>
-		<div class="modal__head">
-			<h3 class="modal__title">Create Clip</h3>
+		<form class="modal__wrapper" on:submit|preventDefault={onValidate}>
+			<div class="modal__head">
+				<h3 class="modal__title">{getModalTitle()}</h3>
 
-			<button
-				class="modal__control modal__control--close"
-				on:click={onClose}
-				in:fade={{ duration: 200 }}
-			>
-				<div class="modal__icon">
-					<MdClose />
+				<button
+					class="modal__control modal__control--close"
+					on:click={onClose}
+					in:fade={{ duration: 200 }}
+				>
+					<div class="modal__icon">
+						<MdClose />
+					</div>
+				</button>
+			</div>
+
+			<div class="modal__inputs">
+				<input
+					type="text"
+					name="title"
+					placeholder="Optional title..."
+					class="modal__input modal__input--title"
+					bind:value={title}
+				/>
+
+				<textarea
+					required
+					name="content"
+					bind:value={content}
+					class="modal__input modal__input--content"
+					placeholder="Enter the content to save..."
+				></textarea>
+
+				<Toggle label="Sensitive" bind:value={sensitive} />
+				<Tags placeholder="Tags" bind:value={tags} />
+			</div>
+
+			{#if !readonly}
+				<div class="modal__controls">
+					<button class="modal__control modal__control--add" type="submit">
+						<div class="modal__icon">
+							<MdCheck />
+						</div>
+					</button>
 				</div>
-			</button>
-		</div>
-
-		<div class="modal__inputs">
-			<input class="modal__input modal__input--title" type="text" placeholder="Optional title..." />
-
-			<textarea
-				class="modal__input modal__input--content"
-				placeholder="Enter the content to save..."
-			></textarea>
-		</div>
-
-		<div class="modal__controls">
-			<button class="modal__control modal__control--add">
-				<div class="modal__icon">
-					<MdAdd />
-				</div>
-			</button>
-		</div>
+			{/if}
+		</form>
 	</div>
-
-	<ul class="modal__tags"></ul>
 </div>
 
 <style lang="scss">
@@ -89,117 +173,115 @@
 			width: 100%;
 			min-height: 400px;
 
-			#{$root}__head {
-				padding: $spacing $spacing 0 $spacing;
+			#{$root}__wrapper {
+				display: contents;
 
-				display: flex;
-				flex-direction: row;
+				#{$root}__head {
+					padding: $spacing $spacing 0 $spacing;
 
-				#{$root}__title {
-					font-size: 16px;
-					font-weight: var(--font-weight-bold);
-					color: hsl(var(--color-primary-hsl), 45%);
-				}
+					display: flex;
+					flex-direction: row;
 
-				#{$root}__control {
-					&--close {
-						margin-left: auto;
-						color: hsl(var(--color-primary-hsl), 60%);
+					#{$root}__title {
+						font-size: 16px;
+						font-weight: var(--font-weight-bold);
+						color: hsl(var(--color-primary-hsl), 45%);
+					}
 
-						transition-duration: 0.2s;
-						transition-property: color;
+					#{$root}__control {
+						&--close {
+							margin-left: auto;
+							color: hsl(var(--color-primary-hsl), 60%);
 
-						&:hover {
-							color: hsl(var(--color-primary-hsl), 50%);
+							transition-duration: 0.2s;
+							transition-property: color;
+
+							&:hover {
+								color: hsl(var(--color-primary-hsl), 50%);
+							}
 						}
 					}
 				}
-			}
 
-			#{$root}__inputs {
-				flex: 1;
-				display: flex;
-				flex-direction: column;
+				#{$root}__inputs {
+					flex: 1;
+					display: flex;
+					flex-direction: column;
 
-				padding: $spacing;
+					padding: $spacing;
 
-				#{$root}__input {
-					border: none;
-					outline: none;
+					#{$root}__input {
+						border: none;
+						outline: none;
 
-					width: 100%;
-					height: 100%;
-					padding: 12px;
+						width: 100%;
+						height: 100%;
+						padding: 12px;
 
-					font-size: 14px;
-					font-weight: var(--font-weight-regular);
-					font-family: var(--font-family-primary);
+						font-size: 14px;
+						font-weight: var(--font-weight-regular);
+						font-family: var(--font-family-primary);
 
-					border-radius: 4px;
-					background: linear-gradient(
-						to right bottom,
-						hsl(var(--color-primary-hsl), 90%),
-						hsl(var(--color-primary-hsl), 86%)
-					);
+						border-radius: 4px;
+						background: linear-gradient(
+							to right bottom,
+							hsl(var(--color-primary-hsl), 90%),
+							hsl(var(--color-primary-hsl), 86%)
+						);
 
-					&::placeholder {
-						font-size: 12px;
-					}
+						&::placeholder {
+							font-size: 12px;
+						}
 
-					&--title {
-						margin-bottom: $spacing;
-					}
+						&--title {
+							margin-bottom: $spacing;
+						}
 
-					&--content {
-						flex: 1;
-						resize: none;
+						&--content {
+							flex: 1;
+							resize: none;
+						}
 					}
 				}
-			}
 
-			#{$root}__controls {
-				display: flex;
-				align-items: center;
+				#{$root}__controls {
+					display: flex;
+					align-items: center;
 
-				padding: 6px;
+					padding: 6px;
 
-				background-color: rgba(var(--color-primary-rgb), 0.15);
+					background-color: rgba(var(--color-primary-rgb), 0.15);
+
+					#{$root}__control {
+						padding: 6px;
+						margin-left: auto;
+
+						border-radius: 4px;
+						background-color: rgba(var(--color-primary-rgb), 0.6);
+
+						transition-duration: 0.2s;
+						transition-property: background-color;
+
+						&:hover {
+							background-color: var(--color-primary);
+						}
+
+						#{$root}__icon {
+							color: hsl(var(--color-secondary-hsl), 86%);
+						}
+					}
+				}
 
 				#{$root}__control {
-					padding: 6px;
-					margin-left: auto;
-
-					border-radius: 4px;
-					background-color: rgba(var(--color-primary-rgb), 0.6);
-
-					transition-duration: 0.2s;
-					transition-property: background-color;
-
-					&:hover {
-						background-color: var(--color-primary);
-					}
+					all: unset;
+					cursor: pointer;
 
 					#{$root}__icon {
-						color: hsl(var(--color-secondary-hsl), 86%);
+						width: 24px;
+						height: 24px;
 					}
 				}
 			}
-
-			#{$root}__control {
-				all: unset;
-				cursor: pointer;
-
-				#{$root}__icon {
-					width: 24px;
-					height: 24px;
-				}
-			}
-		}
-
-		&__tags {
-			margin: 0;
-			padding: 0;
-			list-style-type: none;
 		}
 	}
 </style>
