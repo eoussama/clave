@@ -19,6 +19,10 @@
 		dispatcher('edit', e);
 	};
 
+	const onDelete = (e: TClip) => {
+		dispatcher('delete', e);
+	};
+
 	$: filteredClips =
 		$appStore.data?.clips?.filter(
 			(e) =>
@@ -50,7 +54,7 @@
 			<div class="clips-items">
 				{#each filteredClips as clip}
 					<li class="clips-item" class:clips-item--unfocused={unfocused} in:slide out:slide>
-						<ClipItem {clip} on:edit={() => onEdit(clip)} />
+						<ClipItem {clip} on:edit={() => onEdit(clip)} on:delete={() => onDelete(clip)} />
 					</li>
 				{/each}
 			</div>
