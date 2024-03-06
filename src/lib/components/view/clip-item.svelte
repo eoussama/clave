@@ -1,12 +1,16 @@
 <script lang="ts">
 	import { fade, fly } from 'svelte/transition';
+	import { createEventDispatcher } from 'svelte';
 
+	import MdEdit from 'svelte-icons/md/MdEdit.svelte';
 	import MdCheck from 'svelte-icons/md/MdCheck.svelte';
 	import MdVisibility from 'svelte-icons/md/MdVisibility.svelte';
 	import MdContentCopy from 'svelte-icons/md/MdContentCopy.svelte';
 	import MdVisibilityOff from 'svelte-icons/md/MdVisibilityOff.svelte';
 
 	import type { TClip } from '$lib/core/types/clip.type';
+
+	const dispatcher = createEventDispatcher();
 
 	export let clip: TClip;
 
@@ -19,7 +23,7 @@
 		if (typeof content === 'string') {
 			return content
 				.split('')
-				.map((e) => '•')
+				.map(() => '•')
 				.join('');
 		}
 
@@ -35,6 +39,11 @@
 		}
 
 		copy();
+	};
+
+	const onEdit = (e: MouseEvent) => {
+		e.stopPropagation();
+		dispatcher('edit');
 	};
 
 	const onToggleVisibility = (e: MouseEvent) => {
@@ -73,6 +82,12 @@
 		</div>
 
 		<div class="clip__controls">
+			<button class="clip__control clip__control--edit" on:click={onEdit}>
+				<span class="clip__control-icon">
+					<MdEdit />
+				</span>
+			</button>
+
 			{#if clip.sensitive}
 				<button class="clip__control clip__control--visibility" on:click={onToggleVisibility}>
 					{#if visible}

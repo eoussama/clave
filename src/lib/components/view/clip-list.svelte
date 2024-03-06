@@ -1,15 +1,23 @@
 <script lang="ts">
 	import { slide } from 'svelte/transition';
+	import { createEventDispatcher } from 'svelte';
 
 	import Empty from './empty.svelte';
 	import ClipItem from './clip-item.svelte';
 	import ClipSearch from '../controls/clip-search.svelte';
 
 	import { appStore } from '$lib/core/stores/app.store';
+	import type { TClip } from '$lib/core/types/clip.type';
+
+	const dispatcher = createEventDispatcher();
 
 	export let unfocused: boolean;
 
 	let searchTerm: string;
+
+	const onEdit = (e: TClip) => {
+		dispatcher('edit', e);
+	};
 
 	$: filteredClips =
 		$appStore.data?.clips?.filter(
@@ -42,7 +50,7 @@
 			<div class="clips-items">
 				{#each filteredClips as clip}
 					<li class="clips-item" class:clips-item--unfocused={unfocused} in:slide out:slide>
-						<ClipItem {clip} />
+						<ClipItem {clip} on:edit={() => onEdit(clip)} />
 					</li>
 				{/each}
 			</div>

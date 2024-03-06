@@ -12,6 +12,10 @@
 		clipModal = true;
 	};
 
+	const onEdit = () => {
+		clipModal = true;
+	};
+
 	const onClose = () => {
 		clipModal = false;
 	};
@@ -45,7 +49,7 @@
 	</div>
 
 	<div class="content">
-		<ClipList unfocused={unfocus} />
+		<ClipList unfocused={unfocus} on:edit={onEdit} />
 	</div>
 </div>
 
