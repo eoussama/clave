@@ -1,48 +1,94 @@
 <script lang="ts">
-	import ClipItem from './clip-item.svelte';
 	import { slide } from 'svelte/transition';
-	import ClipSearch from '$lib/components/controls/clip-search.svelte';
+	import { createEventDispatcher } from 'svelte';
+
+	import Empty from './empty.svelte';
+	import ClipItem from './clip-item.svelte';
+	import ClipSearch from '../controls/clip-search.svelte';
+
+	import { appStore } from '$lib/core/stores/app.store';
 	import type { TClip } from '$lib/core/types/clip.type';
+
+	const dispatcher = createEventDispatcher();
 
 	export let unfocused: boolean;
 
-	const MAX_DATA = 13;
-	const clips: Array<TClip> = new Array(MAX_DATA).fill(null).map((e) => ({
-		id: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER).toString(10 + 26),
-		content: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER).toString(10 + 26),
-		title: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER).toString(10 + 26),
-		sensitive: Boolean(Math.floor(Math.random() + 0.5)),
-		tags: []
-	}));
-
 	let searchTerm: string;
 
-	$: filteredClips = clips.filter(
-		(e) =>
-			searchTerm?.toLowerCase().includes(e.title.toLowerCase()) ||
-			e.title.toLowerCase().includes(searchTerm?.toLowerCase())
-	);
+	const onEdit = (e: TClip) => {
+		dispatcher('edit', e);
+	};
+
+	const onDelete = (e: TClip) => {
+		dispatcher('delete', e);
+	};
+
+	$: filteredClips =
+		$appStore.data?.clips?.filter(
+			(e) =>
+				!searchTerm ||
+				searchTerm.length === 0 ||
+				searchTerm?.toLowerCase().includes(e.title.toLowerCase()) ||
+				e.title.toLowerCase().includes(searchTerm?.toLowerCase())
+		) ?? [];
 </script>
 
 <div class="clips">
-	<ul class="clips-list">
-		<li class="clips-item clips-item--search" class:clips-item--unfocused={unfocused}>
-			<ClipSearch bind:searchTerm />
-		</li>
+	<Empty empty={filteredClips.length === 0}>
+		<div slot="note" class="clips-empty">
+			<div class="clips-empty__icon">
+				<img src="./images/empty.svg" alt="no clips" />
+			</div>
 
-		<div class="clips-items">
-			{#each filteredClips as clip}
-				<li class="clips-item" class:clips-item--unfocused={unfocused} in:slide out:slide>
-					<ClipItem {clip} />
-				</li>
-			{/each}
+			<div class="clips-empty__message">
+				<p>No clips saved!</p>
+				<p>Save your clipboard with <kbd>Ctrl</kbd> + <kbd>V</kbd></p>
+			</div>
 		</div>
-	</ul>
+
+		<ul slot="content" class="clips-list">
+			<li class="clips-item clips-item--search" class:clips-item--unfocused={unfocused}>
+				<ClipSearch bind:searchTerm />
+			</li>
+
+			<div class="clips-items">
+				{#each filteredClips as clip}
+					<li class="clips-item" class:clips-item--unfocused={unfocused} in:slide out:slide>
+						<ClipItem {clip} on:edit={() => onEdit(clip)} on:delete={() => onDelete(clip)} />
+					</li>
+				{/each}
+			</div>
+		</ul>
+	</Empty>
 </div>
 
 <style lang="scss">
 	.clips {
 		$root: &;
+
+		width: 100%;
+		height: 100%;
+
+		&-empty {
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+			justify-content: center;
+
+			padding: 40px;
+
+			&__message {
+				margin-top: 20px;
+			}
+
+			&__icon {
+				width: 100px;
+
+				img {
+					width: 100%;
+				}
+			}
+		}
 
 		&-list {
 			$border-color: hsl(var(--color-primary-hsl), 95%);
@@ -54,12 +100,16 @@
 			border-radius: 5px;
 			border: 1px solid $border-color;
 
+			width: 100%;
+			height: 100%;
+			max-height: calc(100% - 12px);
+
 			#{$root}-items {
+				overflow: auto;
+
 				width: 100%;
 				height: 100%;
-
-				overflow: auto;
-				max-height: 360px;
+				max-height: calc(100% - 42px);
 			}
 
 			#{$root}-item {

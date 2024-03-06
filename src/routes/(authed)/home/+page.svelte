@@ -5,15 +5,41 @@
 	import ClipAdd from '$lib/components/controls/clip-add.svelte';
 	import ClipModal from '$lib/components/view/clip-modal.svelte';
 
+	import { Interaction } from '$lib/core/enums/interaction.enum';
+
+	import type { TClip } from '$lib/core/types/clip.type';
+	import type { TNullable } from '$lib/core/types/nullable.type';
+
+	import { ClipHelper } from '$lib/core/helpers/clip.helper';
+
 	let unfocus: boolean;
-	let clipModal: boolean;
+	let selectedClip: TNullable<TClip>;
+
+	let clipModalVisible: boolean;
+	let clipModalMode: Interaction;
 
 	const onCreate = () => {
-		clipModal = true;
+		selectedClip = null;
+		clipModalMode = Interaction.Creation;
+		clipModalVisible = true;
+	};
+
+	const onEdit = (e: CustomEvent) => {
+		selectedClip = e.detail;
+		clipModalMode = Interaction.Update;
+		clipModalVisible = true;
+	};
+
+	const onDelete = (e: CustomEvent) => {
+		selectedClip = e.detail;
+
+		if (confirm('Do you want to delete this clip?')) {
+			ClipHelper.delete(selectedClip as TClip);
+		}
 	};
 
 	const onClose = () => {
-		clipModal = false;
+		clipModalVisible = false;
 	};
 
 	const [send, receive] = crossfade({
@@ -21,7 +47,7 @@
 	});
 
 	$: {
-		if (clipModal) {
+		if (clipModalVisible) {
 			unfocus = true;
 		} else {
 			setTimeout(() => {
@@ -33,7 +59,7 @@
 
 <div class="root">
 	<div class="head">
-		{#if !clipModal}
+		{#if !clipModalVisible}
 			<div
 				class="add-wrapper"
 				out:send={{ key: 'clipflip', duration: 400 }}
@@ -45,24 +71,33 @@
 	</div>
 
 	<div class="content">
-		<ClipList unfocused={unfocus} />
+		<ClipList unfocused={unfocus} on:edit={onEdit} on:delete={onDelete} />
 	</div>
 </div>
 
-{#if clipModal}
+{#if clipModalVisible}
 	<div class="overlay" in:fade={{ duration: 200 }} out:fade={{ duration: 200 }}>
-		<ClipModal {receive} {send} on:close={onClose} />
+		<ClipModal {receive} {send} mode={clipModalMode} clip={selectedClip} on:close={onClose} />
 	</div>
 {/if}
 
 <style lang="scss">
 	.root {
+		$head-height: 50px;
+
+		width: 100%;
+		height: 100%;
+
 		.head {
-			height: 50px;
+			height: $head-height;
 		}
 
 		.content {
-			margin-top: 16px;
+			width: 100%;
+			height: 100%;
+
+			margin-top: var(--spacing-padding);
+			max-height: calc(100% - $head-height);
 		}
 	}
 

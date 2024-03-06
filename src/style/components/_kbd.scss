@@ -1,0 +1,17 @@
+kbd {
+  user-select: none;
+
+  top: -3px;
+  position: relative;
+  padding: 2px 6px;
+
+  font-size: 10px;
+  text-transform: uppercase;
+  font-family: var(--font-primary);
+
+  color: var(--color-primary);
+  background-color: hsl(var(--color-primary-hsl), 90%);
+
+  border-radius: 4px;
+  border-bottom: 3px solid hsl(var(--color-primary-hsl), 80%);
+}

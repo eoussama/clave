@@ -7,16 +7,17 @@
 
 	/**
 	 * @description
+	 * The state of loggin-in.
+	 */
+	let loggingIn: boolean = false;
+
+	/**
+	 * @description
 	 * Logs user in.
 	 */
 	const onLogin = () => {
-		AuthHelper.login()
-			.then((user) => {
-				console.log({ user });
-			})
-			.catch((err) => {
-				console.error(err);
-			});
+		loggingIn = true;
+		AuthHelper.login().finally(() => (loggingIn = false));
 	};
 </script>
 
@@ -26,9 +27,9 @@
 			<img src="./images/logo.png" alt="Clave Logo" />
 		</div>
 
-		<div class="message" in:fly={{ y: 5, duration: 500, delay: 100 }}>
+		<h1 class="message" in:fly={{ y: 5, duration: 500, delay: 100 }}>
 			The only clipboard manager that matters
-		</div>
+		</h1>
 	</div>
 
 	<div class="foot">
@@ -37,7 +38,14 @@
 		</div>
 
 		<div class="controls" in:fly={{ y: 5, duration: 500, delay: 300 }}>
-			<Button label="Continue with Google" icon={FaGoogle} primary on:click={onLogin} />
+			<Button
+				primary
+				icon={FaGoogle}
+				loading={loggingIn}
+				label="Continue with Google"
+				loadingLabel="Logging-in..."
+				on:click={onLogin}
+			/>
 		</div>
 	</div>
 </div>
@@ -97,11 +105,14 @@
 			}
 
 			.message {
-				max-width: 220px;
+				max-width: 250px;
 				margin-top: 20px;
 
 				font-size: 16px;
 				text-align: center;
+				font-weight: var(--font-weight-bold);
+
+				color: var(--color-primary);
 			}
 		}
 
@@ -120,7 +131,7 @@
 				position: relative;
 
 				width: 100%;
-				margin: 10px 0;
+				margin: var(--spacing-padding) 0;
 				text-align: center;
 
 				&__text {

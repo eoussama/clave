@@ -46,7 +46,7 @@
 
 			#{$root}__input {
 				flex: 1;
-				padding: 10px;
+				padding: var(--spacing-padding);
 
 				border: none;
 				outline: none;

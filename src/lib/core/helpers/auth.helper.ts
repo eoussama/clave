@@ -14,6 +14,7 @@ import {
 
 import { FirebaseHelper } from './firebase.helper';
 import { appStore } from '../stores/app.store';
+import { AppCache } from '../enums/app-cache.enum';
 
 
 
@@ -76,6 +77,8 @@ export class AuthHelper {
           }
 
           const credential = GoogleAuthProvider.credential(token);
+
+          localStorage.setItem(AppCache.LoggedIn, credential.signInMethod);
           resolve(signInWithCredential(this.auth, credential));
         })
         .catch(reject);
@@ -86,9 +89,15 @@ export class AuthHelper {
    * @description
    * Logs user out.
    */
-  static logout(): void {
-    const auth = this.getAuth();
-    signOut(auth);
+  static logout(): Promise<void> {
+    return new Promise(resolve => {
+      const auth = this.getAuth();
+
+      signOut(auth).then(() => {
+        localStorage.removeItem(AppCache.LoggedIn);
+        resolve();
+      });
+    });
   }
 
   /**
