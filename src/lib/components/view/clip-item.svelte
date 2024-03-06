@@ -30,8 +30,7 @@
 		return content;
 	};
 
-	const onCopy = (e: MouseEvent) => {
-		e.stopPropagation();
+	const onCopy = () => {
 		if (!visible && clip.sensitive) {
 			if (prompt('Password') !== '123') {
 				return;
@@ -41,13 +40,17 @@
 		copy();
 	};
 
-	const onEdit = (e: MouseEvent) => {
-		e.stopPropagation();
+	const onEdit = () => {
+		if (!visible && clip.sensitive) {
+			if (prompt('Password') !== '123') {
+				return;
+			}
+		}
+
 		dispatcher('edit');
 	};
 
-	const onToggleVisibility = (e: MouseEvent) => {
-		e.stopPropagation();
+	const onToggleVisibility = () => {
 		if (!visible && clip.sensitive) {
 			if (prompt('Password') !== '123') {
 				return;
@@ -75,21 +78,24 @@
 </script>
 
 <div class="clip" class:clip--sensitive={clip.sensitive}>
-	<button class="clip__box" on:click={onCopy}>
+	<button class="clip__box" on:click|stopPropagation={onCopy}>
 		<div class="clip__info">
 			<h4 class="clip__title">{clip.title}</h4>
 			<p class="clip__content" class:clip__content--hidden={!visible}>{content}</p>
 		</div>
 
 		<div class="clip__controls">
-			<button class="clip__control clip__control--edit" on:click={onEdit}>
+			<button class="clip__control clip__control--edit" on:click|stopPropagation={onEdit}>
 				<span class="clip__control-icon">
 					<MdEdit />
 				</span>
 			</button>
 
 			{#if clip.sensitive}
-				<button class="clip__control clip__control--visibility" on:click={onToggleVisibility}>
+				<button
+					class="clip__control clip__control--visibility"
+					on:click|stopPropagation={onToggleVisibility}
+				>
 					{#if visible}
 						<span
 							class="clip__control-icon"
@@ -113,7 +119,7 @@
 			<button
 				class="clip__control clip__control--copy"
 				class:clip__control--copied={copied}
-				on:click={onCopy}
+				on:click|stopPropagation={onCopy}
 			>
 				{#if copied}
 					<span
