@@ -1,19 +1,25 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
 
 	import Tags from '../controls/tags.svelte';
 	import Toggle from '../controls/toggle.svelte';
 
-	import MdAdd from 'svelte-icons/md/MdAdd.svelte';
+	import MdCheck from 'svelte-icons/md/MdCheck.svelte';
 	import MdClose from 'svelte-icons/md/MdClose.svelte';
+
+	import { ClipHelper } from '$lib/core/helpers/clip.helper';
 
 	import type { TTag } from '$lib/core/types/tag.type';
 	import type { TClip } from '$lib/core/types/clip.type';
-	import { ClipHelper } from '$lib/core/helpers/clip.helper';
+	import type { TNullable } from '$lib/core/types/nullable.type';
+
+	import { Interaction } from '$lib/core/enums/interaction.enum';
 
 	export let send: any;
 	export let receive: any;
+	export let mode: Interaction;
+	export let clip: TNullable<TClip>;
 
 	let title: string = '';
 	let content: string = '';
@@ -22,23 +28,62 @@
 
 	const dispatcher = createEventDispatcher();
 
+	const getModalTitle = () => {
+		let modalTitle: string;
+
+		switch (mode) {
+			case Interaction.Creation: {
+				modalTitle = 'Create clip';
+				break;
+			}
+
+			case Interaction.Update: {
+				modalTitle = 'Update clip';
+				break;
+			}
+
+			default: {
+				modalTitle = 'Clip detail';
+			}
+		}
+
+		return modalTitle;
+	};
+
 	const onClose = () => {
 		dispatcher('close');
 	};
 
 	const onValidate = async () => {
-		const clip: Partial<TClip> = {
+		const validatedClip: Partial<TClip> = {
 			tags,
 			title,
 			content,
-			sensitive
+			sensitive,
+			id: mode === Interaction.Update ? clip?.id : undefined
 		};
 
-		ClipHelper.create(clip).then((e) => {
-			console.log(`Created clip ID ${e.id}.`);
+		try {
+			if (mode === Interaction.Creation) {
+				await ClipHelper.create(validatedClip);
+			} else {
+				await ClipHelper.update(validatedClip as TClip);
+			}
+		} finally {
 			onClose();
-		});
+		}
 	};
+
+	$: readonly = mode === Interaction.View;
+
+	onMount(() => {
+		if (Interaction.Update) {
+			tags = clip?.tags ?? tags;
+			title = clip?.title ?? title;
+			content = clip?.content ?? content;
+			sensitive = clip?.sensitive ?? sensitive;
+		}
+	});
 </script>
 
 <div class="modal">
@@ -49,7 +94,7 @@
 	>
 		<form class="modal__wrapper" on:submit|preventDefault={onValidate}>
 			<div class="modal__head">
-				<h3 class="modal__title">Create Clip</h3>
+				<h3 class="modal__title">{getModalTitle()}</h3>
 
 				<button
 					class="modal__control modal__control--close"
@@ -83,13 +128,15 @@
 				<Tags placeholder="Tags" bind:value={tags} />
 			</div>
 
-			<div class="modal__controls">
-				<button class="modal__control modal__control--add" type="submit">
-					<div class="modal__icon">
-						<MdAdd />
-					</div>
-				</button>
-			</div>
+			{#if !readonly}
+				<div class="modal__controls">
+					<button class="modal__control modal__control--add" type="submit">
+						<div class="modal__icon">
+							<MdCheck />
+						</div>
+					</button>
+				</div>
+			{/if}
 		</form>
 	</div>
 </div>
