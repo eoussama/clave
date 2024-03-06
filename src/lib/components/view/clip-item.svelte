@@ -60,7 +60,7 @@
 			return;
 		}
 
-		dispatcher('edit');
+		dispatcher('delete');
 	};
 
 	const onToggleVisibility = () => {
