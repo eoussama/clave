@@ -18,7 +18,7 @@
 	<div class="left">
 		<div class="account">
 			<div class="account__avatar">
-				<img src={$appStore.user?.photoURL} alt="Account avatar" />
+				<img src={$appStore.user?.photoURL} alt="Account avatar" referrerPolicy="no-referrer" />
 			</div>
 
 			<div class="account__info">

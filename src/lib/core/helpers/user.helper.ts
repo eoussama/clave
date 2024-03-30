@@ -46,6 +46,7 @@ export class UserHelper {
   static create(userId: string): Promise<TUserData> {
     return new Promise(async resolve => {
       const user = {
+        tags: [],
         clips: [],
         id: userId,
         settings: {}
