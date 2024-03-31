@@ -100,11 +100,11 @@
 		max-width: 250px;
 		border-radius: 5px;
 
+		border: none;
+		background-color: transparent;
 		color: var(--button-text-color);
-		background-color: var(--button-bg-color);
-		border: 1px solid var(--button-border-color);
 
-		font-family: var(--font-primary);
+		font-family: var(--font-family-primary);
 		font-weight: var(--font-weight-regular);
 
 		transition-duration: 0.2s;
