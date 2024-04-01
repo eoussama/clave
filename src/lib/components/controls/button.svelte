@@ -82,9 +82,9 @@
 	.btn {
 		$root: &;
 
+		--button-bg-color: transparent;
 		--button-text-color: var(--color-primary);
-		--button-bg-color: var(--color-secondary);
-		--button-border-color: var(--color-primary);
+		--button-border-color: rgba(var(--color-primary-rgb), 0.3);
 
 		cursor: pointer;
 
@@ -96,24 +96,18 @@
 		margin: auto;
 		padding: 10px;
 
-		width: 100%;
 		max-width: 250px;
 		border-radius: 5px;
 
-		border: none;
-		background-color: transparent;
 		color: var(--button-text-color);
+		background-color: var(--button-bg-color);
+		border: 1px solid var(--button-border-color);
 
 		font-family: var(--font-family-primary);
 		font-weight: var(--font-weight-regular);
 
 		transition-duration: 0.2s;
 		transition-property: background-color;
-
-		&__label {
-			transition-duration: 0.2s;
-			transition-property: transform;
-		}
 
 		&__icon {
 			display: flex;
@@ -129,11 +123,7 @@
 
 		&:hover {
 			&:not(:disabled) {
-				--button-bg-color: hsl(var(--color-secondary-hsl), 85%);
-
-				#{$root}__label {
-					transform: translateX(4px);
-				}
+				--button-bg-color: hsl(var(--color-primary-hsl), 96%);
 			}
 		}
 
