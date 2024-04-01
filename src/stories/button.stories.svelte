@@ -16,3 +16,4 @@
 </Template>
 
 <Story name="Default" args={{}} />
+<Story name="Primary" args={{ primary: true }} />

@@ -130,11 +130,11 @@
 		&--primary {
 			border: none;
 
-			--button-text-color: var(--color-secondary);
-			--button-bg-color: hsl(var(--color-primary-hsl), 55%);
+			--button-text-color: var(--color-primary);
+			--button-bg-color: hsl(var(--color-primary-hsl), 90%);
 
 			&:hover:not(:disabled) {
-				--button-bg-color: hsl(var(--color-primary-hsl), 45%);
+				--button-bg-color: hsl(var(--color-primary-hsl), 85%);
 			}
 		}
 
