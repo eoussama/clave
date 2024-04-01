@@ -1,4 +1,5 @@
 <script context="module">
+  import MdPlayArrow from 'svelte-icons/md/MdPlayArrow.svelte';
   import Button from '$lib/components/controls/button.svelte';
 
   export const meta = {
@@ -15,5 +16,7 @@
 	<Button {...args} />
 </Template>
 
-<Story name="Default" args={{}} />
-<Story name="Primary" args={{ primary: true }} />
+<Story name="Default" args={{ label: 'Default' }} />
+<Story name="Primary" args={{ primary: true, label: 'Primary' }} />
+<Story name="Icon" args={{ icon: MdPlayArrow, label: 'Play' }} />
+<Story name="Loading" args={{ loading: true, loadingLabel: 'Loading...' }} />
