@@ -128,10 +128,9 @@
 		}
 
 		&--primary {
-			border: none;
-
 			--button-text-color: var(--color-primary);
 			--button-bg-color: hsl(var(--color-primary-hsl), 90%);
+			--button-border-color: hsl(var(--color-primary-hsl), 90%);
 
 			&:hover:not(:disabled) {
 				--button-bg-color: hsl(var(--color-primary-hsl), 85%);
