@@ -17,6 +17,12 @@
 	 * If this is an icon only button
 	 */
 	export let iconOnly: boolean = false;
+	
+	/**
+	 * @description
+	 * If the button is disabled
+	 */
+	export let disabled: boolean = false;
 
 	/**
 	 * @description
@@ -71,9 +77,10 @@
 
 <button
 	class={classes}
-	disabled={loading}
 	class:btn--icon={iconOnly}
 	class:btn--loading={loading}
+	class:btn--disabled={disabled}
+	disabled={disabled || loading}
 	on:click={onClick}
 >
 	{#if icon}
@@ -128,22 +135,29 @@
 			width: 16px;
 			margin-right: 12px;
 		}
-
+		
 		&:disabled {
 			cursor: wait;
-			opacity: 0.8;
+			
+			--button-text-color: #b9b9b9;
+			--button-bg-color: transparent;
+			--button-border-color: #eeeeee;
 		}
 
-		&:hover {
-			&:not(:disabled) {
-				--button-bg-color: hsl(var(--color-primary-hsl), 96%);
-			}
+		&:hover:not(:disabled) {
+			--button-bg-color: hsl(var(--color-primary-hsl), 96%);
 		}
 
 		&--primary {
 			--button-text-color: var(--color-primary);
 			--button-bg-color: hsl(var(--color-primary-hsl), 90%);
 			--button-border-color: hsl(var(--color-primary-hsl), 90%);
+
+			&:disabled {
+				--button-text-color: #b9b9b9;
+				--button-bg-color: whitesmoke;
+				--button-border-color: whitesmoke;
+			}
 
 			&:hover:not(:disabled) {
 				--button-bg-color: hsl(var(--color-primary-hsl), 85%);
@@ -155,8 +169,14 @@
 			--button-border-color: var(--color-secondary);
 			--button-text-color: hsl(var(--color-secondary-hsl), 35%);
 
+			&:disabled {
+				--button-text-color: #b9b9b9;
+				--button-bg-color: whitesmoke;
+				--button-border-color: whitesmoke;
+			}
+
 			&:hover:not(:disabled) {
-				--button-bg-color: hsl(var(--color-secondary-hsl), 80%);
+				--button-bg-color: hsl(var(--color-secondary-hsl), 85%);
 			}
 		}
 
