@@ -60,7 +60,11 @@
 	 *
 	 * @param e Event object
 	 */
-	const onClick = (e: MouseEvent) => dispatch('click', { e });
+	const onClick = (e: MouseEvent) => {
+		if (!loading && !disabled) {
+			dispatch('click', { e });
+		}
+	};
 
 	/**
 	 * @description
@@ -137,7 +141,7 @@
 		}
 		
 		&:disabled {
-			cursor: wait;
+			cursor: not-allowed;
 			
 			--button-text-color: #b9b9b9;
 			--button-bg-color: transparent;
@@ -181,6 +185,8 @@
 		}
 
 		&--loading {
+			cursor: wait !important;
+
 			#{$root}__icon {
 				animation-duration: 1s;
 				animation-name: loader-spin;
