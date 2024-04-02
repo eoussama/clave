@@ -2,13 +2,15 @@
 	import { createEventDispatcher } from 'svelte';
 	import FaCircleNotch from 'svelte-icons/fa/FaCircleNotch.svelte';
 
+	import { ButtonType } from '$lib/core/enums/button-type.enum';
 	import type { TNullable } from '$lib/core/types/nullable.type';
+	import { EnumHelper } from '@eoussama/firemitt';
 
 	/**
 	 * @description
-	 * If the button is primary
+	 * The button type
 	 */
-	export let primary: boolean = false;
+	export let type: ButtonType = ButtonType.Default;
 
 	/**
 	 * @description
@@ -53,14 +55,25 @@
 	 * @param e Event object
 	 */
 	const onClick = (e: MouseEvent) => dispatch('click', { e });
+
+	/**
+	 * @description
+	 * Gets the type css class
+	 */
+	const getTypeClass = () => EnumHelper.getName(ButtonType, type).toLowerCase();
+
+	/**
+	 * @description
+	 * Computed classes
+	 */
+	$: classes = `btn btn--${getTypeClass()}`;
 </script>
 
 <button
-	class="btn"
+	class={classes}
 	disabled={loading}
 	class:btn--icon={iconOnly}
 	class:btn--loading={loading}
-	class:btn--primary={primary}
 	on:click={onClick}
 >
 	{#if icon}
