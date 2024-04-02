@@ -14,5 +14,11 @@ export enum ButtonType {
    * @description
    * The primary button type
    */
-  Primary
+  Primary,
+
+  /**
+   * @description
+   * The secondary button type
+   */
+  Secondary
 }

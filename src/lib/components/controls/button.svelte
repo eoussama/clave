@@ -150,6 +150,16 @@
 			}
 		}
 
+		&--secondary {
+			--button-bg-color: var(--color-secondary);
+			--button-border-color: var(--color-secondary);
+			--button-text-color: hsl(var(--color-secondary-hsl), 35%);
+
+			&:hover:not(:disabled) {
+				--button-bg-color: hsl(var(--color-secondary-hsl), 80%);
+			}
+		}
+
 		&--loading {
 			#{$root}__icon {
 				animation-duration: 1s;
