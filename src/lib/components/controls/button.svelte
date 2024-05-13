@@ -2,19 +2,27 @@
 	import { createEventDispatcher } from 'svelte';
 	import FaCircleNotch from 'svelte-icons/fa/FaCircleNotch.svelte';
 
+	import { ButtonType } from '$lib/core/enums/button-type.enum';
 	import type { TNullable } from '$lib/core/types/nullable.type';
+	import { EnumHelper } from '@eoussama/firemitt';
 
 	/**
 	 * @description
-	 * If the button is primary
+	 * The button type
 	 */
-	export let primary: boolean = false;
+	export let type: ButtonType = ButtonType.Default;
 
 	/**
 	 * @description
 	 * If this is an icon only button
 	 */
 	export let iconOnly: boolean = false;
+	
+	/**
+	 * @description
+	 * If the button is disabled
+	 */
+	export let disabled: boolean = false;
 
 	/**
 	 * @description
@@ -52,15 +60,31 @@
 	 *
 	 * @param e Event object
 	 */
-	const onClick = (e: MouseEvent) => dispatch('click', { e });
+	const onClick = (e: MouseEvent) => {
+		if (!loading && !disabled) {
+			dispatch('click', { e });
+		}
+	};
+
+	/**
+	 * @description
+	 * Gets the type css class
+	 */
+	const getTypeClass = () => EnumHelper.getName(ButtonType, type).toLowerCase();
+
+	/**
+	 * @description
+	 * Computed classes
+	 */
+	$: classes = `btn btn--${getTypeClass()}`;
 </script>
 
 <button
-	class="btn"
-	disabled={loading}
+	class={classes}
 	class:btn--icon={iconOnly}
 	class:btn--loading={loading}
-	class:btn--primary={primary}
+	class:btn--disabled={disabled}
+	disabled={disabled || loading}
 	on:click={onClick}
 >
 	{#if icon}
@@ -82,9 +106,9 @@
 	.btn {
 		$root: &;
 
+		--button-bg-color: transparent;
 		--button-text-color: var(--color-primary);
-		--button-bg-color: var(--color-secondary);
-		--button-border-color: var(--color-primary);
+		--button-border-color: rgba(var(--color-primary-rgb), 0.3);
 
 		cursor: pointer;
 
@@ -96,7 +120,6 @@
 		margin: auto;
 		padding: 10px;
 
-		width: 100%;
 		max-width: 250px;
 		border-radius: 5px;
 
@@ -104,16 +127,11 @@
 		background-color: var(--button-bg-color);
 		border: 1px solid var(--button-border-color);
 
-		font-family: var(--font-primary);
+		font-family: var(--font-family-primary);
 		font-weight: var(--font-weight-regular);
 
 		transition-duration: 0.2s;
 		transition-property: background-color;
-
-		&__label {
-			transition-duration: 0.2s;
-			transition-property: transform;
-		}
 
 		&__icon {
 			display: flex;
@@ -121,34 +139,54 @@
 			width: 16px;
 			margin-right: 12px;
 		}
-
+		
 		&:disabled {
-			cursor: wait;
-			opacity: 0.8;
+			cursor: not-allowed;
+			
+			--button-text-color: #b9b9b9;
+			--button-bg-color: transparent;
+			--button-border-color: #eeeeee;
 		}
 
-		&:hover {
-			&:not(:disabled) {
-				--button-bg-color: hsl(var(--color-secondary-hsl), 85%);
-
-				#{$root}__label {
-					transform: translateX(4px);
-				}
-			}
+		&:hover:not(:disabled) {
+			--button-bg-color: hsl(var(--color-primary-hsl), 96%);
 		}
 
 		&--primary {
-			border: none;
+			--button-text-color: var(--color-primary);
+			--button-bg-color: hsl(var(--color-primary-hsl), 90%);
+			--button-border-color: hsl(var(--color-primary-hsl), 90%);
 
-			--button-text-color: var(--color-secondary);
-			--button-bg-color: hsl(var(--color-primary-hsl), 55%);
+			&:disabled {
+				--button-text-color: #b9b9b9;
+				--button-bg-color: whitesmoke;
+				--button-border-color: whitesmoke;
+			}
 
 			&:hover:not(:disabled) {
-				--button-bg-color: hsl(var(--color-primary-hsl), 45%);
+				--button-bg-color: hsl(var(--color-primary-hsl), 85%);
+			}
+		}
+
+		&--secondary {
+			--button-bg-color: var(--color-secondary);
+			--button-border-color: var(--color-secondary);
+			--button-text-color: hsl(var(--color-secondary-hsl), 35%);
+
+			&:disabled {
+				--button-text-color: #b9b9b9;
+				--button-bg-color: whitesmoke;
+				--button-border-color: whitesmoke;
+			}
+
+			&:hover:not(:disabled) {
+				--button-bg-color: hsl(var(--color-secondary-hsl), 85%);
 			}
 		}
 
 		&--loading {
+			cursor: wait !important;
+
 			#{$root}__icon {
 				animation-duration: 1s;
 				animation-name: loader-spin;
