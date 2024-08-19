@@ -87,7 +87,7 @@
 	disabled={disabled || loading}
 	on:click={onClick}
 >
-	{#if icon}
+	<!-- {#if icon}
 		<div class="btn__icon">
 			{#if loading}
 				<FaCircleNotch />
@@ -95,11 +95,12 @@
 				<svelte:component this={icon} />
 			{/if}
 		</div>
-	{/if}
+	{/if} -->
 
-	{#if !iconOnly}
+	<!-- {#if !iconOnly}
 		<div class="btn__label">{loading ? loadingLabel ?? label : label}</div>
-	{/if}
+	{/if} -->
+	{label}
 </button>
 
 <style lang="scss">
@@ -133,101 +134,101 @@
 		transition-duration: 0.2s;
 		transition-property: background-color;
 
-		&__icon {
-			display: flex;
+		// &__icon {
+		// 	display: flex;
 
-			width: 16px;
-			margin-right: 12px;
-		}
+		// 	width: 16px;
+		// 	margin-right: 12px;
+		// }
 		
-		&:disabled {
-			cursor: not-allowed;
+		// &:disabled {
+		// 	cursor: not-allowed;
 			
-			--button-text-color: #b9b9b9;
-			--button-bg-color: transparent;
-			--button-border-color: #eeeeee;
-		}
+		// 	--button-text-color: #b9b9b9;
+		// 	--button-bg-color: transparent;
+		// 	--button-border-color: #eeeeee;
+		// }
 
-		&:hover:not(:disabled) {
-			--button-bg-color: hsl(var(--color-primary-hsl), 96%);
-		}
+		// &:hover:not(:disabled) {
+		// 	--button-bg-color: hsl(var(--color-primary-hsl), 96%);
+		// }
 
-		&--primary {
-			--button-text-color: var(--color-primary);
-			--button-bg-color: hsl(var(--color-primary-hsl), 90%);
-			--button-border-color: hsl(var(--color-primary-hsl), 90%);
+		// &--primary {
+		// 	--button-text-color: var(--color-primary);
+		// 	--button-bg-color: hsl(var(--color-primary-hsl), 90%);
+		// 	--button-border-color: hsl(var(--color-primary-hsl), 90%);
 
-			&:disabled {
-				--button-text-color: #b9b9b9;
-				--button-bg-color: whitesmoke;
-				--button-border-color: whitesmoke;
-			}
+		// 	&:disabled {
+		// 		--button-text-color: #b9b9b9;
+		// 		--button-bg-color: whitesmoke;
+		// 		--button-border-color: whitesmoke;
+		// 	}
 
-			&:hover:not(:disabled) {
-				--button-bg-color: hsl(var(--color-primary-hsl), 85%);
-			}
-		}
+		// 	&:hover:not(:disabled) {
+		// 		--button-bg-color: hsl(var(--color-primary-hsl), 85%);
+		// 	}
+		// }
 
-		&--secondary {
-			--button-bg-color: var(--color-secondary);
-			--button-border-color: var(--color-secondary);
-			--button-text-color: hsl(var(--color-secondary-hsl), 35%);
+		// &--secondary {
+		// 	--button-bg-color: var(--color-secondary);
+		// 	--button-border-color: var(--color-secondary);
+		// 	--button-text-color: hsl(var(--color-secondary-hsl), 35%);
 
-			&:disabled {
-				--button-text-color: #b9b9b9;
-				--button-bg-color: whitesmoke;
-				--button-border-color: whitesmoke;
-			}
+		// 	&:disabled {
+		// 		--button-text-color: #b9b9b9;
+		// 		--button-bg-color: whitesmoke;
+		// 		--button-border-color: whitesmoke;
+		// 	}
 
-			&:hover:not(:disabled) {
-				--button-bg-color: hsl(var(--color-secondary-hsl), 85%);
-			}
-		}
+		// 	&:hover:not(:disabled) {
+		// 		--button-bg-color: hsl(var(--color-secondary-hsl), 85%);
+		// 	}
+		// }
 
-		&--loading {
-			cursor: wait !important;
+		// &--loading {
+		// 	cursor: wait !important;
 
-			#{$root}__icon {
-				animation-duration: 1s;
-				animation-name: loader-spin;
-				animation-fill-mode: forwards;
-				animation-timing-function: linear;
-				animation-iteration-count: infinite;
-			}
-		}
+		// 	#{$root}__icon {
+		// 		animation-duration: 1s;
+		// 		animation-name: loader-spin;
+		// 		animation-fill-mode: forwards;
+		// 		animation-timing-function: linear;
+		// 		animation-iteration-count: infinite;
+		// 	}
+		// }
 
-		&--icon {
-			border: none;
-			padding: 5px;
+		// &--icon {
+		// 	border: none;
+		// 	padding: 5px;
 
-			--button-text-color: var(--color-primary);
-			--button-bg-color: hsl(var(--color-secondary-hsl), 95%);
+		// 	--button-text-color: var(--color-primary);
+		// 	--button-bg-color: hsl(var(--color-secondary-hsl), 95%);
 
-			#{$root}__icon {
-				margin-right: 0;
-			}
+		// 	#{$root}__icon {
+		// 		margin-right: 0;
+		// 	}
 
-			&:hover:not(:disabled) {
-				--button-bg-color: hsl(var(--color-secondary-hsl), 80%);
-			}
+		// 	&:hover:not(:disabled) {
+		// 		--button-bg-color: hsl(var(--color-secondary-hsl), 80%);
+		// 	}
 
-			&.btn--primary {
-				--button-bg-color: hsl(var(--color-primary-hsl), 88%);
+		// 	&.btn--primary {
+		// 		--button-bg-color: hsl(var(--color-primary-hsl), 88%);
 
-				&:hover:not(:disabled) {
-					--button-bg-color: hsl(var(--color-primary-hsl), 84%);
-				}
-			}
-		}
+		// 		&:hover:not(:disabled) {
+		// 			--button-bg-color: hsl(var(--color-primary-hsl), 84%);
+		// 		}
+		// 	}
+		// }
 
-		@keyframes loader-spin {
-			from {
-				transform: rotate(0deg);
-			}
+		// @keyframes loader-spin {
+		// 	from {
+		// 		transform: rotate(0deg);
+		// 	}
 
-			to {
-				transform: rotate(360deg);
-			}
-		}
+		// 	to {
+		// 		transform: rotate(360deg);
+		// 	}
+		// }
 	}
 </style>
