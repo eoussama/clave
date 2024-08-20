@@ -30,20 +30,24 @@
 </script>
 
 <div class="toggle">
-	<div class="toggle__label">{label}</div>
+	<span class="toggle__label">{label}</span>
 	<button type="button" class="toggle__button" on:click={onClick}>{value ? 'ON' : 'OFF'}</button>
 </div>
 
 <style lang="scss">
-	.toggle {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
+	@import '../../../style/utils/focus';
 
-		padding: 10px 0;
+	.toggle {
+		$root: &;
+
+		--toggle-label-color: var(--color-primary);
 
 		&__button {
 			cursor: pointer;
+
+			@include focus(--toggle-label-color);
 		}
+
+
 	}
 </style>

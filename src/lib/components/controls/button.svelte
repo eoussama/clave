@@ -132,6 +132,8 @@
 </button>
 
 <style lang="scss">
+	@import '../../../style/utils/focus';
+	
 	.btn {
 		$root: &;
 
@@ -241,6 +243,8 @@
 				width: 14px;
 			}
 		}
+
+		@include focus(--button-border-color);
 
 		@keyframes loader-spin {
 			from {

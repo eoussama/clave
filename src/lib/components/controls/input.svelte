@@ -51,6 +51,8 @@
 </label>
 
 <style lang="scss">
+	@import '../../../style/utils/focus';
+
 	.input {
 		$root: &;
 
@@ -73,23 +75,17 @@
 			color: var(--input-value-color);
 			background-color: var(--input-bg-color);
 
-			outline-color: transparent;
 			border: 1px solid var(--input-border-color);
 
 			transition-duration: 0.2s;
-			transition-property: border-color outline-offset;
+			transition-property: border-color;
 
 			&::placeholder {
 				color: var(--input-label-color);
 				font-weight: var(--font-weight-light);
 			}
 
-			&:focus {
-				--input-border-color: hsl(var(--color-primary-hsl), 70%);
-
-				outline-offset: 1px;
-				outline: 1px solid var(--input-border-color);
-			}
+			@include focus(--input-border-color);
 		}
 
 		&__error {
