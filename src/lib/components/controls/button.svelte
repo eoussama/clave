@@ -1,22 +1,17 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
+	import { onMount, createEventDispatcher } from 'svelte';
 	import FaCircleNotch from 'svelte-icons/fa/FaCircleNotch.svelte';
+
+	import { EnumHelper } from '@eoussama/firemitt';
 
 	import { ButtonType } from '$lib/core/enums/button-type.enum';
 	import type { TNullable } from '$lib/core/types/nullable.type';
-	import { EnumHelper } from '@eoussama/firemitt';
 
 	/**
 	 * @description
 	 * The button type
 	 */
 	export let type: ButtonType = ButtonType.Default;
-
-	/**
-	 * @description
-	 * If this is an icon only button
-	 */
-	export let iconOnly: boolean = false;
 
 	/**
 	 * @description
@@ -28,7 +23,7 @@
 	 * @description
 	 * The label of the button
 	 */
-	export let label: string = 'Click Me!';
+	export let label: TNullable<string>;
 
 	/**
 	 * @description
@@ -80,20 +75,32 @@
 
 	/**
 	 * @description
+	 * Checks if the button is icon only
+	 */
+	const isIconOnly = () => !label && icon;
+
+	/**
+	 * @description
 	 * Computed classes
 	 */
 	$: classes = `btn btn--${getTypeClass()}`;
+
+	onMount(async () => {
+		if (!icon && !label) {
+			label = 'Click Me!';
+		}
+	});
 </script>
 
 <button
 	class={classes}
-	class:btn--icon={iconOnly}
 	class:btn--loading={loading}
 	class:btn--disabled={disabled}
+	class:btn--icon={isIconOnly()}
 	disabled={disabled || loading}
 	on:click={onClick}
 >
-	<!-- {#if icon}
+	{#if hasIcon()}
 		<div class="btn__icon">
 			{#if loading}
 				<FaCircleNotch />
@@ -101,21 +108,13 @@
 				<svelte:component this={icon} />
 			{/if}
 		</div>
-	{/if} -->
-
-	{#if hasIcon()}
-		<div class="btn__icon">
-			{#if loading}
-				<FaCircleNotch />
-			<!-- {:else}
-				<svelte:component this={icon} /> -->
-			{/if}
-		</div>
 	{/if}
 
-	<span class="btn__label">
-		{loading ? loadingLabel ?? label : label}
-	</span>
+	{#if label}
+		<span class="btn__label">
+			{loading ? loadingLabel ?? label : label}
+		</span>
+	{/if}
 </button>
 
 <style lang="scss">
@@ -211,29 +210,29 @@
 			}
 		}
 
-		// &--icon {
-		// 	border: none;
-		// 	padding: 5px;
+		&--icon {
+			// 	border: none;
+			// 	padding: 5px;
 
-		// 	--button-text-color: var(--color-primary);
-		// 	--button-bg-color: hsl(var(--color-secondary-hsl), 95%);
+			// 	--button-text-color: var(--color-primary);
+			// 	--button-bg-color: hsl(var(--color-secondary-hsl), 95%);
 
-		// 	#{$root}__icon {
-		// 		margin-right: 0;
-		// 	}
+			#{$root}__icon {
+				margin-right: 0;
+			}
 
-		// 	&:hover:not(:disabled) {
-		// 		--button-bg-color: hsl(var(--color-secondary-hsl), 80%);
-		// 	}
+			// 	&:hover:not(:disabled) {
+			// 		--button-bg-color: hsl(var(--color-secondary-hsl), 80%);
+			// 	}
 
-		// 	&.btn--primary {
-		// 		--button-bg-color: hsl(var(--color-primary-hsl), 88%);
+			// 	&.btn--primary {
+			// 		--button-bg-color: hsl(var(--color-primary-hsl), 88%);
 
-		// 		&:hover:not(:disabled) {
-		// 			--button-bg-color: hsl(var(--color-primary-hsl), 84%);
-		// 		}
-		// 	}
-		// }
+			// 		&:hover:not(:disabled) {
+			// 			--button-bg-color: hsl(var(--color-primary-hsl), 84%);
+			// 		}
+			// 	}
+		}
 
 		@keyframes loader-spin {
 			from {

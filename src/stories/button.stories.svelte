@@ -22,4 +22,5 @@
 <Story name="Secondary" args={{ type: ButtonType.Secondary, label: 'Secondary' }} />
 <Story name="Disabled" args={{ disabled: true, label: 'Disabled' }} />
 <Story name="Loading" args={{ loading: true, loadingLabel: 'Loading...' }} />
-<Story name="Icon" args={{ icon: MdPlayArrow, label: 'Play' }} />
+<Story name="Icon & Text" args={{ icon: MdPlayArrow, label: 'Play' }} />
+<Story name="Icon" args={{ icon: MdPlayArrow }} />
