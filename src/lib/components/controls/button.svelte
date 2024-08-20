@@ -108,7 +108,7 @@
 		$root: &;
 
 		--button-bg-color: transparent;
-		--button-text-color: var(--color-primary);
+		--button-text-color: hsl(var(--color-primary-hsl), 70%);
 		--button-border-color: hsl(var(--color-primary-hsl), 80%);
 
 		cursor: pointer;
@@ -119,7 +119,7 @@
 		// justify-content: center;
 
 		padding: 8px 10px;
-		border-radius: 5px;
+		border-radius: 4px;
 
 		color: var(--button-text-color);
 		background-color: var(--button-bg-color);
@@ -140,13 +140,13 @@
 		// 	margin-right: 12px;
 		// }
 		
-		// &:disabled {
-		// 	cursor: not-allowed;
+		&:disabled {
+			cursor: not-allowed;
 			
-		// 	--button-text-color: #b9b9b9;
-		// 	--button-bg-color: transparent;
-		// 	--button-border-color: #eeeeee;
-		// }
+			--button-text-color: #b9b9b9;
+			--button-bg-color: transparent;
+			--button-border-color: #eeeeee;
+		}
 
 		&:hover:not(:disabled) {
 			--button-bg-color: hsl(var(--color-primary-hsl), 96%);
