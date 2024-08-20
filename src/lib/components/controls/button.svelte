@@ -17,7 +17,7 @@
 	 * If this is an icon only button
 	 */
 	export let iconOnly: boolean = false;
-	
+
 	/**
 	 * @description
 	 * If the button is disabled
@@ -74,6 +74,12 @@
 
 	/**
 	 * @description
+	 * Checks if the button has an icon
+	 */
+	const hasIcon = () => loading || icon;
+
+	/**
+	 * @description
 	 * Computed classes
 	 */
 	$: classes = `btn btn--${getTypeClass()}`;
@@ -97,10 +103,19 @@
 		</div>
 	{/if} -->
 
-	<!-- {#if !iconOnly}
-		<div class="btn__label">{loading ? loadingLabel ?? label : label}</div>
-	{/if} -->
-	<span class="btn__label">{label}</span>
+	{#if hasIcon()}
+		<div class="btn__icon">
+			{#if loading}
+				<FaCircleNotch />
+			<!-- {:else}
+				<svelte:component this={icon} /> -->
+			{/if}
+		</div>
+	{/if}
+
+	<span class="btn__label">
+		{loading ? loadingLabel ?? label : label}
+	</span>
 </button>
 
 <style lang="scss">
@@ -113,10 +128,10 @@
 
 		cursor: pointer;
 
-		// display: flex;
-		// flex-direction: row;
-		// align-items: center;
-		// justify-content: center;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
 
 		padding: 8px 10px;
 		border-radius: 4px;
@@ -133,16 +148,16 @@
 			font-weight: var(--font-weight-regular);
 		}
 
-		// &__icon {
-		// 	display: flex;
+		&__icon {
+			display: flex;
 
-		// 	width: 16px;
-		// 	margin-right: 12px;
-		// }
-		
+			width: 16px;
+			margin-right: 8px;
+		}
+
 		&:disabled {
 			cursor: not-allowed;
-			
+
 			--button-text-color: #b9b9b9;
 			--button-bg-color: transparent;
 			--button-border-color: #eeeeee;
@@ -184,17 +199,17 @@
 			}
 		}
 
-		// &--loading {
-		// 	cursor: wait !important;
+		&--loading {
+			cursor: wait !important;
 
-		// 	#{$root}__icon {
-		// 		animation-duration: 1s;
-		// 		animation-name: loader-spin;
-		// 		animation-fill-mode: forwards;
-		// 		animation-timing-function: linear;
-		// 		animation-iteration-count: infinite;
-		// 	}
-		// }
+			#{$root}__icon {
+				animation-duration: 1s;
+				animation-name: loader-spin;
+				animation-fill-mode: forwards;
+				animation-timing-function: linear;
+				animation-iteration-count: infinite;
+			}
+		}
 
 		// &--icon {
 		// 	border: none;
@@ -220,14 +235,14 @@
 		// 	}
 		// }
 
-		// @keyframes loader-spin {
-		// 	from {
-		// 		transform: rotate(0deg);
-		// 	}
+		@keyframes loader-spin {
+			from {
+				transform: rotate(0deg);
+			}
 
-		// 	to {
-		// 		transform: rotate(360deg);
-		// 	}
-		// }
+			to {
+				transform: rotate(360deg);
+			}
+		}
 	}
 </style>
