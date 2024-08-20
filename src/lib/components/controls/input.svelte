@@ -1,5 +1,7 @@
 <script lang="ts">
-	import { EnumHelper } from '@eoussama/firemitt';
+	import { fly } from 'svelte/transition';
+
+	import { EnumHelper, type TNullable } from '@eoussama/firemitt';
 
 	import { InputType } from '$lib/core/enums/input-type.enum';
 
@@ -17,12 +19,24 @@
 
 	/**
 	 * @description
+	 * If the input is in error state
+	 */
+	export let error: boolean = false;
+
+	/**
+	 * @description
+	 * The error message
+	 */
+	export let errorMsg: TNullable<string>;
+
+	/**
+	 * @description
 	 * The input type as text
 	 */
 	const getType = (): string => EnumHelper.getName(InputType, type).toLowerCase();
 </script>
 
-<label class="input">
+<label class="input" class:input--error={error}>
 	<input
 		type={getType()}
 		placeholder={label}
@@ -30,6 +44,10 @@
 		autocorrect="off"
 		autocapitalize="off"
 	/>
+
+	{#if errorMsg && error}
+		<div class="input__error" transition:fly={{ x: 5, duration: 200 }}>{errorMsg}</div>
+	{/if}
 </label>
 
 <style lang="scss">
@@ -72,6 +90,21 @@
 				outline-offset: 1px;
 				outline: 1px solid var(--input-border-color);
 			}
+		}
+
+		&__error {
+			padding: 0 5px;
+			margin-top: 2px;
+
+			font-size: 12px;
+			color: var(--color-failure);
+		}
+
+		&--error {
+			--input-value-color: var(--color-failure);
+			--input-bg-color: hsl(var(--color-failure-hsl), 95%);
+			--input-label-color: hsl(var(--color-failure-hsl), 70%);
+			--input-border-color: hsl(var(--color-failure-hsl), 93%);
 		}
 	}
 </style>
