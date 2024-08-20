@@ -152,21 +152,21 @@
 			--button-bg-color: hsl(var(--color-primary-hsl), 96%);
 		}
 
-		// &--primary {
-		// 	--button-text-color: var(--color-primary);
-		// 	--button-bg-color: hsl(var(--color-primary-hsl), 90%);
-		// 	--button-border-color: hsl(var(--color-primary-hsl), 90%);
+		&--primary {
+			--button-text-color: var(--color-primary);
+			--button-bg-color: hsl(var(--color-primary-hsl), 92%);
+			--button-border-color: hsl(var(--color-primary-hsl), 92%);
 
-		// 	&:disabled {
-		// 		--button-text-color: #b9b9b9;
-		// 		--button-bg-color: whitesmoke;
-		// 		--button-border-color: whitesmoke;
-		// 	}
+			&:disabled {
+				--button-text-color: #b9b9b9;
+				--button-bg-color: whitesmoke;
+				--button-border-color: whitesmoke;
+			}
 
-		// 	&:hover:not(:disabled) {
-		// 		--button-bg-color: hsl(var(--color-primary-hsl), 85%);
-		// 	}
-		// }
+			&:hover:not(:disabled) {
+				--button-bg-color: hsl(var(--color-primary-hsl), 85%);
+			}
+		}
 
 		// &--secondary {
 		// 	--button-bg-color: var(--color-secondary);
