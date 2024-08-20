@@ -168,21 +168,21 @@
 			}
 		}
 
-		// &--secondary {
-		// 	--button-bg-color: var(--color-secondary);
-		// 	--button-border-color: var(--color-secondary);
-		// 	--button-text-color: hsl(var(--color-secondary-hsl), 35%);
+		&--secondary {
+			--button-text-color: var(--color-secondary);
+			--button-bg-color: hsl(var(--color-secondary-hsl), 42%);
+			--button-border-color: hsl(var(--color-secondary-hsl), 42%);
 
-		// 	&:disabled {
-		// 		--button-text-color: #b9b9b9;
-		// 		--button-bg-color: whitesmoke;
-		// 		--button-border-color: whitesmoke;
-		// 	}
+			&:disabled {
+				--button-text-color: #b9b9b9;
+				--button-bg-color: whitesmoke;
+				--button-border-color: whitesmoke;
+			}
 
-		// 	&:hover:not(:disabled) {
-		// 		--button-bg-color: hsl(var(--color-secondary-hsl), 85%);
-		// 	}
-		// }
+			&:hover:not(:disabled) {
+				--button-bg-color: hsl(var(--color-secondary-hsl), 44%);
+			}
+		}
 
 		// &--loading {
 		// 	cursor: wait !important;
