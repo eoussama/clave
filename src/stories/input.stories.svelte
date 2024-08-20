@@ -9,7 +9,6 @@
 
 <script>
 	import { Story, Template } from '@storybook/addon-svelte-csf';
-	import { error } from '@sveltejs/kit';
 </script>
 
 <Template let:args>

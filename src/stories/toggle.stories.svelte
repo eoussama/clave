@@ -1,0 +1,18 @@
+<script context="module">
+	import Toggle from '$lib/components/controls/toggle.svelte';
+
+	export const meta = {
+		title: 'Toggle',
+		component: Toggle
+	};
+</script>
+
+<script>
+	import { Story, Template } from '@storybook/addon-svelte-csf';
+</script>
+
+<Template let:args>
+	<Toggle {...args} />
+</Template>
+
+<Story name="Default" args={{ label: 'Default' }} />
