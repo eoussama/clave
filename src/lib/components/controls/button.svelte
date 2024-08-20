@@ -5,6 +5,8 @@
 	import { EnumHelper } from '@eoussama/firemitt';
 
 	import { ButtonType } from '$lib/core/enums/button-type.enum';
+	import { ButtonSize } from '$lib/core/enums/button-size.enum';
+
 	import type { TNullable } from '$lib/core/types/nullable.type';
 
 	/**
@@ -12,6 +14,12 @@
 	 * The button type
 	 */
 	export let type: ButtonType = ButtonType.Default;
+
+	/**
+	 * @description
+	 * The button size
+	 */
+	export let size: ButtonSize = ButtonSize.Default;
 
 	/**
 	 * @description
@@ -69,6 +77,12 @@
 
 	/**
 	 * @description
+	 * Gets the size css class
+	 */
+	const getSizeClass = () => EnumHelper.getName(ButtonSize, size).toLowerCase();
+
+	/**
+	 * @description
 	 * Checks if the button has an icon
 	 */
 	const hasIcon = () => loading || icon;
@@ -83,7 +97,7 @@
 	 * @description
 	 * Computed classes
 	 */
-	$: classes = `btn btn--${getTypeClass()}`;
+	$: classes = `btn btn--${getTypeClass()} btn--${getSizeClass()}`;
 
 	onMount(async () => {
 		if (!icon && !label) {
@@ -211,27 +225,21 @@
 		}
 
 		&--icon {
-			// 	border: none;
-			// 	padding: 5px;
-
-			// 	--button-text-color: var(--color-primary);
-			// 	--button-bg-color: hsl(var(--color-secondary-hsl), 95%);
-
 			#{$root}__icon {
 				margin-right: 0;
 			}
+		}
 
-			// 	&:hover:not(:disabled) {
-			// 		--button-bg-color: hsl(var(--color-secondary-hsl), 80%);
-			// 	}
+		&--small {
+			padding: 4px;
 
-			// 	&.btn--primary {
-			// 		--button-bg-color: hsl(var(--color-primary-hsl), 88%);
+			#{$root}__label {
+				font-size: 12px;
+			}
 
-			// 		&:hover:not(:disabled) {
-			// 			--button-bg-color: hsl(var(--color-primary-hsl), 84%);
-			// 		}
-			// 	}
+			#{$root}__icon {
+				width: 14px;
+			}
 		}
 
 		@keyframes loader-spin {

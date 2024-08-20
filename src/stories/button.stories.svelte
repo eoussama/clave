@@ -11,6 +11,7 @@
 <script>
   import { Story, Template } from '@storybook/addon-svelte-csf';
 	import { ButtonType } from '$lib/core/enums/button-type.enum';
+	import { ButtonSize } from '$lib/core/enums/button-size.enum';
 </script>
 
 <Template let:args>
@@ -24,3 +25,4 @@
 <Story name="Loading" args={{ loading: true, loadingLabel: 'Loading...' }} />
 <Story name="Icon & Text" args={{ icon: MdPlayArrow, label: 'Play' }} />
 <Story name="Icon" args={{ icon: MdPlayArrow }} />
+<Story name="Size" args={{ size: ButtonSize.Small, label: 'Small' }} />
