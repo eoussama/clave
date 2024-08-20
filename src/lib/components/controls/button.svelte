@@ -100,7 +100,7 @@
 	<!-- {#if !iconOnly}
 		<div class="btn__label">{loading ? loadingLabel ?? label : label}</div>
 	{/if} -->
-	{label}
+	<span class="btn__label">{label}</span>
 </button>
 
 <style lang="scss">
@@ -109,30 +109,29 @@
 
 		--button-bg-color: transparent;
 		--button-text-color: var(--color-primary);
-		--button-border-color: rgba(var(--color-primary-rgb), 0.3);
+		--button-border-color: hsl(var(--color-primary-hsl), 80%);
 
 		cursor: pointer;
 
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: center;
+		// display: flex;
+		// flex-direction: row;
+		// align-items: center;
+		// justify-content: center;
 
-		margin: auto;
-		padding: 10px;
-
-		max-width: 250px;
+		padding: 8px 10px;
 		border-radius: 5px;
 
 		color: var(--button-text-color);
 		background-color: var(--button-bg-color);
 		border: 1px solid var(--button-border-color);
 
-		font-family: var(--font-family-primary);
-		font-weight: var(--font-weight-regular);
-
 		transition-duration: 0.2s;
 		transition-property: background-color;
+
+		&__label {
+			font-family: var(--font-family-primary);
+			font-weight: var(--font-weight-regular);
+		}
 
 		// &__icon {
 		// 	display: flex;
@@ -149,9 +148,9 @@
 		// 	--button-border-color: #eeeeee;
 		// }
 
-		// &:hover:not(:disabled) {
-		// 	--button-bg-color: hsl(var(--color-primary-hsl), 96%);
-		// }
+		&:hover:not(:disabled) {
+			--button-bg-color: hsl(var(--color-primary-hsl), 96%);
+		}
 
 		// &--primary {
 		// 	--button-text-color: var(--color-primary);
