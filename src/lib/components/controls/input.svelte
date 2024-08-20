@@ -23,25 +23,30 @@
 </script>
 
 <label class="input">
-	<input class="input__input" type={getType()} placeholder={label} />
+	<input
+		type={getType()}
+		placeholder={label}
+		class="input__input"
+		autocorrect="off"
+		autocapitalize="off"
+	/>
 </label>
 
 <style lang="scss">
 	.input {
 		$root: &;
 
-		--input-bg-color: transparent;
 		--input-value-color: var(--color-primary);
+		--input-bg-color: hsl(var(--color-primary-hsl), 95%);
 		--input-label-color: hsl(var(--color-primary-hsl), 70%);
-		--input-border-color: hsl(var(--color-primary-hsl), 80%);
+		--input-border-color: hsl(var(--color-primary-hsl), 93%);
+
+		cursor: text;
 
 		&__input {
 			border: none;
 			padding: 8px 10px;
 			border-radius: 4px;
-
-			// width: 100%;
-			// height: 100%;
 
 			font-size: 14px;
 			font-weight: var(--font-weight-regular);
@@ -49,7 +54,12 @@
 
 			color: var(--input-value-color);
 			background-color: var(--input-bg-color);
+
+			outline-color: transparent;
 			border: 1px solid var(--input-border-color);
+
+			transition-duration: 0.2s;
+			transition-property: border-color outline-offset;
 
 			&::placeholder {
 				color: var(--input-label-color);
@@ -57,7 +67,10 @@
 			}
 
 			&:focus {
-				outline: none;
+				--input-border-color: hsl(var(--color-primary-hsl), 70%);
+
+				outline-offset: 1px;
+				outline: 1px solid var(--input-border-color);
 			}
 		}
 	}
