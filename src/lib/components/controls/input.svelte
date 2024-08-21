@@ -13,6 +13,12 @@
 
 	/**
 	 * @description
+	 * The input value
+	 */
+	export let value: string = '';
+
+	/**
+	 * @description
 	 * The input type
 	 */
 	export let type: InputType = InputType.Text;
@@ -37,19 +43,31 @@
 
 	/**
 	 * @description
+	 * If the input is readonly
+	 */
+	export let readonly: boolean = false;
+
+	/**
+	 * @description
 	 * The input type as text
 	 */
 	const getType = (): string => EnumHelper.getName(InputType, type).toLowerCase();
 </script>
 
-<label class="input" class:input--error={error} class:input--disabled={disabled}>
+<label
+	class="input"
+	class:input--error={error}
+	class:input--disabled={disabled}
+	class:input--readonly={readonly}
+>
 	<input
-		{disabled}
+		{value}
 		type={getType()}
-		placeholder={label}
-		class="input__input"
 		autocorrect="off"
+		placeholder={label}
 		autocapitalize="off"
+		class="input__input"
+		disabled={disabled || readonly}
 	/>
 
 	{#if errorMsg && error}
