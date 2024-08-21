@@ -15,6 +15,12 @@
 
 	/**
 	 * @description
+	 * If the toggle is disabled
+	 */
+	export let disabled: boolean = false;
+
+	/**
+	 * @description
 	 * Event dispatcher
 	 */
 	const dispatch = createEventDispatcher();
@@ -29,9 +35,9 @@
 	};
 </script>
 
-<div class="toggle">
+<div class="toggle" class:toggle--disabled={disabled}>
 	<span class="toggle__label">{label}</span>
-	<button class="toggle__button" type="button" on:click={onClick}>
+	<button class="toggle__button" type="button" {disabled} on:click={onClick}>
 		<div class="toggle__lobe" class:toggle__lobe--on={value}></div>
 	</button>
 </div>
@@ -90,21 +96,33 @@
 				}
 			}
 
-			&:hover,
-			&:active {
+			&:hover:not(:disabled) {
 				--toggle-bg-color: hsl(var(--color-primary-hsl), 95%);
 				--toggle-border-color: hsl(var(--color-primary-hsl), 75%);
 
-				#{$root}__lobe {
-					width: 22px;
+				&:active {
+					#{$root}__lobe {
+						width: 22px;
 
-					&--on {
-						left: calc(100% - 22px + 4px);
+						&--on {
+							left: calc(100% - 22px + 4px);
+						}
 					}
 				}
 			}
 
 			@include focus(--toggle-label-color);
+		}
+
+		&--disabled {
+			--toggle-bg-color: transparent;
+			--toggle-label-color: #b9b9b9;
+			--toggle-lobe-color: #eeeeee;
+			--toggle-border-color: #eeeeee;
+
+			#{$root}__button {
+				cursor: not-allowed;
+			}
 		}
 	}
 </style>

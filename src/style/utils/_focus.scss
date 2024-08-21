@@ -1,11 +1,12 @@
-@mixin focus( $variable: --border-color, $color: hsl(var(--color-primary-hsl), 70%)) {
+@mixin focus($variable: --border-color, $color: hsl(var(--color-primary-hsl), 70%)) {
   outline-color: transparent;
 
-  &:focus {
+  &:focus:not(:disabled) {
     #{$variable}: $color;
 
     outline-offset: 1px;
     outline: 1px solid var(#{$variable});
-    transition-property: #{transition-property}, outline-offset;
+    transition-property: #{transition-property},
+    outline-offset;
   }
 }
