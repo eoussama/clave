@@ -31,13 +31,20 @@
 
 	/**
 	 * @description
+	 * If the input is disabled
+	 */
+	export let disabled: boolean = false;
+
+	/**
+	 * @description
 	 * The input type as text
 	 */
 	const getType = (): string => EnumHelper.getName(InputType, type).toLowerCase();
 </script>
 
-<label class="input" class:input--error={error}>
+<label class="input" class:input--error={error} class:input--disabled={disabled}>
 	<input
+		{disabled}
 		type={getType()}
 		placeholder={label}
 		class="input__input"
@@ -101,6 +108,21 @@
 			--input-bg-color: hsl(var(--color-failure-hsl), 95%);
 			--input-label-color: hsl(var(--color-failure-hsl), 70%);
 			--input-border-color: hsl(var(--color-failure-hsl), 93%);
+		}
+
+		&--disabled {
+			--input-value-color: #b9b9b9;
+			--input-bg-color: #eeeeee;
+			--input-label-color: #b9b9b9;
+			--input-border-color: #eeeeee;
+
+			#{$root}__input {
+				cursor: not-allowed;
+			}
+
+			#{$root}__error {
+				display: none;
+			}
 		}
 	}
 </style>
