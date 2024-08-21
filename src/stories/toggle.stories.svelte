@@ -17,3 +17,4 @@
 
 <Story name="Default" args={{ label: 'Default' }} />
 <Story name="Disabled" args={{ label: 'Disabled', disabled: true }} />
+<Story name="Readonly" args={{ label: 'Readonly', readonly: true, value: true }} />

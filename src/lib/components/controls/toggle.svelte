@@ -21,6 +21,12 @@
 
 	/**
 	 * @description
+	 * If the toggle is readonly
+	 */
+	export let readonly: boolean = false;
+
+	/**
+	 * @description
 	 * Event dispatcher
 	 */
 	const dispatch = createEventDispatcher();
@@ -35,9 +41,9 @@
 	};
 </script>
 
-<div class="toggle" class:toggle--disabled={disabled}>
+<div class="toggle" class:toggle--disabled={disabled} class:toggle--readonly={readonly}>
 	<span class="toggle__label">{label}</span>
-	<button class="toggle__button" type="button" {disabled} on:click={onClick}>
+	<button class="toggle__button" type="button" disabled={disabled || readonly} on:click={onClick}>
 		<div class="toggle__lobe" class:toggle__lobe--on={value}></div>
 	</button>
 </div>
