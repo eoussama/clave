@@ -121,9 +121,9 @@
 		}
 
 		&--disabled {
-			--toggle-bg-color: transparent;
+			--toggle-bg-color: #eeeeee;
 			--toggle-label-color: #b9b9b9;
-			--toggle-lobe-color: #eeeeee;
+			--toggle-lobe-color: #b9b9b9;
 			--toggle-border-color: #eeeeee;
 
 			#{$root}__button {
