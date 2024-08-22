@@ -9,10 +9,17 @@
 
 <script>
 	import { Story, Template } from '@storybook/addon-svelte-csf';
+
+	const options = [
+		{ value: 1, label: 'Orange' },
+		{ value: 2, label: 'Apple' },
+		{ value: 3, label: 'Banana' },
+		{ value: 4, label: 'Grape' }
+	];
 </script>
 
 <Template let:args>
-	<Dropdown {...args} />
+	<Dropdown {options} {...args} />
 </Template>
 
 <Story name="Default" args={{ label: 'Default' }} />
