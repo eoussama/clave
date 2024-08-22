@@ -1,6 +1,8 @@
 <script lang="ts">
+	import { read } from '$app/server';
 	import type { TOption } from '$lib/core/types/option.type';
 	import { fly } from 'svelte/transition';
+	import Input from './input.svelte';
 
 	/**
 	 * @description
@@ -45,28 +47,27 @@
 	export let errorMsg: string = '';
 </script>
 
-<div
-	class="dropdown"
-	class:dropdown--error={error}
-	class:dropdown--disabled={disabled}
-	class:dropdown--readonly={readonly}
->
-	<select {value} class="dropdown__select" disabled={disabled || readonly}>
-		<option class="dropdown__label" value="">
-			{label}
-		</option>
-
-		{#each options as option}
-			<option class="dropdown__value" value={option.value}>
-				{option.label}
+{#if !readonly}
+	<div class="dropdown" class:dropdown--error={error} class:dropdown--disabled={disabled}>
+		<select {value} class="dropdown__select" {disabled}>
+			<option class="dropdown__label" value="">
+				{label}
 			</option>
-		{/each}
-	</select>
 
-	{#if errorMsg && error}
-		<div class="dropdown__error" transition:fly={{ x: 5, duration: 200 }}>{errorMsg}</div>
-	{/if}
-</div>
+			{#each options as option}
+				<option class="dropdown__value" value={option.value}>
+					{option.label}
+				</option>
+			{/each}
+		</select>
+
+		{#if errorMsg && error}
+			<div class="dropdown__error" transition:fly={{ x: 5, duration: 200 }}>{errorMsg}</div>
+		{/if}
+	</div>
+{:else}
+	<Input {label} {value} {readonly} {disabled} {error} {errorMsg} />
+{/if}
 
 <style lang="scss">
 	@import '../../../style/utils/focus';
@@ -118,10 +119,6 @@
 
 			font-size: 12px;
 			color: var(--color-failure);
-		}
-
-		&--readonly #{$root}__select {
-			cursor: default;
 		}
 
 		&--disabled {
