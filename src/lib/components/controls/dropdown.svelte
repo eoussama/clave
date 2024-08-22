@@ -67,8 +67,9 @@
 	.dropdown {
 		$root: &;
 
+		--dropdown-value-color: var(--color-primary);
 		--dropdown-bg-color: hsl(var(--color-primary-hsl), 95%);
-		--dropdown-text-color: hsl(var(--color-primary-hsl), 70%);
+		--dropdown-label-color: hsl(var(--color-primary-hsl), 70%);
 		--dropdown-border-color: hsl(var(--color-primary-hsl), 93%);
 
 		cursor: pointer;
@@ -81,13 +82,26 @@
 		font-weight: var(--font-weight-regular);
 		font-family: var(--font-family-primary);
 
-		color: var(--dropdown-text-color);
+		color: var(--dropdown-label-color);
 		background-color: var(--dropdown-bg-color);
 
 		border: 1px solid var(--dropdown-border-color);
 
 		transition-duration: 0.2s;
 		transition-property: border-color;
+
+		&--readonly {
+			cursor: default;
+		}
+
+		&--disabled {
+			cursor: not-allowed;
+
+			--dropdown-bg-color: #eeeeee;
+			--dropdown-label-color: #b9b9b9;
+			--dropdown-value-color: #b9b9b9;
+			--dropdown-border-color: #eeeeee;
+		}
 
 		@include focus(--dropdown-border-color);
 	}
