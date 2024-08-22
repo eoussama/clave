@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { TOption } from '$lib/core/types/option.type';
+	import { fly } from 'svelte/transition';
 
 	/**
 	 * @description
@@ -44,22 +45,26 @@
 	export let errorMsg: string = '';
 </script>
 
-<select
-	{value}
+<div
 	class="dropdown"
-	disabled={disabled || readonly}
 	class:dropdown--error={error}
 	class:dropdown--disabled={disabled}
 	class:dropdown--readonly={readonly}
 >
-	<option value="">{label}</option>
+	<select {value} class="dropdown__select" disabled={disabled || readonly}>
+		<option value="">{label}</option>
 
-	{#each options as option}
-		<option value={option.value}>
-			{option.label}
-		</option>
-	{/each}
-</select>
+		{#each options as option}
+			<option value={option.value}>
+				{option.label}
+			</option>
+		{/each}
+	</select>
+
+	{#if errorMsg && error}
+		<div class="dropdown__error" transition:fly={{ x: 5, duration: 200 }}>{errorMsg}</div>
+	{/if}
+</div>
 
 <style lang="scss">
 	@import '../../../style/utils/focus';
@@ -72,37 +77,60 @@
 		--dropdown-label-color: hsl(var(--color-primary-hsl), 70%);
 		--dropdown-border-color: hsl(var(--color-primary-hsl), 93%);
 
-		cursor: pointer;
+		&__select {
+			cursor: pointer;
 
-		border: none;
-		padding: 8px 10px;
-		border-radius: 4px;
+			border: none;
+			padding: 8px 10px;
+			border-radius: 4px;
 
-		font-size: 14px;
-		font-weight: var(--font-weight-regular);
-		font-family: var(--font-family-primary);
+			font-size: 14px;
+			font-weight: var(--font-weight-regular);
+			font-family: var(--font-family-primary);
 
-		color: var(--dropdown-label-color);
-		background-color: var(--dropdown-bg-color);
+			color: var(--dropdown-label-color);
+			background-color: var(--dropdown-bg-color);
 
-		border: 1px solid var(--dropdown-border-color);
+			border: 1px solid var(--dropdown-border-color);
 
-		transition-duration: 0.2s;
-		transition-property: border-color;
+			transition-duration: 0.2s;
+			transition-property: border-color;
 
-		&--readonly {
+			@include focus(--dropdown-border-color);
+		}
+
+		&__error {
+			padding: 0 5px;
+			margin-top: 2px;
+
+			font-size: 12px;
+			color: var(--color-failure);
+		}
+
+		&--readonly #{$root}__select {
 			cursor: default;
 		}
 
 		&--disabled {
-			cursor: not-allowed;
-
 			--dropdown-bg-color: #eeeeee;
 			--dropdown-label-color: #b9b9b9;
 			--dropdown-value-color: #b9b9b9;
 			--dropdown-border-color: #eeeeee;
+
+			#{$root}__select {
+				cursor: not-allowed;
+			}
+
+			#{$root}__error {
+				display: none;
+			}
 		}
 
-		@include focus(--dropdown-border-color);
+		&--error {
+			--dropdown-value-color: var(--color-failure);
+			--dropdown-bg-color: hsl(var(--color-failure-hsl), 95%);
+			--dropdown-label-color: hsl(var(--color-failure-hsl), 70%);
+			--dropdown-border-color: hsl(var(--color-failure-hsl), 93%);
+		}
 	}
 </style>
