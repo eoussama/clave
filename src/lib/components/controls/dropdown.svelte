@@ -52,10 +52,12 @@
 	class:dropdown--readonly={readonly}
 >
 	<select {value} class="dropdown__select" disabled={disabled || readonly}>
-		<option value="">{label}</option>
+		<option class="dropdown__label" value="">
+			{label}
+		</option>
 
 		{#each options as option}
-			<option value={option.value}>
+			<option class="dropdown__value" value={option.value}>
 				{option.label}
 			</option>
 		{/each}
@@ -77,24 +79,35 @@
 		--dropdown-label-color: hsl(var(--color-primary-hsl), 70%);
 		--dropdown-border-color: hsl(var(--color-primary-hsl), 93%);
 
+		display: inline;
+
 		&__select {
 			cursor: pointer;
 
+			max-height: 37px;
+
 			border: none;
-			padding: 8px 10px;
+			padding: 7px 6px;
 			border-radius: 4px;
 
 			font-size: 14px;
-			font-weight: var(--font-weight-regular);
+			font-weight: var(--font-weight-light);
 			font-family: var(--font-family-primary);
 
 			color: var(--dropdown-label-color);
 			background-color: var(--dropdown-bg-color);
-
 			border: 1px solid var(--dropdown-border-color);
 
 			transition-duration: 0.2s;
 			transition-property: border-color;
+
+			#{$root}__value {
+				color: var(--dropdown-value-color);
+			}
+
+			&:disabled {
+				opacity: 1;
+			}
 
 			@include focus(--dropdown-border-color);
 		}

@@ -189,8 +189,8 @@
 
 			&:disabled {
 				--button-text-color: #b9b9b9;
-				--button-bg-color: whitesmoke;
-				--button-border-color: whitesmoke;
+				--button-bg-color: #eeeeee;
+				--button-border-color: #eeeeee;
 			}
 
 			&:hover:not(:disabled) {
@@ -205,8 +205,8 @@
 
 			&:disabled {
 				--button-text-color: #b9b9b9;
-				--button-bg-color: whitesmoke;
-				--button-border-color: whitesmoke;
+				--button-bg-color: #eeeeee;
+				--button-border-color: #eeeeee;
 			}
 
 			&:hover:not(:disabled) {
