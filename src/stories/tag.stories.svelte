@@ -1,0 +1,18 @@
+<script context="module">
+	import Tag from '$lib/components/controls/tag.svelte';
+
+	export const meta = {
+		title: 'Tag',
+		component: Tag
+	};
+</script>
+
+<script>
+	import { Story, Template } from '@storybook/addon-svelte-csf';
+</script>
+
+<Template let:args>
+	<Tag {...args} />
+</Template>
+
+<Story name="Default" args={{ label: 'Default' }} />
