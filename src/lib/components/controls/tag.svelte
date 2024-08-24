@@ -88,6 +88,7 @@
 
 		&__text {
 			font-size: 10px;
+			text-transform: uppercase;
 			font-weight: var(--font-weight-light);
 		}
 
