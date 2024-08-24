@@ -15,4 +15,4 @@
 	<Tag {...args} />
 </Template>
 
-<Story name="Default" args={{ label: 'Default' }} />
+<Story name="Default" args={{ tag: { text: 'Default' } }} />

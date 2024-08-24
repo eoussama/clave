@@ -85,7 +85,7 @@
 <ul class="tags">
 	{#each value as tag}
 		<li class="tag-item">
-			<button class="tag" type="button" on:click={() => deleteTag(tag)}>{tag.name}</button>
+			<button class="tag" type="button" on:click={() => deleteTag(tag)}>{tag.text}</button>
 		</li>
 	{/each}
 
