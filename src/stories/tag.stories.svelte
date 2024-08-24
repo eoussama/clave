@@ -16,3 +16,5 @@
 </Template>
 
 <Story name="Default" args={{ tag: { text: 'Default' } }} />
+<Story name="Disabled" args={{ tag: { text: 'Disabled' }, disabled: true }} />
+<Story name="Readonly" args={{ tag: { text: 'Readonly' }, readonly: true }} />

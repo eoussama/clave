@@ -46,17 +46,18 @@
 	class="tag"
 	class:tag--disabled={disabled}
 	class:tag--readonly={readonly}
+	disabled={disabled || readonly}
 	on:click={onClick}
 >
 	<span class="tag__text">
 		{tag.text}
 	</span>
 
-	<span class="tag__remove">
-		{#if !readonly && !disabled}
+	{#if !readonly && !disabled}
+		<span class="tag__remove">
 			<MdRemove />
-		{/if}
-	</span>
+		</span>
+	{/if}
 </button>
 
 <style lang="scss">
@@ -68,6 +69,8 @@
 		--tag-border-color: hsl(var(--color-primary-hsl), 80%);
 
 		cursor: pointer;
+
+		height: 20px;
 
 		display: inline-flex;
 		align-items: center;
@@ -81,7 +84,7 @@
 		border: 1px solid var(--tag-border-color);
 
 		transition-duration: 0.2s;
-		transition-property: background-color;
+		transition-property: background-color border-color color;
 
 		&__text {
 			font-size: 10px;
@@ -89,10 +92,30 @@
 		}
 
 		&__remove {
-			width: 12px;
-			height: 12px;
+			width: 100%;
+			height: 100%;
+
+			display: flex;
 
 			margin-left: 4px;
+		}
+
+		&--disabled {
+			--tag-bg-color: transparent;
+			--tag-text-color: #b9b9b9;
+			--tag-border-color: #eeeeee;
+
+			cursor: not-allowed;
+		}
+
+		&--readonly {
+			cursor: default;
+		}
+
+		&:hover:not(:disabled) {
+			--tag-bg-color: hsl(var(--color-failure-hsl), 96%);
+			--tag-text-color: hsl(var(--color-failure-hsl), 70%);
+			--tag-border-color: hsl(var(--color-failure-hsl), 80%);
 		}
 	}
 </style>
