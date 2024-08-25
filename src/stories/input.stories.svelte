@@ -1,10 +1,26 @@
 <script context="module">
 	import Input from '$lib/components/controls/input.svelte';
 
+	import { InputType } from '$lib/core/enums/input-type.enum';
+	import { EnumHelper } from '$lib/core/helpers/enum.helper';
+
+	const inputTypesMapping = EnumHelper.toObject(InputType);
+
 	export const meta = {
 		title: 'Input',
 		component: Input,
-		tags: ['autodocs']
+		tags: ['autodocs'],
+		argTypes: {
+			type: {
+				control: { type: 'select' },
+				mapping: inputTypesMapping,
+				options: Object.keys(inputTypesMapping)
+			},
+			errorMsg: {
+				control: { type: 'text' },
+        if: { arg: 'error', truthy: true }
+			}
+		}
 	};
 </script>
 
