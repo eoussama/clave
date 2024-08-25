@@ -83,6 +83,12 @@
 
 	/**
 	 * @description
+	 * Gets the loading label
+	 */
+	const getLoadingLabel = () => (loadingLabel && loadingLabel?.length > 0) ? loadingLabel : label;
+
+	/**
+	 * @description
 	 * Checks if the button has an icon
 	 */
 	const hasIcon = () => loading || icon;
@@ -126,7 +132,7 @@
 
 	{#if label}
 		<span class="btn__label">
-			{loading ? loadingLabel ?? label : label}
+			{loading ? getLoadingLabel() : label}
 		</span>
 	{/if}
 </button>
