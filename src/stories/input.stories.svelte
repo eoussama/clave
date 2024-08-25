@@ -3,7 +3,8 @@
 
 	export const meta = {
 		title: 'Input',
-		component: Input
+		component: Input,
+		tags: ['autodocs']
 	};
 </script>
 

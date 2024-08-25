@@ -4,7 +4,8 @@
 
   export const meta = {
     title: 'Button',
-    component: Button
+    component: Button,
+    tags: ['autodocs']
   }
 </script>
 
