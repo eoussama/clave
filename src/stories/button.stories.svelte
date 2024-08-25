@@ -1,16 +1,37 @@
 <script context="module">
-  import MdPlayArrow from 'svelte-icons/md/MdPlayArrow.svelte';
-  import Button from '$lib/components/controls/button.svelte';
+	import MdPlayArrow from 'svelte-icons/md/MdPlayArrow.svelte';
+	import Button from '$lib/components/controls/button.svelte';
 
-  export const meta = {
-    title: 'Button',
-    component: Button,
-    tags: ['autodocs']
-  }
+	const buttonTypesMapping = EnumHelper.toObject(ButtonType);
+	const buttonSizesMapping = EnumHelper.toObject(ButtonSize);
+
+	export const meta = {
+		title: 'Button',
+		component: Button,
+		tags: ['autodocs'],
+		argTypes: {
+			type: {
+				control: { type: 'select' },
+				mapping: buttonTypesMapping,
+				options: Object.keys(buttonTypesMapping)
+			},
+			size: {
+        control: { type: 'radio' },
+				mapping: buttonSizesMapping,
+				options: Object.keys(buttonSizesMapping)
+			},
+      loadingLabel: {
+				control: { type: 'text' },
+        if: { arg: 'loading', truthy: true }
+			}
+		}
+	};
 </script>
 
 <script>
-  import { Story, Template } from '@storybook/addon-svelte-csf';
+	import { Story, Template } from '@storybook/addon-svelte-csf';
+
+	import { EnumHelper } from '$lib/core/helpers/enum.helper';
 	import { ButtonType } from '$lib/core/enums/button-type.enum';
 	import { ButtonSize } from '$lib/core/enums/button-size.enum';
 </script>
