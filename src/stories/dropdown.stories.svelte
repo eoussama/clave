@@ -4,7 +4,16 @@
 	export const meta = {
 		title: 'Dropdown',
 		component: Dropdown,
-		tags: ['autodocs']
+		tags: ['autodocs'],
+		argTypes: {
+			options: {
+				control: false
+			},
+			errorMsg: {
+				control: { type: 'text' },
+        if: { arg: 'error', truthy: true }
+			}
+		}
 	};
 </script>
 
@@ -12,7 +21,7 @@
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 
 	const options = [
-		{ value: 1, label: 'Orange' },
+	{ value: 1, label: 'Orange' },
 		{ value: 2, label: 'Apple' },
 		{ value: 3, label: 'Banana' },
 		{ value: 4, label: 'Grape' }

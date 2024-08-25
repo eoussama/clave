@@ -20,6 +20,9 @@
 				mapping: buttonSizesMapping,
 				options: Object.keys(buttonSizesMapping)
 			},
+      icon: {
+        control: false
+      },
       loadingLabel: {
 				control: { type: 'text' },
         if: { arg: 'loading', truthy: true }
