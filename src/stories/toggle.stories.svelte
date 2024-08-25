@@ -3,7 +3,8 @@
 
 	export const meta = {
 		title: 'Toggle',
-		component: Toggle
+		component: Toggle,
+		tags: ['autodocs']
 	};
 </script>
 
