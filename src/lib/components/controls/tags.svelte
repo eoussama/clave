@@ -26,6 +26,12 @@
 
 	/**
 	 * @description
+	 * If the component is readonly
+	 */
+	export let readonly: boolean = false;
+
+	/**
+	 * @description
 	 * If the input is in error state
 	 */
 	let error: boolean = false;
@@ -110,14 +116,18 @@
 </script>
 
 <span class="tags">
-	<div class="tags__input">
-		<Input {errorMsg} {error} {label} {disabled} bind:value={newTagtext} on:keyup={onKeyUp} />
-	</div>
+	{#if !readonly}
+		<div class="tags__input">
+			<Input {errorMsg} {error} {label} {disabled} bind:value={newTagtext} on:keyup={onKeyUp} />
+		</div>
+	{:else}
+		<h2 class="tags__label">{label}</h2>
+	{/if}
 
 	<ul class="tags__list">
 		{#each value as tag}
 			<li class="tags__item">
-				<Tag {tag} {disabled} on:remove={onDelete} />
+				<Tag {tag} {disabled} {readonly} on:remove={onDelete} />
 			</li>
 		{/each}
 	</ul>
@@ -127,8 +137,16 @@
 	.tags {
 		$root: &;
 
+		--tags-label-color: hsl(var(--color-primary-hsl), 70%);
+
 		&__input {
 			width: 100%;
+		}
+
+		&__label {
+			font-size: 12px;
+			color: var(--tags-label-color);
+			font-weight: var(--font-weight-bold);
 		}
 
 		&__list {
