@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
+	import { createEventDispatcher } from 'svelte';
 
 	import { EnumHelper, type TNullable } from '@eoussama/firemitt';
 
@@ -52,6 +53,32 @@
 	 * The input type as text
 	 */
 	const getType = (): string => EnumHelper.getName(InputType, type).toLowerCase();
+
+	/**
+	 * @description
+	 * Event dispatcher
+	 */
+	const dispatch = createEventDispatcher();
+
+	/**
+	 * @description
+	 * Button click event
+	 *
+	 * @param e Event object
+	 */
+	const onKeyUp = (e: KeyboardEvent) => {
+		if (!disabled && !readonly) {
+			dispatch('keyup', e.key.toLowerCase());
+		}
+	};
+
+	/***
+	 * @description
+	 * Sets the input type
+	 */
+	const typeAction = (node: HTMLInputElement) => {
+		node.type = getType();
+	};
 </script>
 
 <label
@@ -61,13 +88,14 @@
 	class:input--readonly={readonly}
 >
 	<input
-		{value}
-		type={getType()}
+		bind:value
+		use:typeAction
 		autocorrect="off"
 		placeholder={label}
 		autocapitalize="off"
 		class="input__input"
 		disabled={disabled || readonly}
+		on:keyup={onKeyUp}
 	/>
 
 	{#if errorMsg && error}
@@ -100,6 +128,7 @@
 			color: var(--input-value-color);
 			background-color: var(--input-bg-color);
 
+			width: 100%;
 			border: 1px solid var(--input-border-color);
 
 			transition-duration: 0.2s;
