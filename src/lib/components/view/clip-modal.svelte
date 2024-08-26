@@ -125,7 +125,7 @@
 				></textarea>
 
 				<Toggle label="Sensitive" bind:value={sensitive} />
-				<Tags placeholder="Tags" bind:value={tags} />
+				<Tags label="Tags" bind:value={tags} />
 			</div>
 
 			{#if !readonly}

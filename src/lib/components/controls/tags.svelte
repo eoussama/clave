@@ -1,12 +1,16 @@
 <script lang="ts">
-  import { v4 as uuid } from 'uuid';
+	import Tag from './tag.svelte';
+	import Input from './input.svelte';
+
+	import { TagHelper } from '$lib/core/helpers/tag.helper';
+
 	import type { TTag } from '$lib/core/types/tag.type';
 
 	/**
 	 * @description
 	 * The label of the toggle input
 	 */
-	export let placeholder: string = 'New tag...';
+	export let label: string = 'New tag...';
 
 	/**
 	 * @description
@@ -16,9 +20,9 @@
 
 	/**
 	 * @description
-	 * The tag name to create
+	 * The tag text to create
 	 */
-	let newTagName: string = '';
+	let newTagtext: string = '';
 
 	/**
 	 * @description
@@ -27,10 +31,8 @@
 	 * @param name The name of the tag
 	 */
 	const createTag = (name: string): void => {
-		if (name.length > 0) {
-			const tag = { id: uuid(), name };
-			value = [...value, tag];
-		}
+		const tag = TagHelper.create(name);
+		value = [...value, tag];
 	};
 
 	/**
@@ -43,36 +45,27 @@
 
 	/**
 	 * @description
-	 * Deletes the latest inserted tag
+	 * Clears the tag input
 	 */
-	const deleteLastTag = (): void => {
-		if (value.length > 0) {
-			value.pop();
-			value = [...value];
-		}
+	const clearInput = (): void => {
+		newTagtext = '';
 	};
 
 	/**
 	 * @description
-	 * Clears the tag input
+	 * Key up event
+	 *
+	 * @param e Event object
 	 */
-	const clearInput = (): void => {
-		newTagName = '';
-	};
+	const onKeyUp = (e: CustomEvent<string>): void => {
+		switch (e.detail) {
+			case ',':
+			case ';':
+			case 'enter': {
+				newTagtext = newTagtext.replace(/[,;]/g, '');
 
-	const onKeyUp = (e: KeyboardEvent) => {
-		switch (e.code.toLowerCase()) {
-			case 'backspace': {
-				if (newTagName.length === 0) {
-					deleteLastTag();
-				}
-
-				break;
-			}
-			case 'keym':
-			case 'keym': {
-				if (newTagName) {
-					createTag(newTagName.substring(0, newTagName.length - 1));
+				if (newTagtext.length > 0) {
+					createTag(newTagtext);
 					clearInput();
 				}
 
@@ -80,51 +73,46 @@
 			}
 		}
 	};
+
+	/**
+	 * @description
+	 * Deletes a tag
+	 */
+	const onDelete = (e: CustomEvent<TTag>): void => {
+		deleteTag(e.detail);
+	};
 </script>
 
-<ul class="tags">
-	{#each value as tag}
-		<li class="tag-item">
-			<button class="tag" type="button" on:click={() => deleteTag(tag)}>{tag.text}</button>
-		</li>
-	{/each}
+<span class="tags">
+	<div class="tags__input">
+		<Input errorMsg={null} {label} bind:value={newTagtext} on:keyup={onKeyUp} />
+	</div>
 
-	<li class="tag-item">
-		<input
-			class="tag-input"
-			type="text"
-			{placeholder}
-			bind:value={newTagName}
-			on:keyup|preventDefault={onKeyUp}
-		/>
-	</li>
-</ul>
+	<ul class="tags__list">
+		{#each value as tag}
+			<li class="tags__item">
+				<Tag {tag} on:remove={onDelete} />
+			</li>
+		{/each}
+	</ul>
+</span>
 
 <style lang="scss">
 	.tags {
-		margin: 0;
-		padding: 0;
-		list-style-type: none;
+		$root: &;
 
-		display: flex;
-		flex-wrap: wrap;
-		flex-direction: row;
+		&__input {
+			width: 100%;
+		}
 
-		.tag {
-			cursor: pointer;
-			padding: 2px 6px;
-			font-size: 12px;
-			border-radius: 10px;
-			border: 1px solid grey;
+		&__list {
+			padding: 0;
+			margin: 4px 0 0 0;
 
-			&:hover {
-				background-color: rgb(255, 117, 117);
-			}
+			list-style-type: none;
 
-			&-item {
-				&:not(:first-of-type) {
-					margin-left: 10px;
-				}
+			#{$root}__item {
+				display: inline;
 			}
 		}
 	}
