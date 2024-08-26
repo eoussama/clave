@@ -20,6 +20,24 @@
 
 	/**
 	 * @description
+	 * If the component is disabled
+	 */
+	export let disabled: boolean = false;
+
+	/**
+	 * @description
+	 * If the input is in error state
+	 */
+	let error: boolean = false;
+
+	/**
+	 * @description
+	 * The error message
+	 */
+	let errorMsg: string = '';
+
+	/**
+	 * @description
 	 * The tag text to create
 	 */
 	let newTagtext: string = '';
@@ -65,8 +83,16 @@
 				newTagtext = newTagtext.replace(/[,;]/g, '');
 
 				if (newTagtext.length > 0) {
-					createTag(newTagtext);
-					clearInput();
+					try {
+						createTag(newTagtext);
+						clearInput();
+
+						errorMsg = '';
+					} catch (err: any) {
+						errorMsg = err.message;
+					} finally {
+						error = errorMsg.length > 0;
+					}
 				}
 
 				break;
@@ -85,13 +111,13 @@
 
 <span class="tags">
 	<div class="tags__input">
-		<Input errorMsg={null} {label} bind:value={newTagtext} on:keyup={onKeyUp} />
+		<Input {errorMsg} {error} {label} {disabled} bind:value={newTagtext} on:keyup={onKeyUp} />
 	</div>
 
 	<ul class="tags__list">
 		{#each value as tag}
 			<li class="tags__item">
-				<Tag {tag} on:remove={onDelete} />
+				<Tag {tag} {disabled} on:remove={onDelete} />
 			</li>
 		{/each}
 	</ul>
