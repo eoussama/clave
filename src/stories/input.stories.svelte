@@ -7,7 +7,7 @@
 	const inputTypesMapping = EnumHelper.toObject(InputType);
 
 	export const meta = {
-		title: 'Input',
+		title: 'Controls/Input',
 		component: Input,
 		tags: ['autodocs'],
 		argTypes: {

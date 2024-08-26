@@ -6,7 +6,7 @@
 	const buttonSizesMapping = EnumHelper.toObject(ButtonSize);
 
 	export const meta = {
-		title: 'Button',
+		title: 'Controls/Button',
 		component: Button,
 		tags: ['autodocs'],
 		argTypes: {

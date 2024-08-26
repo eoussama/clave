@@ -2,7 +2,7 @@
 	import Dropdown from '$lib/components/controls/dropdown.svelte';
 
 	export const meta = {
-		title: 'Dropdown',
+		title: 'Controls/Dropdown',
 		component: Dropdown,
 		tags: ['autodocs'],
 		argTypes: {

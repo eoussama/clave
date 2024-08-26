@@ -2,7 +2,7 @@
 	import Tag from '$lib/components/controls/tag.svelte';
 
 	export const meta = {
-		title: 'Tag',
+		title: 'Controls/Tag',
 		component: Tag,
 		tags: ['autodocs']
 	};

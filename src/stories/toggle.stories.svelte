@@ -2,7 +2,7 @@
 	import Toggle from '$lib/components/controls/toggle.svelte';
 
 	export const meta = {
-		title: 'Toggle',
+		title: 'Controls/Toggle',
 		component: Toggle,
 		tags: ['autodocs']
 	};
