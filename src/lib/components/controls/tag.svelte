@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
+	
 	import MdRemove from 'svelte-icons/md/MdRemove.svelte';
 
 	import type { TTag } from '$lib/core/types/tag.type';
@@ -37,7 +38,7 @@
 	 */
 	const onClick = () => {
 		if (!disabled && !readonly) {
-			dispatch('remove', { tag });
+			dispatch('remove', tag);
 		}
 	};
 </script>
