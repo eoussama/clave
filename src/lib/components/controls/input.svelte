@@ -2,9 +2,10 @@
 	import { fly } from 'svelte/transition';
 	import { createEventDispatcher } from 'svelte';
 
-	import { EnumHelper, type TNullable } from '@eoussama/firemitt';
+	import { EnumHelper } from '@eoussama/firemitt';
 
 	import { InputType } from '$lib/core/enums/input-type.enum';
+	import type { TNullable } from '$lib/core/types/nullable.type';
 
 	/**
 	 * @description
