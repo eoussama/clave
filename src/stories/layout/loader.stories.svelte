@@ -4,7 +4,12 @@
 	export const meta = {
 		title: 'Layout/Loader',
 		component: Loader,
-		tags: ['autodocs']
+		tags: ['autodocs'],
+		argTypes: {
+			text: {
+				control: { type: 'text' }
+			}
+		}
 	};
 </script>
 
