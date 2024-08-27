@@ -50,6 +50,38 @@
 
 <style lang="scss">
 	.tip {
+		$root: &;
+
+		--tip-bg-color: hsl(var(--color-primary-hsl), 95%);
+		--tip-text-color: hsl(var(--color-primary-hsl), 70%);
+
 		position: relative;
+		display: inline-block;
+
+		&__element {
+			cursor: help;
+		}
+
+		&__box {
+			position: absolute;
+			left: 0;
+			top: calc(100% + 5px);
+
+			max-width: 200px;
+			width: max-content;
+
+			padding: 8px 10px;
+			border-radius: 4px;
+			box-shadow: 1px 1px 2px 0 rgba(var(--color-primary-rgb), 0.2);
+
+			color: var(--tip-text-color);
+			background-color: var(--tip-bg-color);
+
+			#{$root}__message {
+				margin: 0;
+				padding: 0;
+				font-weight: var(--font-weight-light);
+			}
+		}
 	}
 </style>
