@@ -18,7 +18,7 @@
 			},
 			errorMsg: {
 				control: { type: 'text' },
-        if: { arg: 'error', truthy: true }
+				if: { arg: 'error', truthy: true }
 			}
 		}
 	};
@@ -35,4 +35,5 @@
 <Story name="Default" args={{ label: 'Default' }} />
 <Story name="Disabled" args={{ label: 'Disabled', disabled: true }} />
 <Story name="Readonly" args={{ label: 'Readonly', readonly: true }} />
+<Story name="Editor" args={{ label: 'Editor', type: InputType.Editor }} />
 <Story name="Error" args={{ label: 'Error', error: true, errorMsg: 'This is an error!' }} />
