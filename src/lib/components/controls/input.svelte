@@ -27,6 +27,12 @@
 
 	/**
 	 * @description
+	 * The input rows
+	 */
+	export let rows: number = 4;
+
+	/**
+	 * @description
 	 * If the input is in error state
 	 */
 	export let error: boolean = false;
@@ -57,6 +63,12 @@
 
 	/**
 	 * @description
+	 * Gets the input type css class
+	 */
+	const getClasses = (): string => ['input', `input--${getType()}`].join(' ');
+
+	/**
+	 * @description
 	 * Event dispatcher
 	 */
 	const dispatch = createEventDispatcher();
@@ -82,27 +94,40 @@
 	};
 </script>
 
-<label
-	class="input"
+<span
+	class={getClasses()}
 	class:input--error={error}
 	class:input--disabled={disabled}
 	class:input--readonly={readonly}
 >
-	<input
-		bind:value
-		use:typeAction
-		autocorrect="off"
-		placeholder={label}
-		autocapitalize="off"
-		class="input__input"
-		disabled={disabled || readonly}
-		on:keyup={onKeyUp}
-	/>
+	{#if type === InputType.Editor}
+		<textarea
+			{rows}
+			bind:value
+			autocorrect="off"
+			autocapitalize="off"
+			class="input__input"
+			placeholder={label}
+			disabled={disabled || readonly}
+			on:keyup={onKeyUp}
+		></textarea>
+	{:else}
+		<input
+			bind:value
+			use:typeAction
+			autocorrect="off"
+			placeholder={label}
+			autocapitalize="off"
+			class="input__input"
+			disabled={disabled || readonly}
+			on:keyup={onKeyUp}
+		/>
+	{/if}
 
 	{#if errorMsg && error}
 		<div class="input__error" transition:fly={{ x: 5, duration: 200 }}>{errorMsg}</div>
 	{/if}
-</label>
+</span>
 
 <style lang="scss">
 	@import '../../../style/utils/focus';
@@ -170,6 +195,14 @@
 
 			#{$root}__error {
 				display: none;
+			}
+		}
+
+		&--editor {
+			display: inline-block;
+
+			#{$root}__input {
+				resize: none;
 			}
 		}
 	}

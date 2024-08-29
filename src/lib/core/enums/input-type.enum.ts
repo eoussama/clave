@@ -8,5 +8,11 @@ export enum InputType {
    * @description
    * The default input type
    */
-  Text
+  Text,
+
+  /**
+   * @description
+   * The editor input
+   */
+  Editor
 }
