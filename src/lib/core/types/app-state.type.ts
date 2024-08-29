@@ -1,6 +1,6 @@
 import type { User } from 'firebase/auth';
-import type { TNullable } from '@eoussama/firemitt';
 
+import type { TNullable } from './nullable.type';
 import type { TUserData } from './user-data.type';
 
 

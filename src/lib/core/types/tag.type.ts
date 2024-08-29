@@ -14,5 +14,5 @@ export type TTag = {
    * @description
    * The name of the tag
    */
-  name: string
+  text: string
 };

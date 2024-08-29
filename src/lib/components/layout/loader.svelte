@@ -1,6 +1,20 @@
 <script lang="ts">
 	import { fade, fly } from 'svelte/transition';
 	import { appStore } from '$lib/core/stores/app.store';
+
+	import type { TNullable } from '$lib/core/types/nullable.type';
+
+	/**
+	 * @description
+	 * The text to display as a loading message
+	 */
+	export let text: TNullable<string>;
+
+	/**
+	 * @description
+	 * The text to display as a loading message
+	 */
+	const getText = (): string => text ?? 'Loading...';
 </script>
 
 <div class="loader">
@@ -10,7 +24,11 @@
 				<img src="./images/logo.png" alt="Clave Logo" />
 			</div>
 
-			<div class="loading" in:fly={{ y: 5, duration: 500, delay: 100 }}></div>
+			<div
+				class="loading"
+				style="--text: '{getText()}'"
+				in:fly={{ y: 5, duration: 500, delay: 100 }}
+			></div>
 		</div>
 	{:else}
 		<div class="loader__slot" in:fade={{ duration: 500 }}>
@@ -97,7 +115,7 @@
 				-webkit-background-clip: text;
 
 				&:before {
-					content: 'Loading...';
+					content: var(--text, 'Loading...');
 					font-weight: var(--font-weight-bold);
 				}
 

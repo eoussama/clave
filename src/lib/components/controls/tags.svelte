@@ -1,12 +1,16 @@
 <script lang="ts">
-  import { v4 as uuid } from 'uuid';
+	import Tag from './tag.svelte';
+	import Input from './input.svelte';
+
+	import { TagHelper } from '$lib/core/helpers/tag.helper';
+
 	import type { TTag } from '$lib/core/types/tag.type';
 
 	/**
 	 * @description
 	 * The label of the toggle input
 	 */
-	export let placeholder: string = 'New tag...';
+	export let label: string = 'New tag...';
 
 	/**
 	 * @description
@@ -16,9 +20,33 @@
 
 	/**
 	 * @description
-	 * The tag name to create
+	 * If the component is disabled
 	 */
-	let newTagName: string = '';
+	export let disabled: boolean = false;
+
+	/**
+	 * @description
+	 * If the component is readonly
+	 */
+	export let readonly: boolean = false;
+
+	/**
+	 * @description
+	 * If the input is in error state
+	 */
+	let error: boolean = false;
+
+	/**
+	 * @description
+	 * The error message
+	 */
+	let errorMsg: string = '';
+
+	/**
+	 * @description
+	 * The tag text to create
+	 */
+	let newTagtext: string = '';
 
 	/**
 	 * @description
@@ -27,10 +55,8 @@
 	 * @param name The name of the tag
 	 */
 	const createTag = (name: string): void => {
-		if (name.length > 0) {
-			const tag = { id: uuid(), name };
-			value = [...value, tag];
-		}
+		const tag = TagHelper.create(name);
+		value = [...value, tag];
 	};
 
 	/**
@@ -43,88 +69,94 @@
 
 	/**
 	 * @description
-	 * Deletes the latest inserted tag
+	 * Clears the tag input
 	 */
-	const deleteLastTag = (): void => {
-		if (value.length > 0) {
-			value.pop();
-			value = [...value];
+	const clearInput = (): void => {
+		newTagtext = '';
+	};
+
+	/**
+	 * @description
+	 * Key up event
+	 *
+	 * @param e Event object
+	 */
+	const onKeyUp = (e: CustomEvent<string>): void => {
+		switch (e.detail) {
+			case ',':
+			case ';':
+			case 'enter': {
+				newTagtext = newTagtext.replace(/[,;]/g, '');
+
+				if (newTagtext.length > 0) {
+					try {
+						createTag(newTagtext);
+						clearInput();
+
+						errorMsg = '';
+					} catch (err: any) {
+						errorMsg = err.message;
+					} finally {
+						error = errorMsg.length > 0;
+					}
+				}
+
+				break;
+			}
 		}
 	};
 
 	/**
 	 * @description
-	 * Clears the tag input
+	 * Deletes a tag
 	 */
-	const clearInput = (): void => {
-		newTagName = '';
-	};
-
-	const onKeyUp = (e: KeyboardEvent) => {
-		switch (e.code.toLowerCase()) {
-			case 'backspace': {
-				if (newTagName.length === 0) {
-					deleteLastTag();
-				}
-
-				break;
-			}
-			case 'keym':
-			case 'keym': {
-				if (newTagName) {
-					createTag(newTagName.substring(0, newTagName.length - 1));
-					clearInput();
-				}
-
-				break;
-			}
-		}
+	const onDelete = (e: CustomEvent<TTag>): void => {
+		deleteTag(e.detail);
 	};
 </script>
 
-<ul class="tags">
-	{#each value as tag}
-		<li class="tag-item">
-			<button class="tag" type="button" on:click={() => deleteTag(tag)}>{tag.name}</button>
-		</li>
-	{/each}
+<span class="tags">
+	{#if !readonly}
+		<div class="tags__input">
+			<Input {errorMsg} {error} {label} {disabled} bind:value={newTagtext} on:keyup={onKeyUp} />
+		</div>
+	{:else}
+		<h2 class="tags__label">{label}</h2>
+	{/if}
 
-	<li class="tag-item">
-		<input
-			class="tag-input"
-			type="text"
-			{placeholder}
-			bind:value={newTagName}
-			on:keyup|preventDefault={onKeyUp}
-		/>
-	</li>
-</ul>
+	<ul class="tags__list">
+		{#each value as tag}
+			<li class="tags__item">
+				<Tag {tag} {disabled} {readonly} on:remove={onDelete} />
+			</li>
+		{/each}
+	</ul>
+</span>
 
 <style lang="scss">
 	.tags {
-		margin: 0;
-		padding: 0;
-		list-style-type: none;
+		$root: &;
 
-		display: flex;
-		flex-wrap: wrap;
-		flex-direction: row;
+		--tags-label-color: hsl(var(--color-primary-hsl), 70%);
 
-		.tag {
-			cursor: pointer;
-			padding: 2px 6px;
+		&__input {
+			width: 100%;
+		}
+
+		&__label {
 			font-size: 12px;
-			border-radius: 10px;
-			border: 1px solid grey;
+			color: var(--tags-label-color);
+			font-weight: var(--font-weight-bold);
+		}
 
-			&:hover {
-				background-color: rgb(255, 117, 117);
-			}
+		&__list {
+			padding: 0;
+			margin: 4px 0 0 0;
 
-			&-item {
-				&:not(:first-of-type) {
-					margin-left: 10px;
-				}
+			list-style-type: none;
+
+			#{$root}__item {
+				display: inline;
 			}
 		}
 	}
