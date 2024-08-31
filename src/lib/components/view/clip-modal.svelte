@@ -3,6 +3,8 @@
 	import { createEventDispatcher, onMount } from 'svelte';
 
 	import Tags from '../controls/tags.svelte';
+	import Input from '../controls/input.svelte';
+	import Button from '../controls/button.svelte';
 	import Toggle from '../controls/toggle.svelte';
 
 	import MdCheck from 'svelte-icons/md/MdCheck.svelte';
@@ -15,6 +17,9 @@
 	import type { TNullable } from '$lib/core/types/nullable.type';
 
 	import { Interaction } from '$lib/core/enums/interaction.enum';
+	import { ButtonSize } from '$lib/core/enums/button-size.enum';
+	import { ButtonType } from '$lib/core/enums/button-type.enum';
+	import { InputType } from '$lib/core/enums/input-type.enum';
 
 	export let send: any;
 	export let receive: any;
@@ -102,37 +107,46 @@
 					in:fade={{ duration: 200 }}
 				>
 					<div class="modal__icon">
-						<MdClose />
+						<!-- <MdClose /> -->
+						<Button
+							icon={MdClose}
+							size={ButtonSize.Small}
+							type={ButtonType.Primary}
+							on:click={onClose}
+						/>
 					</div>
 				</button>
 			</div>
 
 			<div class="modal__inputs">
-				<input
-					type="text"
-					name="title"
-					placeholder="Optional title..."
-					class="modal__input modal__input--title"
-					bind:value={title}
-				/>
+				<div class="modal__input modal__input--title">
+					<Input name="title" label="Optional title..." bind:value={title} />
+				</div>
 
-				<textarea
-					required
-					name="content"
-					bind:value={content}
-					class="modal__input modal__input--content"
-					placeholder="Enter the content to save..."
-				></textarea>
+				<!-- TODO: required -->
+				<div class="modal__input modal__input--content">
+					<Input
+						name="content"
+						type={InputType.Editor}
+						label="Enter the content to save..."
+						bind:value={content}
+					/>
+				</div>
 
-				<Toggle label="Sensitive" bind:value={sensitive} />
-				<Tags label="Tags" bind:value={tags} />
+				<div class="modal__input modal__input--sensitive">
+					<Toggle label="Sensitive" bind:value={sensitive} />
+				</div>
+
+				<div class="modal__input modal__input--tags">
+					<Tags label="Tags" bind:value={tags} />
+				</div>
 			</div>
 
 			{#if !readonly}
 				<div class="modal__controls">
 					<button class="modal__control modal__control--add" type="submit">
 						<div class="modal__icon">
-							<MdCheck />
+							<Button icon={MdCheck} size={ButtonSize.Small} type={ButtonType.Primary} />
 						</div>
 					</button>
 				</div>
