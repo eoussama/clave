@@ -35,6 +35,9 @@
 		transition-property: background-color;
 
 		&__link {
+			width: 100%;
+			display: inline-block;
+
 			text-decoration: none;
 			color: hsl(var(--color-primary-hsl), 70%);
 		}
