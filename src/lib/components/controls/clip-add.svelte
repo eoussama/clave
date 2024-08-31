@@ -19,6 +19,8 @@
 </div>
 
 <style lang="scss">
+	@import '../../../style/utils/focus';
+
 	.add {
 		$root: &;
 		z-index: 2;
@@ -122,6 +124,8 @@
 					}
 				}
 			}
+
+			@include focus(--color-primary);
 		}
 
 		&:hover {

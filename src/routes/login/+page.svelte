@@ -1,9 +1,11 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
-	import FaGoogle from 'svelte-icons/fa/FaGoogle.svelte';
 
+	import FaGoogle from 'svelte-icons/fa/FaGoogle.svelte';
 	import Button from '$lib/components/controls/button.svelte';
+
 	import { AuthHelper } from '$lib/core/helpers/auth.helper';
+	import { ButtonType } from '$lib/core/enums/button-type.enum';
 
 	/**
 	 * @description
@@ -39,9 +41,9 @@
 
 		<div class="controls" in:fly={{ y: 5, duration: 500, delay: 300 }}>
 			<Button
-				primary
 				icon={FaGoogle}
 				loading={loggingIn}
+				type={ButtonType.Primary}
 				label="Continue with Google"
 				loadingLabel="Logging-in..."
 				on:click={onLogin}
@@ -125,9 +127,10 @@
 			flex-direction: column;
 			justify-content: center;
 
-			.divider {
-				--divider-spacing: 50px;
+			--divider-spacing: 50px;
+			--controls-spacing: var(--divider-spacing);
 
+			.divider {
 				position: relative;
 
 				width: 100%;
@@ -166,6 +169,12 @@
 
 			.controls {
 				width: 100%;
+				padding: 0 var(--controls-spacing);
+
+				:global(.btn) {
+					width: 100%;
+					margin: auto;
+				}
 			}
 		}
 	}

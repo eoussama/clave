@@ -4,6 +4,8 @@
 
 	import { AuthHelper } from '$lib/core/helpers/auth.helper';
 	import { appStore } from '$lib/core/stores/app.store';
+	import { ButtonType } from '$lib/core/enums/button-type.enum';
+	import { ButtonSize } from '$lib/core/enums/button-size.enum';
 
 	/**
 	 * @description
@@ -29,7 +31,12 @@
 	</div>
 
 	<div class="right">
-		<Button primary iconOnly icon={MdMoreVert} on:click={onLogout} />
+		<Button
+			icon={MdMoreVert}
+			size={ButtonSize.Small}
+			type={ButtonType.Primary}
+			on:click={onLogout}
+		/>
 	</div>
 </header>
 
