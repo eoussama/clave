@@ -44,7 +44,7 @@
 </script>
 
 <div class="add" class:add--disabled={disabled} class:add--shine={shine}>
-	<button class="add__box" on:click={onClick}>
+	<button class="add__box" on:click={onClick} {disabled}>
 		<input class="add__message" type="text" placeholder={label} disabled />
 
 		{#if icon}
@@ -138,11 +138,25 @@
 			@include focus(--add-border-color);
 		}
 
-		&--shine {
+		&--disabled {
+			cursor: not-allowed;
+
+			--add-bg-color-hsl: 0, 0%;
+			--add-label-color: #b9b9b9;
+			--add-border-color: #b9b9b9;
+
+			#{$root}__box {
+				cursor: not-allowed;
+
+				background: #eeeeee;
+			}
+		}
+
+		&--shine:not(&--disabled) {
 			@include shine(--color-secondary-rgb);
 		}
 
-		&:hover {
+		&:not(&--disabled):hover {
 			transform: scale(1.005);
 
 			outline-offset: 2px;
