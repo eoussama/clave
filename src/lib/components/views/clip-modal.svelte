@@ -21,18 +21,64 @@
 	import { ButtonType } from '$lib/core/enums/button-type.enum';
 	import { InputType } from '$lib/core/enums/input-type.enum';
 
+	/**
+	 * @description
+	 * The send transition
+	 */
 	export let send: any;
+
+	/**
+	 * @description
+	 * The receive transition
+	 */
 	export let receive: any;
+
+	/**
+	 * @description
+	 * The interaction mode
+	 */
 	export let mode: Interaction;
+
+	/**
+	 * @description
+	 * The clip to edit
+	 */
 	export let clip: TNullable<TClip>;
 
+	/**
+	 * @description
+	 * The clip title
+	 */
 	let title: string = '';
+
+	/**
+	 * @description
+	 * The clip content
+	 */
 	let content: string = '';
+
+	/**
+	 * @description
+	 * The clip tags
+	 */
 	let tags: Array<TTag> = [];
+
+	/**
+	 * @description
+	 * If the clip is sensitive
+	 */
 	let sensitive: boolean = false;
 
+	/**
+	 * @description
+	 * Event dispatcher
+	 */
 	const dispatcher = createEventDispatcher();
 
+	/**
+	 * @description
+	 * Gets the modal title
+	 */
 	const getModalTitle = () => {
 		let modalTitle: string;
 
@@ -55,10 +101,18 @@
 		return modalTitle;
 	};
 
+	/**
+	 * @description
+	 * Closes the modal
+	 */
 	const onClose = () => {
 		dispatcher('close');
 	};
 
+	/**
+	 * @description
+	 * Validates the form
+	 */
 	const onValidate = async () => {
 		const validatedClip: Partial<TClip> = {
 			tags,
