@@ -1,11 +1,19 @@
 <script context="module">
 	import Action from '$lib/components/controls/action.svelte';
+	import MdAdd from 'svelte-icons/md/MdAdd.svelte';
 
 	export const meta = {
 		title: 'Controls/Action',
 		component: Action,
 		tags: ['autodocs'],
-		argTypes: {}
+		argTypes: {
+			label: {
+				control: { type: 'text' }
+			},
+			icon: {
+				control: false
+			}
+		}
 	};
 </script>
 
@@ -17,4 +25,5 @@
 	<Action {...args} />
 </Template>
 
-<Story name="Default" args={{}} />
+<Story name="Default" args={{ label: 'Default' }} />
+<Story name="Icon" args={{ label: 'Icon', icon: MdAdd }} />

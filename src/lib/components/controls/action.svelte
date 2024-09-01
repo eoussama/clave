@@ -1,6 +1,24 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import MdAdd from 'svelte-icons/md/MdAdd.svelte';
+	import type { TNullable } from '$lib/core/types/nullable.type';
+
+	/**
+	 * @description
+	 * The label of the action
+	 */
+	export let label: string = 'Action';
+
+	/**
+	 * @description
+	 * If the action is disabled
+	 */
+	export let disabled: boolean = false;
+
+	/**
+	 * @description
+	 * The label of the button
+	 */
+	export let icon: TNullable<any> = null;
 
 	/**
 	 * @description
@@ -19,12 +37,15 @@
 	}
 </script>
 
-<div class="add">
+<div class="add" class:add--disabled={disabled}>
 	<button class="add__box" on:click={onClick}>
-		<input class="add__message" type="text" placeholder="Save a New Clip..." disabled />
-		<div class="add__icon">
-			<MdAdd />
-		</div>
+		<input class="add__message" type="text" placeholder={label} disabled />
+
+		{#if icon}
+			<div class="add__icon">
+				<svelte:component this={icon} />
+			</div>
+		{/if}
 	</button>
 </div>
 
@@ -33,6 +54,11 @@
 
 	.add {
 		$root: &;
+
+		--add-label-color: var(--color-secondary);
+		--add-bg-color: hsl(var(--color-primary-hsl), 92%);
+		--add-border-color: hsl(var(--color-primary-hsl), 92%);
+
 		z-index: 2;
 
 		position: relative;
@@ -79,12 +105,14 @@
 				outline: none;
 				background-color: transparent;
 
-				font-size: 14px;
-				font-weight: var(--font-weight-light);
+				font-size: 12px;
+				text-transform: uppercase;
+
+				font-weight: var(--font-weight-regular);
 				font-family: var(--font-family-primary);
 
 				&::placeholder {
-					color: var(--color-secondary);
+					color: var(--add-label-color);
 				}
 			}
 
@@ -96,8 +124,8 @@
 				right: 6px;
 				top: 50%;
 
-				color: var(--color-secondary);
 				transform: translateY(-50%);
+				color: var(--add-label-color);
 			}
 
 			&::before {
@@ -135,7 +163,7 @@
 				}
 			}
 
-			@include focus(--color-primary);
+			@include focus(--add-border-color);
 		}
 
 		&:hover {
