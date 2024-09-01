@@ -67,6 +67,7 @@
 		--add-border-color: hsl(var(--color-primary-hsl), 92%);
 
 		z-index: 2;
+		cursor: pointer;
 
 		position: relative;
 		border-radius: 5px;
@@ -81,7 +82,6 @@
 			all: inherit;
 
 			z-index: 2;
-			cursor: pointer;
 
 			z-index: 0;
 			overflow: hidden;

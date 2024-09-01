@@ -1,7 +1,9 @@
 @mixin shine ($rgb, $alpha: 0.15) {
   &::before {
-    z-index: 1;
     content: '';
+
+    z-index: 1;
+    pointer-events: none;
 
     top: 0;
     left: 0;
@@ -17,9 +19,9 @@
     animation-timing-function: ease-in-out;
 
     background: linear-gradient(to left,
-        transparent 0%,
-        rgba(var(#{$rgb}), $alpha) 40%,
-        transparent 80%);
+      transparent 0%,
+      rgba(var(#{$rgb}), $alpha) 40%,
+      transparent 80%);
 
     @keyframes highlight {
       from {

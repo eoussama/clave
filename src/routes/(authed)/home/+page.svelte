@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { crossfade, fade } from 'svelte/transition';
 
+	import MdAdd from 'svelte-icons/md/MdAdd.svelte';
+
 	import ClipList from '$lib/components/views/clip-list.svelte';
 	import Action from '$lib/components/controls/action.svelte';
 	import ClipModal from '$lib/components/views/clip-modal.svelte';
@@ -65,7 +67,7 @@
 				out:send={{ key: 'clipflip', duration: 400 }}
 				in:receive={{ key: 'clipflip', duration: 400 }}
 			>
-				<Action on:click={onCreate} />
+				<Action label="Save a new clip..." shine={true} icon={MdAdd} on:click={onCreate} />
 			</div>
 		{/if}
 	</div>
