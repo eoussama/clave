@@ -47,6 +47,12 @@
 
 	/**
 	 * @description
+	 * If the button has a shine effect
+	 */
+	export let shine: boolean = false;
+
+	/**
+	 * @description
 	 * The label of the button when the loader is active
 	 */
 	export let loadingLabel: TNullable<string> = null;
@@ -85,7 +91,7 @@
 	 * @description
 	 * Gets the loading label
 	 */
-	const getLoadingLabel = () => (loadingLabel && loadingLabel?.length > 0) ? loadingLabel : label;
+	const getLoadingLabel = () => (loadingLabel && loadingLabel?.length > 0 ? loadingLabel : label);
 
 	/**
 	 * @description
@@ -114,6 +120,7 @@
 
 <button
 	class={classes}
+	class:btn--shine={shine}
 	class:btn--loading={loading}
 	class:btn--disabled={disabled}
 	class:btn--icon={isIconOnly()}
@@ -139,17 +146,23 @@
 
 <style lang="scss">
 	@import '../../../style/utils/focus';
-	
+	@import '../../../style/utils/shine';
+
 	.btn {
 		$root: &;
 
+		--button-shine-alpha: 0.1;
 		--button-bg-color: transparent;
+		--button-shine-color: var(--color-primary-rgb);
 		--button-text-color: hsl(var(--color-primary-hsl), 70%);
 		--button-border-color: hsl(var(--color-primary-hsl), 80%);
 
 		cursor: pointer;
 
-		display: flex;
+		position: relative;
+		overflow: hidden;
+
+		display: inline-flex;
 		flex-direction: row;
 		align-items: center;
 		justify-content: center;
@@ -205,7 +218,9 @@
 		}
 
 		&--secondary {
+			--button-shine-alpha: 0.2;
 			--button-text-color: var(--color-secondary);
+			--button-shine-color: var(--color-secondary-rgb);
 			--button-bg-color: hsl(var(--color-secondary-hsl), 42%);
 			--button-border-color: hsl(var(--color-secondary-hsl), 42%);
 
@@ -248,6 +263,10 @@
 			#{$root}__icon {
 				width: 14px;
 			}
+		}
+
+		&--shine:not(&--disabled) {
+			@include shine(--button-shine-color, var(--button-shine-alpha));
 		}
 
 		@include focus(--button-border-color);
