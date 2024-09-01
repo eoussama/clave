@@ -1,0 +1,34 @@
+@mixin shine ($rgb) {
+  &::before {
+    z-index: 1;
+    content: '';
+
+    top: 0;
+    left: 0;
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+    transform: translateX(100%);
+
+    animation-duration: 1s;
+    animation-name: highlight;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+
+    background: linear-gradient(to left,
+        transparent 0%,
+        rgba(var(#{$rgb}), 0.15) 40%,
+        transparent 80%);
+
+    @keyframes highlight {
+      from {
+        transform: translateX(-100%);
+      }
+
+      to {
+        transform: translateX(100%);
+      }
+    }
+  }
+}

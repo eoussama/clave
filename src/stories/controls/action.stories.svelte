@@ -27,3 +27,4 @@
 
 <Story name="Default" args={{ label: 'Default' }} />
 <Story name="Icon" args={{ label: 'Icon', icon: MdAdd }} />
+<Story name="Shine" args={{ label: 'Shine', shine: true }} />

@@ -16,6 +16,12 @@
 
 	/**
 	 * @description
+	 * If the action has a shine effect
+	 */
+	export let shine: boolean = false;
+
+	/**
+	 * @description
 	 * The label of the button
 	 */
 	export let icon: TNullable<any> = null;
@@ -37,7 +43,7 @@
 	}
 </script>
 
-<div class="add" class:add--disabled={disabled}>
+<div class="add" class:add--disabled={disabled} class:add--shine={shine}>
 	<button class="add__box" on:click={onClick}>
 		<input class="add__message" type="text" placeholder={label} disabled />
 
@@ -51,6 +57,7 @@
 
 <style lang="scss">
 	@import '../../../style/utils/focus';
+	@import '../../../style/utils/shine';
 
 	.add {
 		$root: &;
@@ -128,42 +135,11 @@
 				color: var(--add-label-color);
 			}
 
-			&::before {
-				z-index: 1;
-				content: '';
-
-				top: 0;
-				left: 0;
-				position: absolute;
-
-				width: 100%;
-				height: 100%;
-				transform: translateX(100%);
-
-				animation-duration: 1s;
-				animation-name: highlight;
-				animation-iteration-count: infinite;
-				animation-timing-function: ease-in-out;
-
-				background: linear-gradient(
-					to left,
-					transparent 0%,
-					rgba(var(--color-secondary-rgb), 0.15) 40%,
-					transparent 80%
-				);
-
-				@keyframes highlight {
-					from {
-						transform: translateX(-100%);
-					}
-
-					to {
-						transform: translateX(100%);
-					}
-				}
-			}
-
 			@include focus(--add-border-color);
+		}
+
+		&--shine {
+			@include shine(--color-secondary-rgb);
 		}
 
 		&:hover {
