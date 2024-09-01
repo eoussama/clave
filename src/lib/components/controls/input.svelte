@@ -27,6 +27,12 @@
 
 	/**
 	 * @description
+	 * The input name
+	 */
+	export let name: TNullable<string>;
+
+	/**
+	 * @description
 	 * The input rows
 	 */
 	export let rows: number = 4;
@@ -103,6 +109,7 @@
 	{#if type === InputType.Editor}
 		<textarea
 			{rows}
+			{name}
 			bind:value
 			autocorrect="off"
 			autocapitalize="off"
@@ -113,6 +120,7 @@
 		></textarea>
 	{:else}
 		<input
+			{name}
 			bind:value
 			use:typeAction
 			autocorrect="off"
