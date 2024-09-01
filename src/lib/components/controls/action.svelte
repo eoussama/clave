@@ -56,7 +56,7 @@
 		$root: &;
 
 		--add-label-color: var(--color-secondary);
-		--add-bg-color: hsl(var(--color-primary-hsl), 92%);
+		--add-bg-color-hsl: var(--color-primary-hsl);
 		--add-border-color: hsl(var(--color-primary-hsl), 92%);
 
 		z-index: 2;
@@ -88,8 +88,8 @@
 			border-radius: 5px;
 			background: linear-gradient(
 				to right,
-				var(--color-primary),
-				hsl(var(--color-primary-hsl), 70%)
+				hsl(var(--add-bg-color-hsl), 55%),
+				hsl(var(--add-bg-color-hsl), 70%)
 			);
 
 			#{$root}__icon,
