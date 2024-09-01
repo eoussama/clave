@@ -2,10 +2,20 @@
 	import { createEventDispatcher } from 'svelte';
 	import MdAdd from 'svelte-icons/md/MdAdd.svelte';
 
+	/**
+	 * @description
+	 * Event dispatcher
+	 */
 	const dispatcher = createEventDispatcher();
 
+	/**
+	 * @description
+	 * Click handler
+	 *
+	 * @param e
+	 */
 	function onClick(e: MouseEvent) {
-		dispatcher('create');
+		dispatcher('click');
 	}
 </script>
 

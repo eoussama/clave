@@ -1,9 +1,9 @@
 <script context="module">
-	import ClipAdd from '$lib/components/clip/clip-add.svelte';
+	import Action from '$lib/components/controls/action.svelte';
 
 	export const meta = {
-		title: 'Clip/Add',
-		component: ClipAdd,
+		title: 'Controls/Action',
+		component: Action,
 		tags: ['autodocs'],
 		argTypes: {}
 	};
@@ -14,7 +14,7 @@
 </script>
 
 <Template let:args>
-	<ClipAdd {...args} />
+	<Action {...args} />
 </Template>
 
 <Story name="Default" args={{}} />

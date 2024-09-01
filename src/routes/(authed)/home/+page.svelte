@@ -2,7 +2,7 @@
 	import { crossfade, fade } from 'svelte/transition';
 
 	import ClipList from '$lib/components/view/clip-list.svelte';
-	import ClipAdd from '$lib/components/clip/clip-add.svelte';
+	import Action from '$lib/components/controls/action.svelte';
 	import ClipModal from '$lib/components/view/clip-modal.svelte';
 
 	import { Interaction } from '$lib/core/enums/interaction.enum';
@@ -65,7 +65,7 @@
 				out:send={{ key: 'clipflip', duration: 400 }}
 				in:receive={{ key: 'clipflip', duration: 400 }}
 			>
-				<ClipAdd on:create={onCreate} />
+				<Action on:click={onCreate} />
 			</div>
 		{/if}
 	</div>
