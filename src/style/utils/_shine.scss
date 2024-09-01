@@ -1,4 +1,4 @@
-@mixin shine ($rgb) {
+@mixin shine ($rgb, $alpha: 0.15) {
   &::before {
     z-index: 1;
     content: '';
@@ -18,7 +18,7 @@
 
     background: linear-gradient(to left,
         transparent 0%,
-        rgba(var(#{$rgb}), 0.15) 40%,
+        rgba(var(#{$rgb}), $alpha) 40%,
         transparent 80%);
 
     @keyframes highlight {
