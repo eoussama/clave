@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { crossfade, fade } from 'svelte/transition';
 
-	import ClipList from '$lib/components/view/clip-list.svelte';
+	import ClipList from '$lib/components/views/clip-list.svelte';
 	import Action from '$lib/components/controls/action.svelte';
-	import ClipModal from '$lib/components/view/clip-modal.svelte';
+	import ClipModal from '$lib/components/views/clip-modal.svelte';
 
 	import { Interaction } from '$lib/core/enums/interaction.enum';
 
