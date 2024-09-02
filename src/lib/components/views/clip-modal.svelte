@@ -50,6 +50,12 @@
 	export let clip: TNullable<TClip>;
 
 	/**
+	 * @description
+	 * The loading state of the modal
+	 */
+	let loading = false;
+
+	/**
 	 * @decription
 	 * The tag text
 	 */
@@ -124,22 +130,26 @@
 	 * Validates the form
 	 */
 	const onValidate = async () => {
-		await clipForm.validate();
-
-		const validation: any = await new Promise((resolve) => clipForm.subscribe((e) => resolve(e)));
-		if (!validation.valid) {
-			return;
-		}
-
 		try {
+			loading = true;
+
+			await clipForm.validate();
+			const validation: any = await new Promise((resolve) => clipForm.subscribe((e) => resolve(e)));
+
+			if (!validation.valid) {
+				throw new Error();
+			}
+
 			const validatedClip: Partial<TClip> = validation.summary;
 
 			if (mode === Interaction.Creation) {
 				await ClipHelper.create(validatedClip);
 			} else {
-				await ClipHelper.update(validatedClip as TClip);
+				const updatedClip = { ...clip, ...validatedClip };
+				await ClipHelper.update(updatedClip as TClip);
 			}
 		} finally {
+			loading = false;
 			onClose();
 		}
 	};
@@ -182,6 +192,7 @@
 			<div class="modal__input modal__input--title">
 				<Input
 					name="title"
+					disabled={loading}
 					readonly={pageReadonly}
 					label="Optional title..."
 					bind:value={$title.value}
@@ -191,6 +202,7 @@
 			<div class="modal__input modal__input--content">
 				<Input
 					name="content"
+					disabled={loading}
 					readonly={pageReadonly}
 					type={InputType.Editor}
 					error={$content.invalid}
@@ -201,11 +213,22 @@
 			</div>
 
 			<div class="modal__input modal__input--sensitive">
-				<Toggle label="Sensitive" bind:value={$sensitive.value} readonly={pageReadonly} />
+				<Toggle
+					label="Sensitive"
+					disabled={loading}
+					readonly={pageReadonly}
+					bind:value={$sensitive.value}
+				/>
 			</div>
 
 			<div class="modal__input modal__input--tags">
-				<Tags label="Tags" bind:value={$tags.value} bind:newTagtext readonly={pageReadonly} />
+				<Tags
+					label="Tags"
+					disabled={loading}
+					readonly={pageReadonly}
+					bind:newTagtext
+					bind:value={$tags.value}
+				/>
 			</div>
 		</div>
 
@@ -216,7 +239,7 @@
 						label="Reset"
 						icon={MdNotInterested}
 						on:click={onReset}
-						disabled={!$clipForm.dirty}
+						disabled={!$clipForm.dirty || loading}
 					/>
 				</div>
 
@@ -224,6 +247,7 @@
 					<Button
 						icon={MdCheck}
 						label={pageAction}
+						{loading}
 						type={ButtonType.Submit}
 						style={ButtonStyle.Primary}
 						on:click={onValidate}
