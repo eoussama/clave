@@ -2,7 +2,7 @@
 	import ClipModal from '$lib/components/views/clip-modal.svelte';
 
 	export const meta = {
-		title: 'Views/Clip Modal',
+		title: 'Views/Clip/Modal',
 		component: ClipModal,
 		tags: ['autodocs'],
 		argTypes: {}
