@@ -120,6 +120,12 @@
 			@include focus(--toggle-label-color);
 		}
 
+		&--readonly {
+			#{$root}__button {
+				cursor: default;
+			}
+		}
+
 		&--disabled {
 			--toggle-bg-color: #eeeeee;
 			--toggle-label-color: #b9b9b9;
