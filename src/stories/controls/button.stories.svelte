@@ -4,6 +4,7 @@
 
 	const buttonStylesMapping = EnumHelper.toObject(ButtonStyle);
 	const buttonSizesMapping = EnumHelper.toObject(ButtonSize);
+	const buttonTypesMapping = EnumHelper.toObject(ButtonType);
 
 	export const meta = {
 		title: 'Controls/Button',
@@ -19,6 +20,11 @@
         control: { type: 'radio' },
 				mapping: buttonSizesMapping,
 				options: Object.keys(buttonSizesMapping)
+			},
+			type: {
+				control: { type: 'select' },
+				mapping: buttonTypesMapping,
+				options: Object.keys(buttonTypesMapping)
 			},
       icon: {
         control: false
@@ -36,6 +42,7 @@
 
 	import { EnumHelper } from '$lib/core/helpers/enum.helper';
 	import { ButtonSize } from '$lib/core/enums/button-size.enum';
+	import { ButtonType } from '$lib/core/enums/button-type.enum';
 	import { ButtonStyle } from '$lib/core/enums/button-style.enum';
 </script>
 

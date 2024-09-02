@@ -5,6 +5,7 @@
 	import { EnumHelper } from '@eoussama/firemitt';
 
 	import { ButtonSize } from '$lib/core/enums/button-size.enum';
+	import { ButtonType } from '$lib/core/enums/button-type.enum';
 	import { ButtonStyle } from '$lib/core/enums/button-style.enum';
 
 	import type { TNullable } from '$lib/core/types/nullable.type';
@@ -20,6 +21,12 @@
 	 * The button size
 	 */
 	export let size: ButtonSize = ButtonSize.Default;
+
+	/**
+	 * @description
+	 * The button type
+	 */
+	export let type: ButtonType = ButtonType.Button;
 
 	/**
 	 * @description
@@ -89,6 +96,12 @@
 
 	/**
 	 * @description
+	 * Gets the type name
+	 */
+	const getType = () => EnumHelper.getName(ButtonType, type).toLowerCase();
+
+	/**
+	 * @description
 	 * Gets the loading label
 	 */
 	const getLoadingLabel = () => (loadingLabel && loadingLabel?.length > 0 ? loadingLabel : label);
@@ -125,6 +138,7 @@
 	class:btn--disabled={disabled}
 	class:btn--icon={isIconOnly()}
 	disabled={disabled || loading}
+	type={getType()}
 	on:click={onClick}
 >
 	{#if hasIcon()}
