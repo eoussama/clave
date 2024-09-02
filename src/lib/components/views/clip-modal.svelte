@@ -48,30 +48,6 @@
 
 	/**
 	 * @description
-	 * The clip title
-	 */
-	let title: string = '';
-
-	/**
-	 * @description
-	 * The clip content
-	 */
-	let content: string = '';
-
-	/**
-	 * @description
-	 * The clip tags
-	 */
-	let tags: Array<TTag> = [];
-
-	/**
-	 * @description
-	 * If the clip is sensitive
-	 */
-	let sensitive: boolean = false;
-
-	/**
-	 * @description
 	 * Event dispatcher
 	 */
 	const dispatcher = createEventDispatcher();
@@ -80,26 +56,40 @@
 	 * @description
 	 * Gets the modal title
 	 */
-	const getModalTitle = () => {
-		let modalTitle: string;
-
+	const getModalTitle = (): string => {
 		switch (mode) {
 			case Interaction.Creation: {
-				modalTitle = 'Create clip';
-				break;
+				return 'Create clip';
 			}
 
 			case Interaction.Update: {
-				modalTitle = 'Update clip';
-				break;
+				return 'Update clip';
 			}
 
 			default: {
-				modalTitle = 'Clip detail';
+				return 'Clip detail';
 			}
 		}
+	};
 
-		return modalTitle;
+	/**
+	 * @description
+	 * Gets the modal action
+	 */
+	const getModalAction = (): string => {
+		switch (mode) {
+			case Interaction.Creation: {
+				return 'Create';
+			}
+
+			case Interaction.Update: {
+				return 'Update';
+			}
+
+			default: {
+				return 'View';
+			}
+		}
 	};
 
 	/**
@@ -134,16 +124,11 @@
 		}
 	};
 
+	$: title = getModalTitle();
+	$: action = getModalAction();
 	$: readonly = mode === Interaction.View;
 
-	onMount(() => {
-		if (Interaction.Update) {
-			tags = clip?.tags ?? tags;
-			title = clip?.title ?? title;
-			content = clip?.content ?? content;
-			sensitive = clip?.sensitive ?? sensitive;
-		}
-	});
+	onMount(() => {});
 </script>
 
 <div class="modal">
@@ -154,7 +139,7 @@
 	>
 		<form class="modal__wrapper" on:submit|preventDefault={onValidate}>
 			<div class="modal__head">
-				<h3 class="modal__title">{getModalTitle()}</h3>
+				<h3 class="modal__title">{title}</h3>
 
 				<div class="modal__control modal__control--close" in:fade={{ duration: 200 }}>
 					<Button
@@ -168,24 +153,25 @@
 
 			<div class="modal__body">
 				<div class="modal__input modal__input--title">
-					<Input name="title" label="Optional title..." bind:value={title} />
+					<Input {readonly} name="title" label="Optional title..." bind:value={clip.title} />
 				</div>
 
 				<div class="modal__input modal__input--content">
 					<Input
+						{readonly}
 						name="content"
 						type={InputType.Editor}
 						label="Enter the content to save..."
-						bind:value={content}
+						bind:value={clip.content}
 					/>
 				</div>
 
 				<div class="modal__input modal__input--sensitive">
-					<Toggle label="Sensitive" bind:value={sensitive} />
+					<Toggle label="Sensitive" bind:value={clip.sensitive} {readonly} />
 				</div>
 
 				<div class="modal__input modal__input--tags">
-					<Tags label="Tags" bind:value={tags} />
+					<Tags label="Tags" bind:value={clip.tags} {readonly} />
 				</div>
 			</div>
 
@@ -196,7 +182,7 @@
 					</div>
 
 					<div class="modal__control modal__control--validate">
-						<Button label="Create" icon={MdCheck} type={ButtonType.Primary} />
+						<Button label={action} icon={MdCheck} type={ButtonType.Primary} />
 					</div>
 				</div>
 			{/if}
