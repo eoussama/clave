@@ -19,6 +19,9 @@
 			errorMsg: {
 				control: { type: 'text' },
 				if: { arg: 'error', truthy: true }
+			},
+			name: {
+				control: false
 			}
 		}
 	};

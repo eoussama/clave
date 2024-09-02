@@ -55,8 +55,8 @@
 		$root: &;
 
 		--toggle-bg-color: transparent;
-		--toggle-label-color: var(--color-primary);
 		--toggle-lobe-color: hsl(var(--color-primary-hsl), 80%);
+		--toggle-label-color: hsl(var(--color-primary-hsl), 70%);
 		--toggle-border-color: hsl(var(--color-primary-hsl), 80%);
 
 		display: inline-flex;
@@ -66,7 +66,7 @@
 			margin-right: 5px;
 
 			color: var(--toggle-label-color);
-			font-weight: var(--font-weight-regular);
+			font-weight: var(--font-weight-light);
 		}
 
 		&__button {
@@ -118,6 +118,12 @@
 			}
 
 			@include focus(--toggle-label-color);
+		}
+
+		&--readonly {
+			#{$root}__button {
+				cursor: default;
+			}
 		}
 
 		&--disabled {

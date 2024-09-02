@@ -20,6 +20,12 @@
 
 	/**
 	 * @description
+	 * The tag text to create
+	 */
+	export let newTagtext: string = '';
+
+	/**
+	 * @description
 	 * If the component is disabled
 	 */
 	export let disabled: boolean = false;
@@ -41,12 +47,6 @@
 	 * The error message
 	 */
 	let errorMsg: string = '';
-
-	/**
-	 * @description
-	 * The tag text to create
-	 */
-	let newTagtext: string = '';
 
 	/**
 	 * @description
@@ -118,7 +118,15 @@
 <span class="tags">
 	{#if !readonly}
 		<div class="tags__input">
-			<Input {errorMsg} {error} {label} {disabled} bind:value={newTagtext} on:keyup={onKeyUp} />
+			<Input
+				{label}
+				{error}
+				{errorMsg}
+				{disabled}
+				name="tags-input"
+				on:keyup={onKeyUp}
+				bind:value={newTagtext}
+			/>
 		</div>
 	{:else}
 		<h2 class="tags__label">{label}</h2>
@@ -144,9 +152,9 @@
 		}
 
 		&__label {
-			font-size: 12px;
+			font-size: 14px;
 			color: var(--tags-label-color);
-			font-weight: var(--font-weight-bold);
+			font-weight: var(--font-weight-light);
 		}
 
 		&__list {

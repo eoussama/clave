@@ -5,7 +5,7 @@
 	import Button from '$lib/components/controls/button.svelte';
 
 	import { AuthHelper } from '$lib/core/helpers/auth.helper';
-	import { ButtonType } from '$lib/core/enums/button-type.enum';
+	import { ButtonStyle } from '$lib/core/enums/button-style.enum';
 
 	/**
 	 * @description
@@ -43,7 +43,7 @@
 			<Button
 				icon={FaGoogle}
 				loading={loggingIn}
-				type={ButtonType.Primary}
+				style={ButtonStyle.Primary}
 				label="Continue with Google"
 				loadingLabel="Logging-in..."
 				on:click={onLogin}

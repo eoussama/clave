@@ -8,17 +8,17 @@ export enum ButtonType {
    * @description
    * The default button type
    */
-  Default,
+  Button,
 
   /**
    * @description
-   * The primary button type
+   * The reset button type
    */
-  Primary,
+  Reset,
 
   /**
    * @description
-   * The secondary button type
+   * The submit button type
    */
-  Secondary
+  Submit
 }
