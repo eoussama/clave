@@ -155,29 +155,21 @@
 			<div class="modal__head">
 				<h3 class="modal__title">{getModalTitle()}</h3>
 
-				<button
-					class="modal__control modal__control--close"
-					on:click={onClose}
-					in:fade={{ duration: 200 }}
-				>
-					<div class="modal__icon">
-						<!-- <MdClose /> -->
-						<Button
-							icon={MdClose}
-							size={ButtonSize.Small}
-							type={ButtonType.Primary}
-							on:click={onClose}
-						/>
-					</div>
-				</button>
+				<div class="modal__control modal__control--close" in:fade={{ duration: 200 }}>
+					<Button
+						icon={MdClose}
+						size={ButtonSize.Small}
+						type={ButtonType.Primary}
+						on:click={onClose}
+					/>
+				</div>
 			</div>
 
-			<div class="modal__inputs">
+			<div class="modal__body">
 				<div class="modal__input modal__input--title">
 					<Input name="title" label="Optional title..." bind:value={title} />
 				</div>
 
-				<!-- TODO: required -->
 				<div class="modal__input modal__input--content">
 					<Input
 						name="content"
@@ -230,7 +222,7 @@
 			$spacing: 16px;
 
 			overflow: hidden;
-			background-color: hsl(var(--color-primary-hsl), 95%);
+			// background-color: hsl(var(--color-primary-hsl), 95%);
 
 			border-radius: 6px;
 			box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
@@ -252,26 +244,18 @@
 
 					#{$root}__title {
 						font-size: 16px;
+						color: var(--color-primary);
 						font-weight: var(--font-weight-bold);
-						color: hsl(var(--color-primary-hsl), 45%);
 					}
 
 					#{$root}__control {
 						&--close {
 							margin-left: auto;
-							color: hsl(var(--color-primary-hsl), 60%);
-
-							transition-duration: 0.2s;
-							transition-property: color;
-
-							&:hover {
-								color: hsl(var(--color-primary-hsl), 50%);
-							}
 						}
 					}
 				}
 
-				#{$root}__inputs {
+				#{$root}__body {
 					flex: 1;
 					display: flex;
 					flex-direction: column;
@@ -279,75 +263,45 @@
 					padding: $spacing;
 
 					#{$root}__input {
-						border: none;
-						outline: none;
+						margin-bottom: $spacing;
 
-						width: 100%;
-						height: 100%;
-						padding: 12px;
-
-						font-size: 14px;
-						font-weight: var(--font-weight-regular);
-						font-family: var(--font-family-primary);
-
-						border-radius: 4px;
-						background: linear-gradient(
-							to right bottom,
-							hsl(var(--color-primary-hsl), 90%),
-							hsl(var(--color-primary-hsl), 86%)
-						);
-
-						&::placeholder {
-							font-size: 12px;
-						}
-
-						&--title {
-							margin-bottom: $spacing;
+						:global(.input),
+						:global(.toggle) {
+							width: 100%;
+							height: 100%;
 						}
 
 						&--content {
-							flex: 1;
-							resize: none;
+							margin-bottom: $spacing * 0.5;
 						}
 					}
-				}
 
-				#{$root}__controls {
-					display: flex;
-					align-items: center;
+					// 	#{$root}__controls {
+					// 		display: flex;
+					// 		align-items: center;
 
-					padding: 6px;
+					// 		padding: 6px;
 
-					background-color: rgba(var(--color-primary-rgb), 0.15);
+					// 		background-color: rgba(var(--color-primary-rgb), 0.15);
 
-					#{$root}__control {
-						padding: 6px;
-						margin-left: auto;
+					// 		#{$root}__control {
+					// 			padding: 6px;
+					// 			margin-left: auto;
 
-						border-radius: 4px;
-						background-color: rgba(var(--color-primary-rgb), 0.6);
+					// 			border-radius: 4px;
+					// 			background-color: rgba(var(--color-primary-rgb), 0.6);
 
-						transition-duration: 0.2s;
-						transition-property: background-color;
+					// 			transition-duration: 0.2s;
+					// 			transition-property: background-color;
 
-						&:hover {
-							background-color: var(--color-primary);
-						}
+					// 			&:hover {
+					// 				background-color: var(--color-primary);
+					// 			}
 
-						#{$root}__icon {
-							color: hsl(var(--color-secondary-hsl), 86%);
-						}
-					}
-				}
-
-				#{$root}__control {
-					all: unset;
-					cursor: pointer;
-
-					#{$root}__icon {
-						width: 24px;
-						height: 24px;
-					}
+					// 			#{$root}__icon {
+					// 				color: hsl(var(--color-secondary-hsl), 86%);
+					// 			}
+					// 		}
 				}
 			}
 		}
