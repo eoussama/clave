@@ -18,10 +18,11 @@
 	import type { TNullable } from '$lib/core/types/nullable.type';
 	import type { TClipForm } from '$lib/core/types/clip-form.type';
 
-	import { Interaction } from '$lib/core/enums/interaction.enum';
-	import { ButtonSize } from '$lib/core/enums/button-size.enum';
-	import { ButtonStyle } from '$lib/core/enums/button-style.enum';
 	import { InputType } from '$lib/core/enums/input-type.enum';
+	import { ButtonType } from '$lib/core/enums/button-type.enum';
+	import { ButtonSize } from '$lib/core/enums/button-size.enum';
+	import { Interaction } from '$lib/core/enums/interaction.enum';
+	import { ButtonStyle } from '$lib/core/enums/button-style.enum';
 
 	/**
 	 * @description
@@ -52,6 +53,12 @@
 	 * The clip form
 	 */
 	let form: TClipForm;
+
+	/**
+	 * @decription
+	 * The tag text
+	 */
+	let newTagtext: string;
 
 	/**
 	 * @description
@@ -133,7 +140,13 @@
 		}
 	};
 
+	/**
+	 * @description
+	 * Resets the form
+	 */
 	const onReset = () => {
+		newTagtext = '';
+
 		form = {
 			tags: clip?.tags ?? [],
 			title: clip?.title ?? '',
@@ -196,18 +209,23 @@
 					</div>
 
 					<div class="modal__input modal__input--tags">
-						<Tags label="Tags" bind:value={form.tags} {readonly} />
+						<Tags label="Tags" bind:value={form.tags} bind:newTagtext {readonly} />
 					</div>
 				</div>
 
 				{#if !readonly}
 					<div class="modal__foot">
 						<div class="modal__control modal__control--reset">
-							<Button label="Reset" icon={MdNotInterested} />
+							<Button label="Reset" icon={MdNotInterested} type={ButtonType.Reset} />
 						</div>
 
 						<div class="modal__control modal__control--validate">
-							<Button label={action} icon={MdCheck} style={ButtonStyle.Primary} />
+							<Button
+								label={action}
+								icon={MdCheck}
+								type={ButtonType.Submit}
+								style={ButtonStyle.Primary}
+							/>
 						</div>
 					</div>
 				{/if}

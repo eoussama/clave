@@ -20,6 +20,12 @@
 
 	/**
 	 * @description
+	 * The tag text to create
+	 */
+	export let newTagtext: string = '';
+
+	/**
+	 * @description
 	 * If the component is disabled
 	 */
 	export let disabled: boolean = false;
@@ -41,12 +47,6 @@
 	 * The error message
 	 */
 	let errorMsg: string = '';
-
-	/**
-	 * @description
-	 * The tag text to create
-	 */
-	let newTagtext: string = '';
 
 	/**
 	 * @description
