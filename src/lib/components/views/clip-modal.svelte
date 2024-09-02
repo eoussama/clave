@@ -16,10 +16,11 @@
 	import type { TTag } from '$lib/core/types/tag.type';
 	import type { TClip } from '$lib/core/types/clip.type';
 	import type { TNullable } from '$lib/core/types/nullable.type';
+	import type { TClipForm } from '$lib/core/types/clip-form.type';
 
 	import { Interaction } from '$lib/core/enums/interaction.enum';
 	import { ButtonSize } from '$lib/core/enums/button-size.enum';
-	import { ButtonType } from '$lib/core/enums/button-type.enum';
+	import { ButtonStyle } from '$lib/core/enums/button-style.enum';
 	import { InputType } from '$lib/core/enums/input-type.enum';
 
 	/**
@@ -45,6 +46,12 @@
 	 * The clip to edit
 	 */
 	export let clip: TNullable<TClip>;
+
+	/**
+	 * @decription
+	 * The clip form
+	 */
+	let form: TClipForm;
 
 	/**
 	 * @description
@@ -106,29 +113,42 @@
 	 */
 	const onValidate = async () => {
 		const validatedClip: Partial<TClip> = {
-			tags,
-			title,
-			content,
-			sensitive,
+			tags: form.tags,
+			title: form.title,
+			content: form.content,
+			sensitive: form.sensitive,
 			id: mode === Interaction.Update ? clip?.id : undefined
 		};
 
+		console.log({ validatedClip });
+
 		try {
-			if (mode === Interaction.Creation) {
-				await ClipHelper.create(validatedClip);
-			} else {
-				await ClipHelper.update(validatedClip as TClip);
-			}
+			// 	if (mode === Interaction.Creation) {
+			// 		await ClipHelper.create(validatedClip);
+			// 	} else {
+			// 		await ClipHelper.update(validatedClip as TClip);
+			// 	}
 		} finally {
 			onClose();
 		}
+	};
+
+	const onReset = () => {
+		form = {
+			tags: clip?.tags ?? [],
+			title: clip?.title ?? '',
+			content: clip?.content ?? '',
+			sensitive: clip?.sensitive ?? false
+		};
 	};
 
 	$: title = getModalTitle();
 	$: action = getModalAction();
 	$: readonly = mode === Interaction.View;
 
-	onMount(() => {});
+	onMount(() => {
+		onReset();
+	});
 </script>
 
 <div class="modal">
@@ -137,56 +157,62 @@
 		out:send={{ key: 'clipflip', duration: 400 }}
 		in:receive={{ key: 'clipflip', duration: 400 }}
 	>
-		<form class="modal__wrapper" on:submit|preventDefault={onValidate}>
-			<div class="modal__head">
-				<h3 class="modal__title">{title}</h3>
+		{#if form}
+			<form
+				class="modal__wrapper"
+				on:reset|preventDefault={onReset}
+				on:submit|preventDefault={onValidate}
+			>
+				<div class="modal__head">
+					<h3 class="modal__title">{title}</h3>
 
-				<div class="modal__control modal__control--close" in:fade={{ duration: 200 }}>
-					<Button
-						icon={MdClose}
-						size={ButtonSize.Small}
-						type={ButtonType.Primary}
-						on:click={onClose}
-					/>
-				</div>
-			</div>
-
-			<div class="modal__body">
-				<div class="modal__input modal__input--title">
-					<Input {readonly} name="title" label="Optional title..." bind:value={clip.title} />
-				</div>
-
-				<div class="modal__input modal__input--content">
-					<Input
-						{readonly}
-						name="content"
-						type={InputType.Editor}
-						label="Enter the content to save..."
-						bind:value={clip.content}
-					/>
-				</div>
-
-				<div class="modal__input modal__input--sensitive">
-					<Toggle label="Sensitive" bind:value={clip.sensitive} {readonly} />
-				</div>
-
-				<div class="modal__input modal__input--tags">
-					<Tags label="Tags" bind:value={clip.tags} {readonly} />
-				</div>
-			</div>
-
-			{#if !readonly}
-				<div class="modal__foot">
-					<div class="modal__control modal__control--reset">
-						<Button label="Reset" icon={MdNotInterested} />
-					</div>
-
-					<div class="modal__control modal__control--validate">
-						<Button label={action} icon={MdCheck} type={ButtonType.Primary} />
+					<div class="modal__control modal__control--close" in:fade={{ duration: 200 }}>
+						<Button
+							icon={MdClose}
+							size={ButtonSize.Small}
+							style={ButtonStyle.Primary}
+							on:click={onClose}
+						/>
 					</div>
 				</div>
-			{/if}
-		</form>
+
+				<div class="modal__body">
+					<div class="modal__input modal__input--title">
+						<Input {readonly} name="title" label="Optional title..." bind:value={form.title} />
+					</div>
+
+					<div class="modal__input modal__input--content">
+						<Input
+							{readonly}
+							name="content"
+							type={InputType.Editor}
+							label="Enter the content to save..."
+							bind:value={form.content}
+						/>
+					</div>
+
+					<div class="modal__input modal__input--sensitive">
+						<Toggle label="Sensitive" bind:value={form.sensitive} {readonly} />
+					</div>
+
+					<div class="modal__input modal__input--tags">
+						<Tags label="Tags" bind:value={form.tags} {readonly} />
+					</div>
+				</div>
+
+				{#if !readonly}
+					<div class="modal__foot">
+						<div class="modal__control modal__control--reset">
+							<Button label="Reset" icon={MdNotInterested} />
+						</div>
+
+						<div class="modal__control modal__control--validate">
+							<Button label={action} icon={MdCheck} style={ButtonStyle.Primary} />
+						</div>
+					</div>
+				{/if}
+			</form>
+		{/if}
 	</div>
 </div>
 
@@ -212,6 +238,8 @@
 
 			overflow: hidden;
 			border-radius: 6px;
+
+			background-color: #ffffff;
 			box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
 
 			display: flex;

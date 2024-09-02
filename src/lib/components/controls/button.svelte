@@ -4,16 +4,16 @@
 
 	import { EnumHelper } from '@eoussama/firemitt';
 
-	import { ButtonType } from '$lib/core/enums/button-type.enum';
 	import { ButtonSize } from '$lib/core/enums/button-size.enum';
+	import { ButtonStyle } from '$lib/core/enums/button-style.enum';
 
 	import type { TNullable } from '$lib/core/types/nullable.type';
 
 	/**
 	 * @description
-	 * The button type
+	 * The button style
 	 */
-	export let type: ButtonType = ButtonType.Default;
+	export let style: ButtonStyle = ButtonStyle.Default;
 
 	/**
 	 * @description
@@ -77,9 +77,9 @@
 
 	/**
 	 * @description
-	 * Gets the type css class
+	 * Gets the style css class
 	 */
-	const getTypeClass = () => EnumHelper.getName(ButtonType, type).toLowerCase();
+	const getStyleClass = () => EnumHelper.getName(ButtonStyle, style).toLowerCase();
 
 	/**
 	 * @description
@@ -109,7 +109,7 @@
 	 * @description
 	 * Computed classes
 	 */
-	$: classes = `btn btn--${getTypeClass()} btn--${getSizeClass()}`;
+	$: classes = `btn btn--${getStyleClass()} btn--${getSizeClass()}`;
 
 	onMount(async () => {
 		if (!icon && !label) {

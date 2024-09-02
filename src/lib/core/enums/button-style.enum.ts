@@ -1,24 +1,24 @@
 /**
  * @description
- * Button types
+ * Button styles
  */
-export enum ButtonType {
+export enum ButtonStyle {
 
   /**
    * @description
-   * The default button type
+   * The default button style
    */
   Default,
 
   /**
    * @description
-   * The primary button type
+   * The primary button style
    */
   Primary,
 
   /**
    * @description
-   * The secondary button type
+   * The secondary button style
    */
   Secondary
 }
