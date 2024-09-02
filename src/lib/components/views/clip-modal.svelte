@@ -59,15 +59,15 @@
 	const getModalTitle = (): string => {
 		switch (mode) {
 			case Interaction.Creation: {
-				return 'Create clip';
+				return 'Create Clip';
 			}
 
 			case Interaction.Update: {
-				return 'Update clip';
+				return 'Update Clip';
 			}
 
 			default: {
-				return 'Clip detail';
+				return 'Clip Detail';
 			}
 		}
 	};
@@ -211,8 +211,6 @@
 			$spacing: 16px;
 
 			overflow: hidden;
-			// background-color: hsl(var(--color-primary-hsl), 95%);
-
 			border-radius: 6px;
 			box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
 
@@ -220,7 +218,7 @@
 			flex-direction: column;
 
 			width: 100%;
-			min-height: 400px;
+			height: auto;
 
 			#{$root}__wrapper {
 				display: contents;
@@ -233,8 +231,10 @@
 
 					#{$root}__title {
 						font-size: 16px;
-						color: var(--color-primary);
+						text-transform: capitalize;
 						font-weight: var(--font-weight-bold);
+
+						color: var(--color-primary);
 					}
 
 					#{$root}__control {
@@ -263,10 +263,6 @@
 
 						&--content {
 							margin-bottom: $spacing * 0.5;
-						}
-
-						&--tags {
-							margin-bottom: 0;
 						}
 					}
 				}
