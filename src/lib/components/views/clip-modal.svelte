@@ -56,6 +56,12 @@
 
 	/**
 	 * @decription
+	 * The content error message
+	 */
+	let errors: { content: string };
+
+	/**
+	 * @decription
 	 * The tag text
 	 */
 	let newTagtext: string;
@@ -119,6 +125,11 @@
 	 * Validates the form
 	 */
 	const onValidate = async () => {
+		if (!form.content.length) {
+			errors.content = 'Content is required';
+			return;
+		}
+
 		const validatedClip: Partial<TClip> = {
 			tags: form.tags,
 			title: form.title,
@@ -127,14 +138,12 @@
 			id: mode === Interaction.Update ? clip?.id : undefined
 		};
 
-		console.log({ validatedClip });
-
 		try {
-			// 	if (mode === Interaction.Creation) {
-			// 		await ClipHelper.create(validatedClip);
-			// 	} else {
-			// 		await ClipHelper.update(validatedClip as TClip);
-			// 	}
+			if (mode === Interaction.Creation) {
+				await ClipHelper.create(validatedClip);
+			} else {
+				await ClipHelper.update(validatedClip as TClip);
+			}
 		} finally {
 			onClose();
 		}
@@ -146,6 +155,7 @@
 	 */
 	const onReset = () => {
 		newTagtext = '';
+		errors = { content: '' };
 
 		form = {
 			tags: clip?.tags ?? [],
@@ -199,6 +209,8 @@
 							{readonly}
 							name="content"
 							type={InputType.Editor}
+							errorMsg={errors.content}
+							error={errors.content.length > 0}
 							label="Enter the content to save..."
 							bind:value={form.content}
 						/>

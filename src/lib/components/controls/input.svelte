@@ -211,6 +211,7 @@
 
 			#{$root}__input {
 				resize: none;
+				display: flex;
 			}
 		}
 	}
