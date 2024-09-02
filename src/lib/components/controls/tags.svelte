@@ -144,9 +144,9 @@
 		}
 
 		&__label {
-			font-size: 12px;
+			font-size: 14px;
 			color: var(--tags-label-color);
-			font-weight: var(--font-weight-bold);
+			font-weight: var(--font-weight-light);
 		}
 
 		&__list {
