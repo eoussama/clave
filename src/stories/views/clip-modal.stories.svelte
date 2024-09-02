@@ -56,3 +56,4 @@
 </Template>
 
 <Story name="Default" args={{ clip }} />
+<Story name="View" args={{ clip, mode: Interaction.View }} />
