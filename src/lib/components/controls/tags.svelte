@@ -118,7 +118,15 @@
 <span class="tags">
 	{#if !readonly}
 		<div class="tags__input">
-			<Input {errorMsg} {error} {label} {disabled} bind:value={newTagtext} on:keyup={onKeyUp} />
+			<Input
+				{label}
+				{error}
+				{errorMsg}
+				{disabled}
+				name="tags-input"
+				on:keyup={onKeyUp}
+				bind:value={newTagtext}
+			/>
 		</div>
 	{:else}
 		<h2 class="tags__label">{label}</h2>
