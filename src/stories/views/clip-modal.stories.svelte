@@ -5,7 +5,14 @@
 		title: 'Views/Clip/Modal',
 		component: ClipModal,
 		tags: ['autodocs'],
-		argTypes: {}
+		argTypes: {
+			send: {
+				control: false
+			},
+			receive: {
+				control: false
+			},
+		}
 	};
 </script>
 

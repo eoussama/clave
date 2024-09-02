@@ -9,6 +9,7 @@
 
 	import MdCheck from 'svelte-icons/md/MdCheck.svelte';
 	import MdClose from 'svelte-icons/md/MdClose.svelte';
+	import MdNotInterested from 'svelte-icons/md/MdNotInterested.svelte';
 
 	import { ClipHelper } from '$lib/core/helpers/clip.helper';
 
@@ -189,12 +190,14 @@
 			</div>
 
 			{#if !readonly}
-				<div class="modal__controls">
-					<button class="modal__control modal__control--add" type="submit">
-						<div class="modal__icon">
-							<Button icon={MdCheck} size={ButtonSize.Small} type={ButtonType.Primary} />
-						</div>
-					</button>
+				<div class="modal__foot">
+					<div class="modal__control modal__control--reset">
+						<Button label="Reset" icon={MdNotInterested} />
+					</div>
+
+					<div class="modal__control modal__control--validate">
+						<Button label="Create" icon={MdCheck} type={ButtonType.Primary} />
+					</div>
 				</div>
 			{/if}
 		</form>
@@ -259,8 +262,9 @@
 					flex: 1;
 					display: flex;
 					flex-direction: column;
+					justify-content: center;
 
-					padding: $spacing;
+					padding: $spacing $spacing 0 $spacing;
 
 					#{$root}__input {
 						margin-bottom: $spacing;
@@ -274,34 +278,23 @@
 						&--content {
 							margin-bottom: $spacing * 0.5;
 						}
+
+						&--tags {
+							margin-bottom: 0;
+						}
 					}
+				}
 
-					// 	#{$root}__controls {
-					// 		display: flex;
-					// 		align-items: center;
+				#{$root}__foot {
+					display: flex;
+					align-items: center;
+					justify-content: flex-end;
 
-					// 		padding: 6px;
+					padding: $spacing;
 
-					// 		background-color: rgba(var(--color-primary-rgb), 0.15);
-
-					// 		#{$root}__control {
-					// 			padding: 6px;
-					// 			margin-left: auto;
-
-					// 			border-radius: 4px;
-					// 			background-color: rgba(var(--color-primary-rgb), 0.6);
-
-					// 			transition-duration: 0.2s;
-					// 			transition-property: background-color;
-
-					// 			&:hover {
-					// 				background-color: var(--color-primary);
-					// 			}
-
-					// 			#{$root}__icon {
-					// 				color: hsl(var(--color-secondary-hsl), 86%);
-					// 			}
-					// 		}
+					#{$root}__control {
+						margin-left: $spacing;
+					}
 				}
 			}
 		}
