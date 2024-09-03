@@ -154,9 +154,9 @@
 	class:btn--loading={loading}
 	class:btn--disabled={disabled}
 	class:btn--icon={isIconOnly()}
-	disabled={disabled || loading}
-	use:rippleDirective={{ disabled: !ripple }}
 	type={getType()}
+	disabled={disabled || loading}
+	use:rippleDirective={{ disabled: !ripple || disabled }}
 	on:click={onClick}
 >
 	{#if hasIcon()}

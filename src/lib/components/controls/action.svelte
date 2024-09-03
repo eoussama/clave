@@ -57,7 +57,7 @@
 		{disabled}
 		class="add__box"
 		on:click={onClick}
-		use:rippleDirective={{ disabled: !ripple }}
+		use:rippleDirective={{ disabled: !ripple || disabled }}
 	>
 		<input class="add__message" type="text" placeholder={label} disabled />
 
