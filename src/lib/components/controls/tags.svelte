@@ -55,6 +55,10 @@
 	 * @param name The name of the tag
 	 */
 	const createTag = (name: string): void => {
+		if (value.find((e) => e.text === name.toLowerCase())) {
+			throw new Error('Tag already exists');
+		}
+
 		const tag = TagHelper.create(name);
 		value = [...value, tag];
 	};
