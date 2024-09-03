@@ -9,10 +9,10 @@
 	import MdClose from 'svelte-icons/md/MdClose.svelte';
 	import MdNotInterested from 'svelte-icons/md/MdNotInterested.svelte';
 
-	import Tags from '../controls/tags.svelte';
-	import Input from '../controls/input.svelte';
-	import Button from '../controls/button.svelte';
-	import Toggle from '../controls/toggle.svelte';
+	import Tags from '../../controls/tags.svelte';
+	import Input from '../../controls/input.svelte';
+	import Button from '../../controls/button.svelte';
+	import Toggle from '../../controls/toggle.svelte';
 
 	import { ClipHelper } from '$lib/core/helpers/clip.helper';
 

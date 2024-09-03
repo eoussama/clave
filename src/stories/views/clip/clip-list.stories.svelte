@@ -1,5 +1,5 @@
 <script context="module">
-	import ClipList from '$lib/components/views/clip-list.svelte';
+	import ClipList from '$lib/components/views/clip/clip-list.svelte';
 
 	import { EnumHelper } from '$lib/core/helpers/enum.helper';
 	import { Interaction } from '$lib/core/enums/interaction.enum';

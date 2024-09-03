@@ -3,9 +3,9 @@
 
 	import MdAdd from 'svelte-icons/md/MdAdd.svelte';
 
-	import ClipList from '$lib/components/views/clip-list.svelte';
+	import ClipList from '$lib/components/views/clip/clip-list.svelte';
 	import Action from '$lib/components/controls/action.svelte';
-	import ClipModal from '$lib/components/views/clip-modal.svelte';
+	import ClipModal from '$lib/components/views/clip/clip-modal.svelte';
 
 	import { Interaction } from '$lib/core/enums/interaction.enum';
 

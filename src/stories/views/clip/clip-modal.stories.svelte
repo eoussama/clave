@@ -1,5 +1,5 @@
 <script context="module">
-	import ClipModal from '$lib/components/views/clip-modal.svelte';
+	import ClipModal from '$lib/components/views/clip/clip-modal.svelte';
 
 	import { EnumHelper } from '$lib/core/helpers/enum.helper';
 	import { Interaction } from '$lib/core/enums/interaction.enum';
