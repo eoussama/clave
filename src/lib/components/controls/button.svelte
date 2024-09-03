@@ -9,6 +9,8 @@
 	import { ButtonStyle } from '$lib/core/enums/button-style.enum';
 
 	import type { TNullable } from '$lib/core/types/nullable.type';
+	import { tweened } from 'svelte/motion';
+	import { blur, crossfade, fade } from 'svelte/transition';
 
 	/**
 	 * @description
@@ -120,6 +122,14 @@
 
 	/**
 	 * @description
+	 * The icon flip transition
+	 */
+	const [send, receive] = crossfade({
+		duration: (d) => Math.sqrt(d * 200)
+	});
+
+	/**
+	 * @description
 	 * Computed classes
 	 */
 	$: classes = `btn btn--${getStyleClass()} btn--${getSizeClass()}`;
@@ -144,9 +154,21 @@
 	{#if hasIcon()}
 		<div class="btn__icon">
 			{#if loading}
+				<span
+					class="btn__icon-wrapper"
+					out:send={{ key: 'iconFlip', duration: 200 }}
+					in:receive={{ key: 'iconFlip', duration: 200 }}
+				>
+				</span>
 				<FaCircleNotch />
 			{:else}
-				<svelte:component this={icon} />
+				<span
+					class="btn__icon-wrapper"
+					out:send={{ key: 'iconFlip', duration: 200 }}
+					in:receive={{ key: 'iconFlip', duration: 200 }}
+				>
+					<svelte:component this={icon} />
+				</span>
 			{/if}
 		</div>
 	{/if}
@@ -201,6 +223,12 @@
 
 			width: 16px;
 			margin-right: 8px;
+
+			&-wrapper {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
 		}
 
 		&:disabled {
