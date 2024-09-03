@@ -180,6 +180,7 @@
 
 			<div class="modal__control modal__control--close" in:fade={{ duration: 200 }}>
 				<Button
+					ripple={true}
 					icon={MdClose}
 					size={ButtonSize.Small}
 					style={ButtonStyle.Primary}
@@ -237,6 +238,7 @@
 				<div class="modal__control modal__control--reset">
 					<Button
 						label="Reset"
+						ripple={true}
 						icon={MdNotInterested}
 						on:click={onReset}
 						disabled={!$clipForm.dirty || loading}
@@ -245,9 +247,10 @@
 
 				<div class="modal__control modal__control--validate">
 					<Button
+						{loading}
+						ripple={true}
 						icon={MdCheck}
 						label={pageAction}
-						{loading}
 						type={ButtonType.Submit}
 						style={ButtonStyle.Primary}
 						on:click={onValidate}

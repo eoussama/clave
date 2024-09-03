@@ -41,6 +41,7 @@
 
 		<div class="controls" in:fly={{ y: 5, duration: 500, delay: 300 }}>
 			<Button
+				ripple={true}
 				icon={FaGoogle}
 				loading={loggingIn}
 				style={ButtonStyle.Primary}

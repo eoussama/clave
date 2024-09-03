@@ -67,7 +67,13 @@
 				out:send={{ key: 'clipflip', duration: 400 }}
 				in:receive={{ key: 'clipflip', duration: 400 }}
 			>
-				<Action label="Save a new clip..." shine={true} icon={MdAdd} on:click={onCreate} />
+				<Action
+					icon={MdAdd}
+					shine={true}
+					ripple={true}
+					label="Save a new clip..."
+					on:click={onCreate}
+				/>
 			</div>
 		{/if}
 	</div>

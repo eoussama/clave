@@ -32,6 +32,7 @@
 
 	<div class="right">
 		<Button
+			ripple={true}
 			icon={MdMoreVert}
 			size={ButtonSize.Small}
 			style={ButtonStyle.Primary}
