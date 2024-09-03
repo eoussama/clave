@@ -279,7 +279,7 @@
 			}
 		}
 
-		&--shine:not(&--disabled) {
+		&--shine:not(&--disabled, &--loading) {
 			@include shine(--button-shine-color, var(--button-shine-alpha));
 		}
 
