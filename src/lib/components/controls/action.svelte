@@ -1,5 +1,8 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
+
+	import { ripple as rippleDirective } from 'svelte-ripple-action';
+
 	import type { TNullable } from '$lib/core/types/nullable.type';
 
 	/**
@@ -28,6 +31,12 @@
 
 	/**
 	 * @description
+	 * If the action has a ripple effect
+	 */
+	export let ripple: boolean = false;
+
+	/**
+	 * @description
 	 * Event dispatcher
 	 */
 	const dispatcher = createEventDispatcher();
@@ -44,7 +53,12 @@
 </script>
 
 <div class="add" class:add--disabled={disabled} class:add--shine={shine}>
-	<button class="add__box" on:click={onClick} {disabled}>
+	<button
+		{disabled}
+		class="add__box"
+		on:click={onClick}
+		use:rippleDirective={{ disabled: !ripple }}
+	>
 		<input class="add__message" type="text" placeholder={label} disabled />
 
 		{#if icon}
