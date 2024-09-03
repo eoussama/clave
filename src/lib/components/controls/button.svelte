@@ -1,16 +1,17 @@
 <script lang="ts">
+	import { crossfade } from 'svelte/transition';
 	import { onMount, createEventDispatcher } from 'svelte';
+
 	import FaCircleNotch from 'svelte-icons/fa/FaCircleNotch.svelte';
 
 	import { EnumHelper } from '@eoussama/firemitt';
+	import { ripple as rippleDirective } from 'svelte-ripple-action';
 
 	import { ButtonSize } from '$lib/core/enums/button-size.enum';
 	import { ButtonType } from '$lib/core/enums/button-type.enum';
 	import { ButtonStyle } from '$lib/core/enums/button-style.enum';
 
 	import type { TNullable } from '$lib/core/types/nullable.type';
-	import { tweened } from 'svelte/motion';
-	import { blur, crossfade, fade } from 'svelte/transition';
 
 	/**
 	 * @description
@@ -59,6 +60,12 @@
 	 * If the button has a shine effect
 	 */
 	export let shine: boolean = false;
+
+	/**
+	 * @description
+	 * If the button has a ripple effect
+	 */
+	export let ripple: boolean = false;
 
 	/**
 	 * @description
@@ -148,6 +155,7 @@
 	class:btn--disabled={disabled}
 	class:btn--icon={isIconOnly()}
 	disabled={disabled || loading}
+	use:rippleDirective={{ disabled: !ripple }}
 	type={getType()}
 	on:click={onClick}
 >

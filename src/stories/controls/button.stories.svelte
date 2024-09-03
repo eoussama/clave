@@ -17,7 +17,7 @@
 				options: Object.keys(buttonStylesMapping)
 			},
 			size: {
-        control: { type: 'radio' },
+				control: { type: 'radio' },
 				mapping: buttonSizesMapping,
 				options: Object.keys(buttonSizesMapping)
 			},
@@ -26,12 +26,12 @@
 				mapping: buttonTypesMapping,
 				options: Object.keys(buttonTypesMapping)
 			},
-      icon: {
-        control: false
-      },
-      loadingLabel: {
+			icon: {
+				control: false
+			},
+			loadingLabel: {
 				control: { type: 'text' },
-        if: { arg: 'loading', truthy: true }
+				if: { arg: 'loading', truthy: true }
 			}
 		}
 	};
@@ -54,6 +54,7 @@
 <Story name="Primary" args={{ style: ButtonStyle.Primary, label: 'Primary' }} />
 <Story name="Secondary" args={{ style: ButtonStyle.Secondary, label: 'Secondary' }} />
 <Story name="Shine" args={{ shine: true }} />
+<Story name="Ripple" args={{ ripple: true }} />
 <Story name="Disabled" args={{ disabled: true, label: 'Disabled' }} />
 <Story name="Loading" args={{ loading: true, loadingLabel: 'Loading...' }} />
 <Story name="Icon & Text" args={{ icon: MdPlayArrow, label: 'Play' }} />
