@@ -18,6 +18,6 @@ export class TagHelper {
       throw new Error('Tag name cannot be empty');
     }
 
-    return { id: uuid(), text: name };
+    return { id: uuid(), text: name.toLowerCase() };
   }
 }
