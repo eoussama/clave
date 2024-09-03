@@ -25,6 +25,9 @@
 
 		&__note {
 			text-align: center;
+
+			font-weight: var(--font-weight-light);
+			font-family: var(--font-family-primary);
 		}
 
 		&__content {
