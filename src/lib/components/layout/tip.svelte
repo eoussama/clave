@@ -37,7 +37,12 @@
 </script>
 
 <span class="tip">
-	<span class="tip__element" on:mouseenter={onMouseEnter} on:mouseleave={onMouseLeave}>
+	<span
+		role="tooltip"
+		class="tip__element"
+		on:mouseenter={onMouseEnter}
+		on:mouseleave={onMouseLeave}
+	>
 		<slot />
 	</span>
 
