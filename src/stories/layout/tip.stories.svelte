@@ -36,11 +36,14 @@
 
 <style lang="scss">
 	.content {
-		width: 170px;
-		height: 130px;
+		width: 300px;
+		height: 200px;
 
-		padding: 50px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 
+		border-radius: 4px;
 		border: 1px dashed gray;
 	}
 </style>

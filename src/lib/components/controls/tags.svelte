@@ -11,6 +11,7 @@
 	import { ButtonSize } from '$lib/core/enums/button-size.enum';
 	import { ButtonStyle } from '$lib/core/enums/button-style.enum';
 	import Tip from '../layout/tip.svelte';
+	import { TipPositiion } from '$lib/core/enums/tip-position.enum';
 
 	/**
 	 * @description
@@ -145,7 +146,11 @@
 			/>
 
 			<div class="tags__btn">
-				<Tip message="Add a new tag" disabled={disabled || newTagtext.length === 0}>
+				<Tip
+					message="Add a new tag"
+					position={TipPositiion.Left}
+					disabled={disabled || newTagtext.length === 0}
+				>
 					<Button
 						icon={MdAdd}
 						ripple={true}

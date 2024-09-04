@@ -85,7 +85,7 @@
 	.tip {
 		$root: &;
 
-		--tip-bg-color: hsl(var(--color-primary-hsl), 95%);
+		--tip-bg-color: hsl(var(--color-secondary-hsl), 95%);
 		--tip-text-color: hsl(var(--color-primary-hsl), 70%);
 
 		position: relative;
