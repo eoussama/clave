@@ -184,7 +184,7 @@
 			}
 
 			:global(.input__input) {
-				padding-right: 38px;
+				padding-right: 35px;
 			}
 		}
 
