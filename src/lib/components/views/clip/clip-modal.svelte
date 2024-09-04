@@ -148,9 +148,10 @@
 				const updatedClip = { ...clip, ...validatedClip };
 				await ClipHelper.update(updatedClip as TClip);
 			}
+
+			onClose();
 		} finally {
 			loading = false;
-			onClose();
 		}
 	};
 
