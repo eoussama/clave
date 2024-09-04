@@ -1,10 +1,15 @@
 <script lang="ts">
 	import Tag from './tag.svelte';
 	import Input from './input.svelte';
+	import Button from './button.svelte';
+
+	import MdAdd from 'svelte-icons/md/MdAdd.svelte';
 
 	import { TagHelper } from '$lib/core/helpers/tag.helper';
 
 	import type { TTag } from '$lib/core/types/tag.type';
+	import { ButtonSize } from '$lib/core/enums/button-size.enum';
+	import { ButtonStyle } from '$lib/core/enums/button-style.enum';
 
 	/**
 	 * @description
@@ -111,6 +116,24 @@
 	};
 
 	/**
+	 * @decription
+	 * Adds a tag
+	 */
+	const onAdd = () => {
+		// if (newTagtext.length > 0) {
+		// 	try {
+		// 		createTag(newTagtext);
+		// 		clearInput();
+		// 		errorMsg = '';
+		// 	} catch (err: any) {
+		// 		errorMsg = err.message;
+		// 	} finally {
+		// 		error = errorMsg.length > 0;
+		// 	}
+		// }
+	};
+
+	/**
 	 * @description
 	 * Deletes a tag
 	 */
@@ -131,6 +154,16 @@
 				on:keyup={onKeyUp}
 				bind:value={newTagtext}
 			/>
+
+			<div class="tags__btn">
+				<Button
+					icon={MdAdd}
+					ripple={true}
+					size={ButtonSize.Small}
+					style={ButtonStyle.Primary}
+					on:click={onAdd}
+				/>
+			</div>
 		</div>
 	{:else}
 		<h2 class="tags__label">{label}</h2>
@@ -152,7 +185,20 @@
 		--tags-label-color: hsl(var(--color-primary-hsl), 70%);
 
 		&__input {
+			position: relative;
 			width: 100%;
+
+			#{$root}__btn {
+				position: absolute;
+				right: 8px;
+				top: 50%;
+
+				transform: translateY(-50%);
+			}
+
+			:global(.input__input) {
+				padding-right: 38px;
+			}
 		}
 
 		&__label {
