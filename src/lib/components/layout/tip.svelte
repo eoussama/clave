@@ -1,6 +1,10 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
 
+	import { EnumHelper } from '@eoussama/firemitt';
+
+	import { TipPositiion } from '$lib/core/enums/tip-position.enum';
+
 	/**
 	 * @description
 	 * The text to display
@@ -15,6 +19,12 @@
 
 	/**
 	 * @description
+	 * The tip position
+	 */
+	export let position: TipPositiion = TipPositiion.BottomLeft;
+
+	/**
+	 * @description
 	 * If the tip element is hovered
 	 */
 	let hovered: boolean = false;
@@ -24,6 +34,12 @@
 	 * If the tip has a message
 	 */
 	const hasMessage = () => Boolean(message) && message.length > 0;
+
+	/**
+	 * @decription
+	 * Gets the position css class
+	 */
+	const getPositionClass = () => EnumHelper.getName(TipPositiion, position).toLowerCase();
 
 	/**
 	 * @description
@@ -40,9 +56,15 @@
 	const onMouseLeave = () => {
 		hovered = false;
 	};
+
+	/**
+	 * @description
+	 * Computed classes
+	 */
+	$: classes = `tip tip--${getPositionClass()}`;
 </script>
 
-<span class="tip" class:tip--disabled={disabled}>
+<span class={classes} class:tip--disabled={disabled}>
 	<span
 		role="tooltip"
 		class="tip__element"
@@ -75,9 +97,6 @@
 
 		&__box {
 			z-index: 1;
-
-			left: 0;
-			top: calc(100% + 5px);
 			position: absolute;
 
 			max-width: 200px;
@@ -95,6 +114,26 @@
 				padding: 0;
 				font-weight: var(--font-weight-light);
 			}
+		}
+
+		&--topleft &__box {
+			left: 0;
+			bottom: calc(100% + 5px);
+		}
+
+		&--topright &__box {
+			right: 0;
+			bottom: calc(100% + 5px);
+		}
+
+		&--bottomleft &__box {
+			left: 0;
+			top: calc(100% + 5px);
+		}
+
+		&--bottomright &__box {
+			right: 0;
+			top: calc(100% + 5px);
 		}
 
 		&--disabled &__element {
