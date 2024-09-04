@@ -10,6 +10,7 @@
 	import type { TTag } from '$lib/core/types/tag.type';
 	import { ButtonSize } from '$lib/core/enums/button-size.enum';
 	import { ButtonStyle } from '$lib/core/enums/button-style.enum';
+	import Tip from '../layout/tip.svelte';
 
 	/**
 	 * @description
@@ -144,14 +145,16 @@
 			/>
 
 			<div class="tags__btn">
-				<Button
-					icon={MdAdd}
-					ripple={true}
-					size={ButtonSize.Small}
-					style={ButtonStyle.Primary}
-					disabled={disabled || newTagtext.length === 0}
-					on:click={onAdd}
-				/>
+				<Tip message="Add a new tag" disabled={disabled || newTagtext.length === 0}>
+					<Button
+						icon={MdAdd}
+						ripple={true}
+						size={ButtonSize.Small}
+						style={ButtonStyle.Primary}
+						disabled={disabled || newTagtext.length === 0}
+						on:click={onAdd}
+					/>
+				</Tip>
 			</div>
 		</div>
 	{:else}
