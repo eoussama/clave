@@ -74,9 +74,11 @@
 		}
 
 		&__box {
-			position: absolute;
+			z-index: 1;
+
 			left: 0;
 			top: calc(100% + 5px);
+			position: absolute;
 
 			max-width: 200px;
 			width: max-content;
