@@ -1,10 +1,23 @@
 <script context="module">
 	import Tip from '$lib/components/layout/tip.svelte';
 
+	import { EnumHelper } from '$lib/core/helpers/enum.helper';
+
+	import { TipPositiion } from '$lib/core/enums/tip-position.enum';
+
+	const tipPositionsMapping = EnumHelper.toObject(TipPositiion);
+
 	export const meta = {
 		title: 'Layout/Tip',
 		component: Tip,
-		tags: ['autodocs']
+		tags: ['autodocs'],
+		argTypes: {
+			position: {
+				control: { type: 'select' },
+				mapping: tipPositionsMapping,
+				options: Object.keys(tipPositionsMapping)
+			}
+		}
 	};
 </script>
 
@@ -13,8 +26,21 @@
 </script>
 
 <Template let:args>
-	<Tip {...args}>Hover Me!</Tip>
+	<div class="content">
+		<Tip {...args}>Hover Me!</Tip>
+	</div>
 </Template>
 
 <Story name="Default" args={{ message: 'This is a tip!' }} />
 <Story name="Disabled" args={{ message: 'Disabled a tip!', disabled: true }} />
+
+<style lang="scss">
+	.content {
+		width: 170px;
+		height: 130px;
+
+		padding: 50px;
+
+		border: 1px dashed gray;
+	}
+</style>
