@@ -21,7 +21,7 @@
 	 * @description
 	 * The tip position
 	 */
-	export let position: TipPositiion = TipPositiion.BottomLeft;
+	export let position: TipPositiion = TipPositiion.Top;
 
 	/**
 	 * @description
@@ -114,6 +114,30 @@
 				padding: 0;
 				font-weight: var(--font-weight-light);
 			}
+		}
+
+		&--left &__box {
+			bottom: 50%;
+			right: calc(100% + 5px);
+			transform: translateY(50%);
+		}
+
+		&--right &__box {
+			bottom: 50%;
+			left: calc(100% + 5px);
+			transform: translateY(50%);
+		}
+
+		&--top &__box {
+			left: 50%;
+			bottom: calc(100% + 5px);
+			transform: translateX(-50%);
+		}
+
+		&--bottom &__box {
+			left: 50%;
+			top: calc(100% + 5px);
+			transform: translateX(-50%);
 		}
 
 		&--topleft &__box {
