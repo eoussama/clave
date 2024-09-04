@@ -96,19 +96,7 @@
 			case ';':
 			case 'enter': {
 				newTagtext = newTagtext.replace(/[,;]/g, '');
-
-				if (newTagtext.length > 0) {
-					try {
-						createTag(newTagtext);
-						clearInput();
-
-						errorMsg = '';
-					} catch (err: any) {
-						errorMsg = err.message;
-					} finally {
-						error = errorMsg.length > 0;
-					}
-				}
+				onAdd();
 
 				break;
 			}
@@ -120,17 +108,17 @@
 	 * Adds a tag
 	 */
 	const onAdd = () => {
-		// if (newTagtext.length > 0) {
-		// 	try {
-		// 		createTag(newTagtext);
-		// 		clearInput();
-		// 		errorMsg = '';
-		// 	} catch (err: any) {
-		// 		errorMsg = err.message;
-		// 	} finally {
-		// 		error = errorMsg.length > 0;
-		// 	}
-		// }
+		if (newTagtext.length > 0) {
+			try {
+				createTag(newTagtext);
+				clearInput();
+				errorMsg = '';
+			} catch (err: any) {
+				errorMsg = err.message;
+			} finally {
+				error = errorMsg.length > 0;
+			}
+		}
 	};
 
 	/**
@@ -161,6 +149,7 @@
 					ripple={true}
 					size={ButtonSize.Small}
 					style={ButtonStyle.Primary}
+					disabled={newTagtext.length === 0}
 					on:click={onAdd}
 				/>
 			</div>
