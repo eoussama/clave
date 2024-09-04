@@ -17,3 +17,4 @@
 </Template>
 
 <Story name="Default" args={{ message: 'This is a tip!' }} />
+<Story name="Disabled" args={{ message: 'Disabled a tip!', disabled: true }} />

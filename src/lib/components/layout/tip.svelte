@@ -9,6 +9,12 @@
 
 	/**
 	 * @description
+	 * If the tip is disabled
+	 */
+	export let disabled: boolean = false;
+
+	/**
+	 * @description
 	 * If the tip element is hovered
 	 */
 	let hovered: boolean = false;
@@ -36,7 +42,7 @@
 	};
 </script>
 
-<span class="tip">
+<span class="tip" class:tip--disabled={disabled}>
 	<span
 		role="tooltip"
 		class="tip__element"
@@ -46,7 +52,7 @@
 		<slot />
 	</span>
 
-	{#if hasMessage() && hovered}
+	{#if hasMessage() && hovered && !disabled}
 		<div class="tip__box" transition:fly={{ x: -5, duration: 200 }}>
 			<p class="tip__message">{message}</p>
 		</div>
@@ -87,6 +93,10 @@
 				padding: 0;
 				font-weight: var(--font-weight-light);
 			}
+		}
+
+		&--disabled &__element {
+			cursor: default;
 		}
 	}
 </style>
