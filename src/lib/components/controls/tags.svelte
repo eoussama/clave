@@ -149,7 +149,7 @@
 					ripple={true}
 					size={ButtonSize.Small}
 					style={ButtonStyle.Primary}
-					disabled={newTagtext.length === 0}
+					disabled={disabled || newTagtext.length === 0}
 					on:click={onAdd}
 				/>
 			</div>
@@ -179,10 +179,8 @@
 
 			#{$root}__btn {
 				position: absolute;
-				right: 8px;
-				top: 50%;
-
-				transform: translateY(-50%);
+				right: 7px;
+				top: 7px;
 			}
 
 			:global(.input__input) {
