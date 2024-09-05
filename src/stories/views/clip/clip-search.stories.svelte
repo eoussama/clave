@@ -17,4 +17,5 @@
 	<ClipSearch {...args} />
 </Template>
 
-<Story name="Default" args={{}} />
+<Story name="Default" />
+<Story name="Delete" args={{ deleteBtn: true }} />
