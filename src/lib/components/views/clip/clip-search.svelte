@@ -56,8 +56,17 @@
 	 * Checks the selected clips
 	 */
 	const onCheck = () => {
-		console.log('check', value);
 		dispatch('check', value);
+	};
+
+	/**
+	 * @description
+	 * Searches for clips
+	 *
+	 * @param e Event object
+	 */
+	const onSearch = (_: CustomEvent<string>) => {
+		dispatch('search', searchTerm);
 	};
 </script>
 
@@ -73,7 +82,13 @@
 	</div>
 
 	<div class="search__box">
-		<input class="search__input" type="search" placeholder="Search..." value={searchTerm} />
+		<input
+			class="search__input"
+			type="search"
+			placeholder="Search..."
+			value={searchTerm}
+			on:input={onSearch}
+		/>
 		<div class="search__icon">
 			<MdSearch />
 		</div>
@@ -123,6 +138,9 @@
 			justify-content: center;
 
 			#{$root}__input {
+				outline-offset: -2px;
+				appearance: textfield;
+
 				flex: 1;
 				padding: 10px 8px;
 
@@ -135,6 +153,11 @@
 				font-size: 14px;
 				font-weight: var(--font-weight-regular);
 				font-family: var(--font-family-primary);
+
+				&::-webkit-search-decoration,
+				&::-webkit-search-cancel-button {
+					appearance: none;
+				}
 
 				&::placeholder {
 					font-size: 12px;
