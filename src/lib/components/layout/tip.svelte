@@ -89,10 +89,17 @@
 		--tip-text-color: hsl(var(--color-primary-hsl), 70%);
 
 		position: relative;
-		display: inline-block;
+
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
 
 		&__element {
 			cursor: help;
+
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
 		}
 
 		&__box {
