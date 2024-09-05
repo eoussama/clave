@@ -42,6 +42,43 @@
 	const getPositionClass = () => EnumHelper.getName(TipPositiion, position).toLowerCase();
 
 	/**
+	 * @decription
+	 * Gets the transition related to the tip's position
+	 */
+	const getTransition = () => {
+		const value = 5;
+
+		switch (position) {
+			case TipPositiion.Left:
+				return { x: value };
+
+			case TipPositiion.Right:
+				return { x: -value };
+
+			case TipPositiion.Top:
+				return { y: value };
+
+			case TipPositiion.Bottom:
+				return { y: -value };
+
+			case TipPositiion.TopLeft:
+				return { x: value, y: value };
+
+			case TipPositiion.TopRight:
+				return { x: -value, y: value };
+
+			case TipPositiion.BottomLeft:
+				return { x: value, y: -value };
+
+			case TipPositiion.BottomRight:
+				return { x: -value, y: -value };
+
+			default:
+				return { x: value };
+		}
+	};
+
+	/**
 	 * @description
 	 * Mouse enter event
 	 */
@@ -75,7 +112,7 @@
 	</span>
 
 	{#if hasMessage() && hovered && !disabled}
-		<div class="tip__box" transition:fly={{ x: -5, duration: 200 }}>
+		<div class="tip__box" transition:fly={{ ...getTransition(), duration: 200 }}>
 			<p class="tip__message">{message}</p>
 		</div>
 	{/if}
@@ -109,7 +146,7 @@
 			max-width: 200px;
 			width: max-content;
 
-			padding: 8px 10px;
+			padding: 4px;
 			border-radius: 4px;
 			box-shadow: 1px 1px 2px 0 rgba(var(--color-primary-rgb), 0.2);
 
@@ -119,6 +156,8 @@
 			#{$root}__message {
 				margin: 0;
 				padding: 0;
+
+				font-size: 12px;
 				font-weight: var(--font-weight-light);
 			}
 		}
