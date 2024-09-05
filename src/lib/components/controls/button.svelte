@@ -286,7 +286,9 @@
 		}
 
 		&--failure {
+			--button-shine-alpha: 0.2;
 			--button-text-color: var(--color-failure);
+			--button-shine-color: var(--color-failure-rgb);
 			--button-bg-color: hsl(var(--color-failure-hsl), 92%);
 			--button-border-color: hsl(var(--color-failure-hsl), 92%);
 
