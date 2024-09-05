@@ -3,6 +3,7 @@
 	import { createEventDispatcher } from 'svelte';
 
 	import Tip from '$lib/components/layout/tip.svelte';
+	import Check from '$lib/components/controls/check.svelte';
 	import Button from '$lib/components/controls/button.svelte';
 
 	import MdSearch from 'svelte-icons/md/MdSearch.svelte';
@@ -16,7 +17,13 @@
 	 * @description
 	 * If the search box has a deletion button
 	 */
-	export let deleteBtn: boolean = false;
+	export let deleteCtrl: boolean = false;
+
+	/**
+	 * @description
+	 * If the search box has a checkbox
+	 */
+	export let checkCtrl: boolean = false;
 
 	/**
 	 * @description
@@ -40,6 +47,16 @@
 </script>
 
 <div class="search">
+	<div class="search__controls search__controls--left">
+		{#if checkCtrl}
+			<div class="search__control search__control--check" transition:fly={{ x: -5, duration: 200 }}>
+				<Tip message="Select all clips" position={TipPositiion.Right}>
+					<Check />
+				</Tip>
+			</div>
+		{/if}
+	</div>
+
 	<div class="search__box">
 		<input class="search__input" type="search" placeholder="Search..." value={searchTerm} />
 		<div class="search__icon">
@@ -47,8 +64,8 @@
 		</div>
 	</div>
 
-	<div class="search__controls">
-		{#if deleteBtn}
+	<div class="search__controls search__controls--right">
+		{#if deleteCtrl}
 			<div class="search__control search__control--delete" transition:fly={{ x: 5, duration: 200 }}>
 				<Tip message="Delete the selected clips" position={TipPositiion.Left}>
 					<Button
@@ -72,6 +89,7 @@
 		display: flex;
 		flex-direction: row;
 		align-items: center;
+		align-items: stretch;
 		justify-content: center;
 
 		border: 2px solid transparent;
@@ -91,7 +109,7 @@
 
 			#{$root}__input {
 				flex: 1;
-				padding: var(--spacing-padding);
+				padding: 10px 8px;
 
 				border: none;
 				outline: none;
@@ -112,23 +130,18 @@
 		}
 
 		&__controls {
-			margin: 0 6px;
+			display: flex;
+			align-items: stretch;
+
+			&--right {
+				margin-right: 6px;
+			}
 
 			#{$root}__control {
-				#{$root}__icon {
-					cursor: pointer;
+				margin-left: 6px;
 
-					transition-duration: 0.2s;
-					transition-property: color;
-
-					&:hover {
-						color: rgba(var(--color-primary-rgb), 0.8);
-					}
-				}
-
-				&:not(:last-of-type) {
-					margin-right: 6px;
-				}
+				display: flex;
+				align-items: center;
 			}
 		}
 

@@ -18,4 +18,5 @@
 </Template>
 
 <Story name="Default" />
-<Story name="Delete" args={{ deleteBtn: true }} />
+<Story name="Delete" args={{ deleteCtrl: true }} />
+<Story name="Check" args={{ checkCtrl: true }} />
