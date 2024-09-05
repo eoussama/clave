@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { TNullable } from '$lib/core/types/nullable.type';
 	import { createEventDispatcher } from 'svelte';
 
 	/**
@@ -11,7 +12,7 @@
 	 * @description
 	 * The label of the toggle input
 	 */
-	export let label: string = 'Toggle';
+	export let label: TNullable<string>;
 
 	/**
 	 * @description
@@ -42,7 +43,10 @@
 </script>
 
 <div class="toggle" class:toggle--disabled={disabled} class:toggle--readonly={readonly}>
-	<span class="toggle__label">{label}</span>
+	{#if label}
+		<span class="toggle__label">{label}</span>
+	{/if}
+
 	<button class="toggle__button" type="button" disabled={disabled || readonly} on:click={onClick}>
 		<div class="toggle__lobe" class:toggle__lobe--on={value}></div>
 	</button>
@@ -73,6 +77,7 @@
 			cursor: pointer;
 
 			width: 40px;
+			height: 22px;
 			background-color: var(--toggle-bg-color);
 
 			border: none;

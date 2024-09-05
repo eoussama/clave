@@ -4,7 +4,12 @@
 	export const meta = {
 		title: 'Controls/Toggle',
 		component: Toggle,
-		tags: ['autodocs']
+		tags: ['autodocs'],
+		argTypes: {
+			label: {
+				control: { type: 'text' }
+			}
+		}
 	};
 </script>
 
@@ -16,6 +21,7 @@
 	<Toggle {...args} />
 </Template>
 
-<Story name="Default" args={{ label: 'Default' }} />
+<Story name="Default" />
+<Story name="Label" args={{ label: 'Default' }} />
 <Story name="Disabled" args={{ label: 'Disabled', disabled: true }} />
 <Story name="Readonly" args={{ label: 'Readonly', readonly: true, value: true }} />
