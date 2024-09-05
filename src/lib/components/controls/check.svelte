@@ -69,7 +69,7 @@
 		class="check__button"
 		disabled={disabled || readonly}
 		on:click={onClick}
-		use:rippleDirective={{ disabled: !ripple || disabled }}
+		use:rippleDirective={{ disabled: !ripple || disabled || readonly }}
 	>
 		<div class="check__mark">
 			{#if value}
@@ -142,13 +142,14 @@
 		&--on {
 			--check-mark-color: #ffffff;
 			--check-bg-color: var(--color-primary);
+			--check-border-color: var(--color-primary);
 
-			#{$root}__mark {
-				opacity: 1;
-			}
+			#{$root}__button {
+				#{$root}__mark {
+					opacity: 1;
+				}
 
-			&:hover:not(:disabled) {
-				#{$root}__button {
+				&:hover:not(:disabled) {
 					--check-bg-color: hsl(var(--color-primary-hsl), 45%);
 					--check-border-color: hsl(var(--color-primary-hsl), 50%);
 				}
