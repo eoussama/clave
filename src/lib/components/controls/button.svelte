@@ -285,6 +285,22 @@
 			}
 		}
 
+		&--failure {
+			--button-text-color: var(--color-failure);
+			--button-bg-color: hsl(var(--color-failure-hsl), 92%);
+			--button-border-color: hsl(var(--color-failure-hsl), 92%);
+
+			&:disabled {
+				--button-text-color: #b9b9b9;
+				--button-bg-color: #eeeeee;
+				--button-border-color: #eeeeee;
+			}
+
+			&:hover:not(:disabled) {
+				--button-bg-color: hsl(var(--color-failure-hsl), 85%);
+			}
+		}
+
 		&--loading {
 			cursor: wait !important;
 

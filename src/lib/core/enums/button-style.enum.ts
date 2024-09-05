@@ -20,5 +20,11 @@ export enum ButtonStyle {
    * @description
    * The secondary button style
    */
-  Secondary
+  Secondary,
+
+  /**
+   * @description
+   * The failure button style
+   */
+  Failure
 }

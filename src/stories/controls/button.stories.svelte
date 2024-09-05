@@ -53,6 +53,7 @@
 <Story name="Default" args={{ label: 'Default' }} />
 <Story name="Primary" args={{ style: ButtonStyle.Primary, label: 'Primary' }} />
 <Story name="Secondary" args={{ style: ButtonStyle.Secondary, label: 'Secondary' }} />
+<Story name="Failure" args={{ style: ButtonStyle.Failure, label: 'Failure' }} />
 <Story name="Shine" args={{ shine: true }} />
 <Story name="Ripple" args={{ ripple: true }} />
 <Story name="Disabled" args={{ disabled: true, label: 'Disabled' }} />
