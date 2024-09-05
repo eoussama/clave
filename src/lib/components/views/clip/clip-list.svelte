@@ -4,7 +4,7 @@
 
 	import Empty from '../empty.svelte';
 	import ClipItem from './clip-item.svelte';
-	import ClipSearch from '../../controls/clip-search.svelte';
+	import ClipSearch from './clip-search.svelte';
 
 	import { appStore } from '$lib/core/stores/app.store';
 	import type { TClip } from '$lib/core/types/clip.type';
