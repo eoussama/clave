@@ -51,7 +51,7 @@
 		{#if checkCtrl}
 			<div class="search__control search__control--check" transition:fly={{ x: -5, duration: 200 }}>
 				<Tip message="Select all clips" position={TipPositiion.Right}>
-					<Check />
+					<Check ripple />
 				</Tip>
 			</div>
 		{/if}
