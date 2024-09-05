@@ -1,6 +1,12 @@
 <script lang="ts">
-	import type { TNullable } from '$lib/core/types/nullable.type';
+	import { fly } from 'svelte/transition';
 	import { createEventDispatcher } from 'svelte';
+
+	import { ripple as rippleDirective } from 'svelte-ripple-action';
+
+	import MdCheck from 'svelte-icons/md/MdCheck.svelte';
+
+	import type { TNullable } from '$lib/core/types/nullable.type';
 
 	/**
 	 * @description
@@ -28,6 +34,12 @@
 
 	/**
 	 * @description
+	 * If the toggle has a ripple effect
+	 */
+	export let ripple: boolean = false;
+
+	/**
+	 * @description
 	 * Event dispatcher
 	 */
 	const dispatch = createEventDispatcher();
@@ -42,13 +54,30 @@
 	};
 </script>
 
-<div class="check" class:check--disabled={disabled} class:check--readonly={readonly}>
+<div
+	class="check"
+	class:check--on={value}
+	class:check--disabled={disabled}
+	class:check--readonly={readonly}
+>
 	{#if label}
 		<span class="check__label">{label}</span>
 	{/if}
 
-	<button class="check__button" type="button" disabled={disabled || readonly} on:click={onClick}>
-		<div class="check__lobe" class:check__mark--on={value}></div>
+	<button
+		type="button"
+		class="check__button"
+		disabled={disabled || readonly}
+		on:click={onClick}
+		use:rippleDirective={{ disabled: !ripple || disabled }}
+	>
+		<div class="check__mark">
+			{#if value}
+				<div transition:fly={{ x: 5, duration: 200 }}>
+					<MdCheck />
+				</div>
+			{/if}
+		</div>
 	</button>
 </div>
 
@@ -58,88 +87,89 @@
 	.check {
 		$root: &;
 
-		--mark-bg-color: transparent;
-		--mark-lobe-color: hsl(var(--color-primary-hsl), 80%);
-		--mark-label-color: hsl(var(--color-primary-hsl), 70%);
-		--mark-border-color: hsl(var(--color-primary-hsl), 80%);
+		--check-bg-color: transparent;
+		--check-mark-color: hsl(var(--color-primary-hsl), 80%);
+		--check-label-color: hsl(var(--color-primary-hsl), 70%);
+		--check-border-color: hsl(var(--color-primary-hsl), 80%);
 
 		display: inline-flex;
 
 		&__label {
-			// flex: 1;
-			// margin-right: 5px;
+			flex: 1;
+			margin-right: 5px;
 
-			// color: var(--toggle-label-color);
-			// font-weight: var(--font-weight-light);
+			color: var(--check-label-color);
+			font-weight: var(--font-weight-light);
 		}
 
 		&__button {
-			// cursor: pointer;
+			cursor: pointer;
+			position: relative;
 
-			// width: 40px;
-			// height: 22px;
-			// background-color: var(--toggle-bg-color);
+			width: 22px;
+			height: 22px;
+			background-color: var(--check-bg-color);
 
-			// border: none;
-			// border-radius: 50px;
-			// border: 1px solid var(--toggle-border-color);
+			border: none;
+			border-radius: 4px;
+			border: 1px solid var(--check-border-color);
 
-			// transition-duration: 0.2s;
-			// transition-property: background-color;
+			transition-duration: 0.2s;
+			transition-property: background-color border-color;
 
-			// #{$root}__mark {
-			// 	width: 18px;
-			// 	height: 100%;
+			#{$root}__mark {
+				width: 16px;
+				height: 16px;
 
-			// 	top: 0;
-			// 	left: -4px;
-			// 	position: relative;
+				top: 0;
+				left: -50%;
+				position: relative;
 
-			// 	border-radius: 50%;
-			// 	background-color: var(--toggle-lobe-color);
+				color: var(--check-mark-color);
 
-			// 	transition-duration: 0.2s;
-			// 	transition-property: left width;
+				transition-duration: 0.2s;
+				transition-property: opacity color;
+			}
 
-			// 	&--on {
-			// 		left: calc(100% - 18px + 4px);
-			// 		--toggle-lobe-color: var(--color-primary);
-			// 	}
-			// }
+			&:hover:not(:disabled) {
+				--check-bg-color: hsl(var(--color-primary-hsl), 95%);
+				--check-border-color: hsl(var(--color-primary-hsl), 75%);
+			}
 
-			// &:hover:not(:disabled) {
-			// 	--toggle-bg-color: hsl(var(--color-primary-hsl), 95%);
-			// 	--toggle-border-color: hsl(var(--color-primary-hsl), 75%);
-
-			// 	&:active {
-			// 		#{$root}__mark {
-			// 			width: 22px;
-
-			// 			&--on {
-			// 				left: calc(100% - 22px + 4px);
-			// 			}
-			// 		}
-			// 	}
-			// }
-
-			@include focus(--toggle-label-color);
+			@include focus(--check-label-color);
 		}
 
-		// &--readonly {
-		// 	#{$root}__button {
-		// 		cursor: default;
-		// 	}
-		// }
+		&--on {
+			--check-mark-color: #ffffff;
+			--check-bg-color: var(--color-primary);
 
-		// &--disabled {
-		// 	--toggle-bg-color: #eeeeee;
-		// 	--toggle-label-color: #b9b9b9;
-		// 	--toggle-lobe-color: #b9b9b9;
-		// 	--toggle-border-color: #eeeeee;
+			#{$root}__mark {
+				opacity: 1;
+			}
 
-		// 	#{$root}__button {
-		// 		cursor: not-allowed;
-		// 	}
-		// }
+			&:hover:not(:disabled) {
+				#{$root}__button {
+					--check-bg-color: hsl(var(--color-primary-hsl), 45%);
+					--check-border-color: hsl(var(--color-primary-hsl), 50%);
+				}
+			}
+		}
+
+		&--readonly {
+			#{$root}__button {
+				cursor: default;
+			}
+		}
+
+		&--disabled {
+			--check-bg-color: #eeeeee;
+			--check-label-color: #b9b9b9;
+			--check-mark-color: #b9b9b9;
+			--check-border-color: #eeeeee;
+
+			#{$root}__button {
+				cursor: not-allowed;
+			}
+		}
 	}
 </style>

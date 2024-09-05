@@ -22,6 +22,7 @@
 </Template>
 
 <Story name="Default" />
-<Story name="Label" args={{ label: 'Default' }} />
+<Story name="Label" args={{ label: 'Label' }} />
+<Story name="Ripple" args={{ label: 'Ripple', ripple: true }} />
 <Story name="Disabled" args={{ label: 'Disabled', disabled: true }} />
 <Story name="Readonly" args={{ label: 'Readonly', readonly: true, value: true }} />
