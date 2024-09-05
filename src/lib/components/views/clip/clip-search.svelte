@@ -32,6 +32,12 @@
 	let searchTerm: string = '';
 
 	/**
+	 * @decription
+	 * If the selected clips are checked
+	 */
+	let value: boolean = false;
+
+	/**
 	 * @description
 	 * Event dispatcher
 	 */
@@ -44,6 +50,15 @@
 	const onDelete = () => {
 		dispatch('delete');
 	};
+
+	/**
+	 * @description
+	 * Checks the selected clips
+	 */
+	const onCheck = () => {
+		console.log('check', value);
+		dispatch('check', value);
+	};
 </script>
 
 <div class="search">
@@ -51,7 +66,7 @@
 		{#if checkCtrl}
 			<div class="search__control search__control--check" transition:fly={{ x: -5, duration: 200 }}>
 				<Tip message="Select all clips" position={TipPositiion.Right}>
-					<Check ripple />
+					<Check ripple bind:value on:check={onCheck} />
 				</Tip>
 			</div>
 		{/if}
