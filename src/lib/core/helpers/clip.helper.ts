@@ -72,6 +72,21 @@ export class ClipHelper {
     });
   }
 
+  /**
+   * @description
+   * Copies a clip
+   * 
+   * @param clip The clip to copy
+   */
+  static copy(clip: TClip): void {
+    if (typeof clip.content === 'string') {
+      navigator.clipboard.writeText(clip.content);
+    } else {
+      const clipboard = [new ClipboardItem({ [clip.type]: clip.content })];
+      navigator.clipboard.write(clipboard);
+    }
+  }
+
   private static get(clipId: string): Promise<TNullable<TClip>> {
     return new Promise((resolve, reject) => {
       const userData = get(appStore).data;
