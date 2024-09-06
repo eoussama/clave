@@ -2,6 +2,9 @@
 	import { fly } from 'svelte/transition';
 	import { createEventDispatcher } from 'svelte';
 
+	import Tip from '$lib/components/layout/tip.svelte';
+	import Button from '$lib/components/controls/button.svelte';
+
 	import { ripple as rippleDirective } from 'svelte-ripple-action';
 
 	import MdCheck from 'svelte-icons/md/MdCheck.svelte';
@@ -10,9 +13,10 @@
 	import MdVisibilityOff from 'svelte-icons/md/MdVisibilityOff.svelte';
 
 	import type { TClip } from '$lib/core/types/clip.type';
-	import Button from '$lib/components/controls/button.svelte';
+
 	import { ButtonSize } from '$lib/core/enums/button-size.enum';
 	import { ButtonStyle } from '$lib/core/enums/button-style.enum';
+	import { TipPositiion } from '$lib/core/enums/tip-position.enum';
 
 	/**
 	 * @description
@@ -107,7 +111,10 @@
 
 <div class="clip" class:clip--sensitive={clip.sensitive}>
 	<button class="clip__box" on:click|stopPropagation={onCopy}>
-		<div class="clip__ripple" use:rippleDirective>
+		<div
+			class="clip__ripple"
+			use:rippleDirective={{ color: 'rgba(var(--color-primary-rgb), 0.1)' }}
+		>
 			<div class="clip__controls clip__controls--left"></div>
 
 			<div class="clip__info">
@@ -116,49 +123,55 @@
 			</div>
 
 			<div class="clip__controls clip__controls--right">
-				<div class="clip__control">
-					<span class="clip__control-element">
-						<Button
-							ripple
-							size={ButtonSize.Small}
-							style={ButtonStyle.Primary}
-							icon={visible ? MdVisibilityOff : MdVisibility}
-							on:click={onVisibilityToggle}
-						/>
-					</span>
-				</div>
+				{#if clip.sensitive}
+					<Tip message="Toggle visibility" position={TipPositiion.Left}>
+						<div class="clip__control clip_control--visibility">
+							<span class="clip__control-element">
+								<Button
+									ripple
+									size={ButtonSize.Small}
+									style={ButtonStyle.Primary}
+									icon={visible ? MdVisibilityOff : MdVisibility}
+									on:click={onVisibilityToggle}
+								/>
+							</span>
+						</div>
+					</Tip>
+				{/if}
 
-				<div class="clip__control">
-					{#if copied}
-						<span
-							class="clip__control-element"
-							in:fly={{ y: 15, duration: 200 }}
-							out:fly={{ y: -15, duration: 200 }}
-						>
-							<Button
-								ripple
-								icon={MdCheck}
-								size={ButtonSize.Small}
-								style={ButtonStyle.Plain}
-								on:click={onCopy}
-							/>
-						</span>
-					{:else}
-						<span
-							class="clip__control-element"
-							in:fly={{ y: 15, duration: 200 }}
-							out:fly={{ y: -15, duration: 200 }}
-						>
-							<Button
-								ripple
-								icon={MdContentCopy}
-								size={ButtonSize.Small}
-								style={ButtonStyle.Plain}
-								on:click={onCopy}
-							/>
-						</span>
-					{/if}
-				</div>
+				<Tip message="Copy" position={TipPositiion.Left}>
+					<div class="clip__control clip__control--copy">
+						{#if copied}
+							<span
+								class="clip__control-element"
+								in:fly={{ y: 15, duration: 200 }}
+								out:fly={{ y: -15, duration: 200 }}
+							>
+								<Button
+									ripple
+									icon={MdCheck}
+									size={ButtonSize.Small}
+									style={ButtonStyle.Plain}
+									on:click={onCopy}
+								/>
+							</span>
+						{:else}
+							<span
+								class="clip__control-element"
+								in:fly={{ y: 15, duration: 200 }}
+								out:fly={{ y: -15, duration: 200 }}
+							>
+								<Button
+									ripple
+									icon={MdContentCopy}
+									size={ButtonSize.Small}
+									style={ButtonStyle.Plain}
+									on:click={onCopy}
+								/>
+							</span>
+						{/if}
+					</div>
+				</Tip>
 			</div>
 		</div>
 	</button>
@@ -196,6 +209,7 @@
 			#{$root}__info {
 				flex: 1;
 				max-width: 250px;
+
 				color: hsl(var(--color-primary-hsl), 40%);
 
 				#{$root}__title {
@@ -245,22 +259,35 @@
 						display: flex;
 						position: absolute;
 					}
-
-					&:not(:last-of-type) {
-						margin-right: var(--spacing-padding);
-					}
 				}
 
 				&--right {
 					margin-left: auto;
+
+					:global(.tip) {
+						margin-left: var(--spacing-padding);
+					}
+
+					#{$root}__control {
+						opacity: 0;
+
+						transition-duration: 0.2s;
+						transition-property: opacity;
+					}
 				}
 			}
 
 			&:hover {
-				background-color: hsl(var(--color-secondary-hsl), 97%);
+				background-color: hsl(var(--color-primary-hsl), 97%);
 
 				#{$root}__controls {
 					opacity: 1;
+
+					&--right {
+						#{$root}__control {
+							opacity: 1;
+						}
+					}
 				}
 			}
 		}
