@@ -268,11 +268,11 @@
 		}
 
 		&--secondary {
-			--button-shine-alpha: 0.2;
-			--button-text-color: var(--color-secondary);
+			--button-shine-alpha: 0.7;
+			--button-text-color: hsl(var(--color-secondary-hsl), 30%);
 			--button-shine-color: var(--color-secondary-rgb);
-			--button-bg-color: hsl(var(--color-secondary-hsl), 42%);
-			--button-border-color: hsl(var(--color-secondary-hsl), 42%);
+			--button-bg-color: hsl(var(--color-secondary-hsl), 88%);
+			--button-border-color: hsl(var(--color-secondary-hsl), 48%);
 
 			&:disabled {
 				--button-text-color: #b9b9b9;
@@ -281,7 +281,8 @@
 			}
 
 			&:hover:not(:disabled) {
-				--button-bg-color: hsl(var(--color-secondary-hsl), 44%);
+				--button-bg-color: hsl(var(--color-secondary-hsl), 80%);
+				--button-border-color: hsl(var(--color-secondary-hsl), 59%);
 			}
 		}
 
