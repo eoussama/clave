@@ -251,6 +251,10 @@
 			--button-bg-color: hsl(var(--color-primary-hsl), 96%);
 		}
 
+		&--plain {
+			--button-border-color: transparent;
+		}
+
 		&--primary {
 			--button-text-color: var(--color-primary);
 			--button-bg-color: hsl(var(--color-primary-hsl), 92%);

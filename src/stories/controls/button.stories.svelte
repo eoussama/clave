@@ -51,6 +51,7 @@
 </Template>
 
 <Story name="Default" args={{ label: 'Default' }} />
+<Story name="Plain" args={{ label: 'Plain', style: ButtonStyle.Plain }} />
 <Story name="Primary" args={{ style: ButtonStyle.Primary, label: 'Primary' }} />
 <Story name="Secondary" args={{ style: ButtonStyle.Secondary, label: 'Secondary' }} />
 <Story name="Failure" args={{ style: ButtonStyle.Failure, label: 'Failure' }} />

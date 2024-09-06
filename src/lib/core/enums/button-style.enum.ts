@@ -12,6 +12,12 @@ export enum ButtonStyle {
 
   /**
    * @description
+   * The plain button style
+   */
+  Plain,
+
+  /**
+   * @description
    * The primary button style
    */
   Primary,
