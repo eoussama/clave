@@ -19,7 +19,7 @@
 	import type { TClip } from '$lib/core/types/clip.type';
 
 	const clip: TClip = {
-		sensitive: false,
+		sensitive: true,
 		type: ClipType.Text,
 		title: 'Lorem ipsum',
 		creationTime: 1662363200,
