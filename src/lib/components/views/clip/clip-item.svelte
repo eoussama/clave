@@ -128,8 +128,8 @@
 					</span>
 				</div>
 
-				{#if copied}
-					<div class="clip__control">
+				<div class="clip__control">
+					{#if copied}
 						<span
 							class="clip__control-element"
 							in:fly={{ y: 15, duration: 200 }}
@@ -143,9 +143,7 @@
 								on:click={onCopy}
 							/>
 						</span>
-					</div>
-				{:else}
-					<div class="clip__control">
+					{:else}
 						<span
 							class="clip__control-element"
 							in:fly={{ y: 15, duration: 200 }}
@@ -159,8 +157,8 @@
 								on:click={onCopy}
 							/>
 						</span>
-					</div>
-				{/if}
+					{/if}
+				</div>
 			</div>
 		</div>
 	</button>
