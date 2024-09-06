@@ -1,6 +1,8 @@
 <script lang="ts">
-	import { fade, fly } from 'svelte/transition';
+	import { fly } from 'svelte/transition';
 	import { createEventDispatcher } from 'svelte';
+
+	import { ripple as rippleDirective } from 'svelte-ripple-action';
 
 	import MdCheck from 'svelte-icons/md/MdCheck.svelte';
 	import MdVisibility from 'svelte-icons/md/MdVisibility.svelte';
@@ -105,57 +107,61 @@
 
 <div class="clip" class:clip--sensitive={clip.sensitive}>
 	<button class="clip__box" on:click|stopPropagation={onCopy}>
-		<div class="clip__controls clip__controls--left"></div>
+		<div class="clip__ripple" use:rippleDirective>
+			<div class="clip__controls clip__controls--left"></div>
 
-		<div class="clip__info">
-			<h4 class="clip__title">{clip.title}</h4>
-			<p class="clip__content" class:clip__content--hidden={!visible}>{content}</p>
-		</div>
-
-		<div class="clip__controls clip__controls--right">
-			<div class="clip__control">
-				<Button
-					ripple
-					size={ButtonSize.Small}
-					style={ButtonStyle.Primary}
-					icon={visible ? MdVisibilityOff : MdVisibility}
-					on:click={onVisibilityToggle}
-				/>
+			<div class="clip__info">
+				<h4 class="clip__title">{clip.title}</h4>
+				<p class="clip__content" class:clip__content--hidden={!visible}>{content}</p>
 			</div>
 
-			<div class="clip__control">
-				<Button
-					ripple
-					size={ButtonSize.Small}
-					style={ButtonStyle.Primary}
-					icon={copied ? MdCheck : MdContentCopy}
-					on:click={onCopy}
-				/>
-			</div>
+			<div class="clip__controls clip__controls--right">
+				<div class="clip__control">
+					<span class="clip__control-element">
+						<Button
+							ripple
+							size={ButtonSize.Small}
+							style={ButtonStyle.Primary}
+							icon={visible ? MdVisibilityOff : MdVisibility}
+							on:click={onVisibilityToggle}
+						/>
+					</span>
+				</div>
 
-			<!-- <button
-				class="clip__control clip__control--copy"
-				class:clip__control--copied={copied}
-				on:click|stopPropagation={onCopy}
-			>
 				{#if copied}
-					<span
-						class="clip__control-icon"
-						in:fly={{ y: 15, duration: 200 }}
-						out:fly={{ y: -15, duration: 200 }}
-					>
-						<MdCheck />
-					</span>
+					<div class="clip__control">
+						<span
+							class="clip__control-element"
+							in:fly={{ y: 15, duration: 200 }}
+							out:fly={{ y: -15, duration: 200 }}
+						>
+							<Button
+								ripple
+								icon={MdCheck}
+								size={ButtonSize.Small}
+								style={ButtonStyle.Plain}
+								on:click={onCopy}
+							/>
+						</span>
+					</div>
 				{:else}
-					<span
-						class="clip__control-icon"
-						in:fly={{ y: 15, duration: 200 }}
-						out:fly={{ y: -15, duration: 200 }}
-					>
-						<MdContentCopy />
-					</span>
+					<div class="clip__control">
+						<span
+							class="clip__control-element"
+							in:fly={{ y: 15, duration: 200 }}
+							out:fly={{ y: -15, duration: 200 }}
+						>
+							<Button
+								ripple
+								icon={MdContentCopy}
+								size={ButtonSize.Small}
+								style={ButtonStyle.Plain}
+								on:click={onCopy}
+							/>
+						</span>
+					</div>
 				{/if}
-			</button> -->
+			</div>
 		</div>
 	</button>
 </div>
@@ -166,6 +172,8 @@
 
 		&__box {
 			all: unset;
+
+			display: block;
 			cursor: pointer;
 
 			width: 100%;
@@ -173,12 +181,19 @@
 
 			box-sizing: border-box;
 			background-color: #ffffff;
-			padding: 2px var(--spacing-padding);
-
-			display: flex;
 
 			transition-duration: 0.2s;
 			transition-property: background-color;
+
+			#{$root}__ripple {
+				width: 100%;
+				height: 100%;
+
+				display: flex;
+				position: relative;
+
+				padding: 2px var(--spacing-padding);
+			}
 
 			#{$root}__info {
 				flex: 1;
@@ -218,33 +233,20 @@
 				transition-property: opacity;
 
 				#{$root}__control {
-					// all: unset;
+					all: unset;
+					position: relative;
 
-					// 		width: 18px;
-					// 		height: 18px;
-					// 		position: relative;
+					width: 24px;
+					height: 24px;
 
-					// 		color: rgba(var(--color-primary-rgb), 0.4);
+					display: flex;
+					align-items: center;
+					justify-content: center;
 
-					// 		transition-duration: 0.2s;
-					// 		transition-property: color;
-
-					// 		display: flex;
-					// 		align-items: center;
-					// 		justify-content: center;
-
-					// 		&-icon {
-					// 			display: flex;
-					// 			position: absolute;
-					// 		}
-
-					// 		&--copied {
-					// 			color: var(--color-success);
-					// 		}
-
-					// 		&:hover {
-					// 			color: rgba(var(--color-primary-rgb), 0.8);
-					// 		}
+					&-element {
+						display: flex;
+						position: absolute;
+					}
 
 					&:not(:last-of-type) {
 						margin-right: var(--spacing-padding);
