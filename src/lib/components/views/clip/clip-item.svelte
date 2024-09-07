@@ -79,8 +79,7 @@
 	 * @description
 	 * Copies the clip content
 	 */
-	const onCopy = (e: any) => {
-		console.log(e);
+	const onCopy = () => {
 		if (!tmpAuth()) {
 			return;
 		}
@@ -110,7 +109,7 @@
 </script>
 
 <div class="clip" class:clip--sensitive={clip.sensitive}>
-	<button class="clip__box" on:click|stopPropagation={onCopy}>
+	<button class="clip__box" on:click|stopPropagation|preventDefault={onCopy}>
 		<div
 			class="clip__ripple"
 			use:rippleDirective={{ color: 'rgba(var(--color-primary-rgb), 0.1)' }}
