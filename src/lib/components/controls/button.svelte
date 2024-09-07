@@ -86,6 +86,9 @@
 	 * @param e Event object
 	 */
 	const onClick = (e: MouseEvent) => {
+		e.preventDefault();
+		e.stopPropagation();
+
 		if (!loading && !disabled) {
 			dispatch('click', { e });
 		}
