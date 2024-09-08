@@ -23,11 +23,15 @@
   --color-failure-rgb: #{color.$color-failure-rgb-light};
   --color-failure-hsl: #{color.$color-failure-hsl-light};
 
-  .dark {    
+  --color-warn: #{color.$color-warn-light};
+  --color-warn-rgb: #{color.$color-warn-rgb-light};
+  --color-warn-hsl: #{color.$color-warn-hsl-light};
+
+  .dark {
     --color-primary: #{color.$color-primary-dark};
     --color-primary-rgb: #{color.$color-primary-rgb-dark};
     --color-primary-hsl: #{color.$color-primary-hsl-dark};
-    
+
     --color-secondary: #{color.$color-secondary-dark};
     --color-secondary-rgb: #{color.$color-secondary-rgb-dark};
     --color-secondary-hsl: #{color.$color-secondary-hsl-dark};
@@ -43,5 +47,9 @@
     --color-failure: #{color.$color-failure-dark};
     --color-failure-rgb: #{color.$color-failure-rgb-dark};
     --color-failure-hsl: #{color.$color-failure-hsl-dark};
+
+    --color-warn: #{color.$color-warn-dark};
+    --color-warn-rgb: #{color.$color-warn-rgb-dark};
+    --color-warn-hsl: #{color.$color-warn-hsl-dark};
   }
 }
