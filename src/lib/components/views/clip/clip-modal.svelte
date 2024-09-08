@@ -24,6 +24,7 @@
 	import { ButtonSize } from '$lib/core/enums/button-size.enum';
 	import { Interaction } from '$lib/core/enums/interaction.enum';
 	import { ButtonStyle } from '$lib/core/enums/button-style.enum';
+	import { ButtonColor } from '$lib/core/enums/button-color.enum';
 
 	/**
 	 * @description
@@ -184,7 +185,8 @@
 					ripple={true}
 					icon={MdClose}
 					size={ButtonSize.Small}
-					style={ButtonStyle.Primary}
+					style={ButtonStyle.Fill}
+					color={ButtonColor.Primary}
 					on:click={onClose}
 				/>
 			</div>
@@ -239,21 +241,24 @@
 				<div class="modal__control modal__control--reset">
 					<Button
 						label="Reset"
-						ripple={true}
+						ripple
 						icon={MdNotInterested}
-						on:click={onReset}
+						color={ButtonColor.Plain}
 						disabled={!$clipForm.dirty || loading}
+						on:click={onReset}
 					/>
 				</div>
 
 				<div class="modal__control modal__control--validate">
 					<Button
 						{loading}
-						ripple={true}
+						ripple
 						icon={MdCheck}
 						label={pageAction}
 						type={ButtonType.Submit}
-						style={ButtonStyle.Primary}
+						style={ButtonStyle.Fill}
+						color={ButtonColor.Primary}
+						disabled={!$clipForm.dirty}
 						on:click={onValidate}
 					/>
 				</div>

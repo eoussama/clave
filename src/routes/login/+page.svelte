@@ -2,10 +2,13 @@
 	import { fly } from 'svelte/transition';
 
 	import FaGoogle from 'svelte-icons/fa/FaGoogle.svelte';
+
 	import Button from '$lib/components/controls/button.svelte';
 
 	import { AuthHelper } from '$lib/core/helpers/auth.helper';
+
 	import { ButtonStyle } from '$lib/core/enums/button-style.enum';
+	import { ButtonColor } from '$lib/core/enums/button-color.enum';
 
 	/**
 	 * @description
@@ -41,10 +44,11 @@
 
 		<div class="controls" in:fly={{ y: 5, duration: 500, delay: 300 }}>
 			<Button
-				ripple={true}
+				ripple
 				icon={FaGoogle}
 				loading={loggingIn}
-				style={ButtonStyle.Primary}
+				style={ButtonStyle.Fill}
+				color={ButtonColor.Primary}
 				label="Continue with Google"
 				loadingLabel="Logging-in..."
 				on:click={onLogin}

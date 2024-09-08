@@ -12,6 +12,7 @@
 	import { ButtonStyle } from '$lib/core/enums/button-style.enum';
 	import Tip from '../layout/tip.svelte';
 	import { TipPositiion } from '$lib/core/enums/tip-position.enum';
+	import { ButtonColor } from '$lib/core/enums/button-color.enum';
 
 	/**
 	 * @description
@@ -155,7 +156,8 @@
 						icon={MdAdd}
 						ripple={true}
 						size={ButtonSize.Small}
-						style={ButtonStyle.Primary}
+						style={ButtonStyle.Text}
+						color={ButtonColor.Primary}
 						disabled={disabled || newTagtext.length === 0}
 						on:click={onAdd}
 					/>

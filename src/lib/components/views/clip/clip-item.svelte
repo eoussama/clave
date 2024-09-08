@@ -16,6 +16,7 @@
 
 	import { ButtonSize } from '$lib/core/enums/button-size.enum';
 	import { ButtonStyle } from '$lib/core/enums/button-style.enum';
+	import { ButtonColor } from '$lib/core/enums/button-color.enum';
 	import { TipPositiion } from '$lib/core/enums/tip-position.enum';
 
 	/**
@@ -129,7 +130,8 @@
 								<Button
 									ripple
 									size={ButtonSize.Small}
-									style={ButtonStyle.Primary}
+									style={ButtonStyle.Fill}
+									color={ButtonColor.Primary}
 									icon={visible ? MdVisibilityOff : MdVisibility}
 									on:click={onVisibilityToggle}
 								/>
@@ -150,7 +152,8 @@
 									ripple
 									icon={MdCheck}
 									size={ButtonSize.Small}
-									style={ButtonStyle.Plain}
+									style={ButtonStyle.Text}
+									color={ButtonColor.Primary}
 									on:click={onCopy}
 								/>
 							</span>
@@ -164,7 +167,8 @@
 									ripple
 									icon={MdContentCopy}
 									size={ButtonSize.Small}
-									style={ButtonStyle.Plain}
+									style={ButtonStyle.Text}
+									color={ButtonColor.Primary}
 									on:click={onCopy}
 								/>
 							</span>
