@@ -10,6 +10,7 @@
 	import { ButtonSize } from '$lib/core/enums/button-size.enum';
 	import { ButtonType } from '$lib/core/enums/button-type.enum';
 	import { ButtonStyle } from '$lib/core/enums/button-style.enum';
+	import { ButtonColor } from '$lib/core/enums/button-color.enum';
 
 	import type { TNullable } from '$lib/core/types/nullable.type';
 
@@ -17,13 +18,19 @@
 	 * @description
 	 * The button style
 	 */
-	export let style: ButtonStyle = ButtonStyle.Default;
+	export let style: ButtonStyle = ButtonStyle.Text;
+
+	/**
+	 * @decription
+	 * The button color
+	 */
+	export let color: ButtonColor = ButtonColor.Plain;
 
 	/**
 	 * @description
 	 * The button size
 	 */
-	export let size: ButtonSize = ButtonSize.Default;
+	export let size: ButtonSize = ButtonSize.Normal;
 
 	/**
 	 * @description
@@ -101,6 +108,12 @@
 	const getStyleClass = () => EnumHelper.getName(ButtonStyle, style).toLowerCase();
 
 	/**
+	 * @decription
+	 * Gets the color css class
+	 */
+	const getColorClass = () => EnumHelper.getName(ButtonColor, color).toLowerCase();
+
+	/**
 	 * @description
 	 * Gets the size css class
 	 */
@@ -142,7 +155,7 @@
 	 * @description
 	 * Computed classes
 	 */
-	$: classes = `btn btn--${getStyleClass()} btn--${getSizeClass()}`;
+	$: classes = `btn btn--${getStyleClass()} btn--${getColorClass()} btn--${getSizeClass()}`;
 
 	onMount(async () => {
 		if (!icon && !label) {
@@ -198,11 +211,15 @@
 	.btn {
 		$root: &;
 
-		--button-shine-alpha: 0.1;
+		--button-shine-alpha: 0.08;
 		--button-bg-color: transparent;
-		--button-shine-color: var(--color-primary-rgb);
-		--button-text-color: hsl(var(--color-primary-hsl), 70%);
-		--button-border-color: hsl(var(--color-primary-hsl), 80%);
+		--button-border-color: transparent;
+		--button-text-color: var(--color-plain);
+		--button-shine-color: var(--color-plain-rgb);
+
+		// --button-shine-color: var(--color-primary-rgb);
+		// --button-text-color: hsl(var(--color-primary-hsl), 70%);
+		// --button-border-color: hsl(var(--color-primary-hsl), 80%);
 
 		cursor: pointer;
 
@@ -246,69 +263,84 @@
 			cursor: not-allowed;
 
 			--button-text-color: #b9b9b9;
-			--button-bg-color: transparent;
-			--button-border-color: #eeeeee;
+
+			// --button-text-color: #b9b9b9;
+			// --button-bg-color: transparent;
+			// --button-border-color: #eeeeee;
 		}
 
 		&:hover:not(:disabled) {
-			--button-bg-color: hsl(var(--color-primary-hsl), 96%);
+			--button-bg-color: hsl(var(--color-plain-hsl), 96%);
+			// --button-bg-color: hsl(var(--color-primary-hsl), 96%);
 		}
 
-		&--plain {
-			--button-border-color: transparent;
+		&--outline {
+			// --button-border-color: hsl(var(--color-primary-hsl), 80%);
+		}
+
+		&--fill {
+			// --button-bg-color: hsl(var(--color-primary-hsl), 92%);
+		}
+
+		&--text {
+			// --button
+			// --button-border-color: transparent;
+
+			#{$root}--text {
+			}
 		}
 
 		&--primary {
-			--button-text-color: var(--color-primary);
-			--button-bg-color: hsl(var(--color-primary-hsl), 92%);
-			--button-border-color: hsl(var(--color-primary-hsl), 92%);
+			// --button-text-color: var(--color-primary);
+			// --button-bg-color: hsl(var(--color-primary-hsl), 92%);
+			// --button-border-color: hsl(var(--color-primary-hsl), 92%);
 
-			&:disabled {
-				--button-text-color: #b9b9b9;
-				--button-bg-color: #eeeeee;
-				--button-border-color: #eeeeee;
-			}
+			// &:disabled {
+			// 	--button-text-color: #b9b9b9;
+			// 	--button-bg-color: #eeeeee;
+			// 	--button-border-color: #eeeeee;
+			// }
 
-			&:hover:not(:disabled) {
-				--button-bg-color: hsl(var(--color-primary-hsl), 85%);
-			}
+			// &:hover:not(:disabled) {
+			// 	--button-bg-color: hsl(var(--color-primary-hsl), 85%);
+			// }
 		}
 
 		&--secondary {
-			--button-shine-alpha: 0.7;
-			--button-text-color: hsl(var(--color-secondary-hsl), 30%);
-			--button-shine-color: var(--color-secondary-rgb);
-			--button-bg-color: hsl(var(--color-secondary-hsl), 88%);
-			--button-border-color: hsl(var(--color-secondary-hsl), 48%);
+			// --button-shine-alpha: 0.7;
+			// --button-text-color: hsl(var(--color-secondary-hsl), 30%);
+			// --button-shine-color: var(--color-secondary-rgb);
+			// --button-bg-color: hsl(var(--color-secondary-hsl), 88%);
+			// --button-border-color: hsl(var(--color-secondary-hsl), 48%);
 
-			&:disabled {
-				--button-text-color: #b9b9b9;
-				--button-bg-color: #eeeeee;
-				--button-border-color: #eeeeee;
-			}
+			// &:disabled {
+			// 	--button-text-color: #b9b9b9;
+			// 	--button-bg-color: #eeeeee;
+			// 	--button-border-color: #eeeeee;
+			// }
 
-			&:hover:not(:disabled) {
-				--button-bg-color: hsl(var(--color-secondary-hsl), 80%);
-				--button-border-color: hsl(var(--color-secondary-hsl), 59%);
-			}
+			// &:hover:not(:disabled) {
+			// 	--button-bg-color: hsl(var(--color-secondary-hsl), 80%);
+			// 	--button-border-color: hsl(var(--color-secondary-hsl), 59%);
+			// }
 		}
 
 		&--failure {
-			--button-shine-alpha: 0.2;
-			--button-text-color: var(--color-failure);
-			--button-shine-color: var(--color-failure-rgb);
-			--button-bg-color: hsl(var(--color-failure-hsl), 92%);
-			--button-border-color: hsl(var(--color-failure-hsl), 92%);
+			// --button-shine-alpha: 0.2;
+			// --button-text-color: var(--color-failure);
+			// --button-shine-color: var(--color-failure-rgb);
+			// --button-bg-color: hsl(var(--color-failure-hsl), 92%);
+			// --button-border-color: hsl(var(--color-failure-hsl), 92%);
 
-			&:disabled {
-				--button-text-color: #b9b9b9;
-				--button-bg-color: #eeeeee;
-				--button-border-color: #eeeeee;
-			}
+			// &:disabled {
+			// 	--button-text-color: #b9b9b9;
+			// 	--button-bg-color: #eeeeee;
+			// 	--button-border-color: #eeeeee;
+			// }
 
-			&:hover:not(:disabled) {
-				--button-bg-color: hsl(var(--color-failure-hsl), 85%);
-			}
+			// &:hover:not(:disabled) {
+			// 	--button-bg-color: hsl(var(--color-failure-hsl), 85%);
+			// }
 		}
 
 		&--loading {
