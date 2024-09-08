@@ -2,6 +2,7 @@
 	import MdPlayArrow from 'svelte-icons/md/MdPlayArrow.svelte';
 	import Button from '$lib/components/controls/button.svelte';
 
+	const buttonColordMapping = EnumHelper.toObject(ButtonColor);
 	const buttonStylesMapping = EnumHelper.toObject(ButtonStyle);
 	const buttonSizesMapping = EnumHelper.toObject(ButtonSize);
 	const buttonTypesMapping = EnumHelper.toObject(ButtonType);
@@ -26,6 +27,11 @@
 				mapping: buttonTypesMapping,
 				options: Object.keys(buttonTypesMapping)
 			},
+			color: {
+				control: { type: 'select' },
+				mapping: buttonColordMapping,
+				options: Object.keys(buttonColordMapping)
+			},
 			icon: {
 				control: false
 			},
@@ -44,6 +50,7 @@
 	import { ButtonSize } from '$lib/core/enums/button-size.enum';
 	import { ButtonType } from '$lib/core/enums/button-type.enum';
 	import { ButtonStyle } from '$lib/core/enums/button-style.enum';
+	import { ButtonColor } from '$lib/core/enums/button-color.enum';
 </script>
 
 <Template let:args>
@@ -51,10 +58,8 @@
 </Template>
 
 <Story name="Default" args={{ label: 'Default' }} />
-<Story name="Plain" args={{ label: 'Plain', style: ButtonStyle.Plain }} />
-<Story name="Primary" args={{ style: ButtonStyle.Primary, label: 'Primary' }} />
-<Story name="Secondary" args={{ style: ButtonStyle.Secondary, label: 'Secondary' }} />
-<Story name="Failure" args={{ style: ButtonStyle.Failure, label: 'Failure' }} />
+<Story name="Style" args={{ label: 'Style', style: ButtonStyle.Fill }} />
+<Story name="Color" args={{ color: ButtonColor.Primary, label: 'Color' }} />
 <Story name="Shine" args={{ shine: true }} />
 <Story name="Ripple" args={{ ripple: true }} />
 <Story name="Disabled" args={{ disabled: true, label: 'Disabled' }} />
