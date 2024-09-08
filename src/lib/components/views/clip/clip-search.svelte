@@ -11,6 +11,7 @@
 
 	import { ButtonSize } from '$lib/core/enums/button-size.enum';
 	import { ButtonStyle } from '$lib/core/enums/button-style.enum';
+	import { ButtonColor } from '$lib/core/enums/button-color.enum';
 	import { TipPositiion } from '$lib/core/enums/tip-position.enum';
 
 	/**
@@ -103,7 +104,8 @@
 						ripple
 						icon={MdDelete}
 						size={ButtonSize.Small}
-						style={ButtonStyle.Failure}
+						style={ButtonStyle.Fill}
+						color={ButtonColor.Failure}
 						on:click={onDelete}
 					/>
 				</Tip>

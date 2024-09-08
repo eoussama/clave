@@ -48,7 +48,7 @@
 
 		<ul slot="content" class="clips-list">
 			<li class="clips-item clips-item--search" class:clips-item--unfocused={unfocused}>
-				<ClipSearch bind:searchTerm />
+				<ClipSearch />
 			</li>
 
 			<div class="clips-items">
