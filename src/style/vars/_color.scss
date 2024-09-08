@@ -26,9 +26,9 @@ $color-failure-light: #e43922;
 $color-failure-rgb-light: color.colorToRgb($color-failure-light);
 $color-failure-hsl-light: color.colorToHsl($color-failure-light);
 
-$color-warn-light: #fcc153;
-$color-warn-rgb-light: color.colorToRgb($color-warn-light);
-$color-warn-hsl-light: color.colorToHsl($color-warn-light);
+$color-warning-light: #fcc153;
+$color-warning-rgb-light: color.colorToRgb($color-warning-light);
+$color-warning-hsl-light: color.colorToHsl($color-warning-light);
 
 $color-plain-dark: #cfcfcf;
 $color-plain-rgb-dark: color.colorToRgb($color-plain-dark);
@@ -54,6 +54,6 @@ $color-failure-dark: #fc6753;
 $color-failure-rgb-dark: color.colorToRgb($color-failure-dark);
 $color-failure-hsl-dark: color.colorToHsl($color-failure-dark);
 
-$color-warn-dark: #f0a313;
-$color-warn-rgb-dark: color.colorToRgb($color-warn-dark);
-$color-warn-hsl-dark: color.colorToHsl($color-warn-dark);
+$color-warning-dark: #f0a313;
+$color-warning-rgb-dark: color.colorToRgb($color-warning-dark);
+$color-warning-hsl-dark: color.colorToHsl($color-warning-dark);

@@ -302,11 +302,11 @@
 
 			&#{$root}--warning {
 				--button-shine-alpha: 0.1;
-				--button-text-color: var(--color-warn);
-				--button-shine-color: var(--color-warn-rgb);
+				--button-text-color: var(--color-warning);
+				--button-shine-color: var(--color-warning-rgb);
 
 				&:hover:not(:disabled) {
-					--button-bg-color: hsl(var(--color-warn-hsl), 96%);
+					--button-bg-color: hsl(var(--color-warning-hsl), 96%);
 				}
 			}
 
@@ -371,12 +371,12 @@
 			}
 
 			&#{$root}--warning {
-				--button-text-color: var(--color-warn);
-				--button-shine-color: var(--color-warn-rgb);
-				--button-border-color: hsl(var(--color-warn-hsl), 88%);
+				--button-text-color: var(--color-warning);
+				--button-shine-color: var(--color-warning-rgb);
+				--button-border-color: hsl(var(--color-warning-hsl), 88%);
 
 				&:hover:not(:disabled) {
-					--button-bg-color: hsl(var(--color-warn-hsl), 96%);
+					--button-bg-color: hsl(var(--color-warning-hsl), 96%);
 				}
 			}
 
@@ -447,13 +447,13 @@
 			&#{$root}--warning {
 				--button-shine-alpha: 0.2;
 
-				--button-shine-color: var(--color-warn-rgb);
-				--button-bg-color: hsl(var(--color-warn-hsl), 92%);
-				--button-text-color: hsl(var(--color-warn-hsl), 50%);
-				--button-border-color: hsl(var(--color-warn-hsl), 92%);
+				--button-shine-color: var(--color-warning-rgb);
+				--button-bg-color: hsl(var(--color-warning-hsl), 92%);
+				--button-text-color: hsl(var(--color-warning-hsl), 50%);
+				--button-border-color: hsl(var(--color-warning-hsl), 92%);
 
 				&:hover:not(:disabled) {
-					--button-bg-color: hsl(var(--color-warn-hsl), 86%);
+					--button-bg-color: hsl(var(--color-warning-hsl), 86%);
 				}
 			}
 

@@ -60,8 +60,8 @@
 <Story name="Default" args={{ label: 'Default' }} />
 <Story name="Style" args={{ label: 'Style', style: ButtonStyle.Fill }} />
 <Story name="Color" args={{ color: ButtonColor.Primary, label: 'Color' }} />
-<Story name="Shine" args={{ shine: true }} />
-<Story name="Ripple" args={{ ripple: true }} />
+<Story name="Shine" args={{ shine: true, label: 'Shine' }} />
+<Story name="Ripple" args={{ ripple: true, label: 'Ripple' }} />
 <Story name="Disabled" args={{ disabled: true, label: 'Disabled' }} />
 <Story name="Loading" args={{ loading: true, loadingLabel: 'Loading...' }} />
 <Story name="Icon & Text" args={{ icon: MdPlayArrow, label: 'Play' }} />
