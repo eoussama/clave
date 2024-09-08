@@ -12,25 +12,13 @@ export enum ButtonStyle {
 
   /**
    * @description
-   * The plain button style
+   * The outline button style
    */
-  Plain,
+  Outline,
 
   /**
    * @description
-   * The primary button style
+   * The fill button style
    */
-  Primary,
-
-  /**
-   * @description
-   * The secondary button style
-   */
-  Secondary,
-
-  /**
-   * @description
-   * The failure button style
-   */
-  Failure
+  Fill
 }
