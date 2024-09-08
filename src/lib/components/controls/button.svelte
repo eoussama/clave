@@ -397,22 +397,81 @@
 		}
 
 		&--fill {
+			--button-shine-alpha: 0.15;
+
+			&#{$root}--plain {
+				--button-text-color: var(--color-plain);
+				--button-shine-color: var(--color-plain-rgb);
+				--button-bg-color: hsl(var(--color-plain-hsl), 92%);
+				--button-border-color: hsl(var(--color-plain-hsl), 92%);
+
+				&:hover:not(:disabled) {
+					--button-bg-color: hsl(var(--color-plain-hsl), 85%);
+				}
+			}
+
 			&#{$root}--primary {
-				--button-shine-alpha: 0.15;
 				--button-text-color: var(--color-primary);
 				--button-shine-color: var(--color-primary-rgb);
 				--button-bg-color: hsl(var(--color-primary-hsl), 92%);
 				--button-border-color: hsl(var(--color-primary-hsl), 92%);
 
-				&:disabled {
-					--button-text-color: #b9b9b9;
-					--button-bg-color: #eeeeee;
-					--button-border-color: #eeeeee;
-				}
-
 				&:hover:not(:disabled) {
 					--button-bg-color: hsl(var(--color-primary-hsl), 85%);
 				}
+			}
+
+			&#{$root}--secondary {
+				--button-shine-alpha: 0.7;
+				--button-shine-color: var(--color-secondary-rgb);
+				--button-text-color: hsl(var(--color-secondary-hsl), 30%);
+				--button-bg-color: hsl(var(--color-secondary-hsl), 88%);
+				--button-border-color: hsl(var(--color-secondary-hsl), 88%);
+
+				&:hover:not(:disabled) {
+					--button-bg-color: hsl(var(--color-secondary-hsl), 75%);
+				}
+			}
+
+			&#{$root}--failure {
+				--button-text-color: var(--color-failure);
+				--button-shine-color: var(--color-failure-rgb);
+				--button-bg-color: hsl(var(--color-failure-hsl), 92%);
+				--button-border-color: hsl(var(--color-failure-hsl), 92%);
+
+				&:hover:not(:disabled) {
+					--button-bg-color: hsl(var(--color-failure-hsl), 86%);
+				}
+			}
+
+			&#{$root}--warning {
+				--button-shine-alpha: 0.2;
+
+				--button-shine-color: var(--color-warn-rgb);
+				--button-bg-color: hsl(var(--color-warn-hsl), 92%);
+				--button-text-color: hsl(var(--color-warn-hsl), 50%);
+				--button-border-color: hsl(var(--color-warn-hsl), 92%);
+
+				&:hover:not(:disabled) {
+					--button-bg-color: hsl(var(--color-warn-hsl), 86%);
+				}
+			}
+
+			&#{$root}--success {
+				--button-text-color: var(--color-success);
+				--button-shine-color: var(--color-success-rgb);
+				--button-bg-color: hsl(var(--color-success-hsl), 92%);
+				--button-border-color: hsl(var(--color-success-hsl), 92%);
+
+				&:hover:not(:disabled) {
+					--button-bg-color: hsl(var(--color-success-hsl), 86%);
+				}
+			}
+
+			&:disabled {
+				--button-text-color: #b9b9b9;
+				--button-bg-color: #eeeeee;
+				--button-border-color: #eeeeee;
 			}
 		}
 
