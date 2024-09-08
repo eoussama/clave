@@ -211,12 +211,6 @@
 	.btn {
 		$root: &;
 
-		--button-shine-alpha: 0.08;
-		--button-bg-color: transparent;
-		--button-border-color: transparent;
-		--button-text-color: var(--color-plain);
-		--button-shine-color: var(--color-plain-rgb);
-
 		// --button-shine-color: var(--color-primary-rgb);
 		// --button-text-color: hsl(var(--color-primary-hsl), 70%);
 		// --button-border-color: hsl(var(--color-primary-hsl), 80%);
@@ -261,50 +255,106 @@
 
 		&:disabled {
 			cursor: not-allowed;
-
-			--button-text-color: #b9b9b9;
-
-			// --button-text-color: #b9b9b9;
-			// --button-bg-color: transparent;
-			// --button-border-color: #eeeeee;
-		}
-
-		&:hover:not(:disabled) {
-			--button-bg-color: hsl(var(--color-plain-hsl), 96%);
-			// --button-bg-color: hsl(var(--color-primary-hsl), 96%);
-		}
-
-		&--outline {
-			// --button-border-color: hsl(var(--color-primary-hsl), 80%);
-		}
-
-		&--fill {
-			// --button-bg-color: hsl(var(--color-primary-hsl), 92%);
 		}
 
 		&--text {
-			// --button
-			// --button-border-color: transparent;
+			--button-shine-alpha: 0.08;
+			--button-bg-color: transparent;
+			--button-border-color: transparent;
 
-			#{$root}--text {
+			&#{$root}--plain {
+				--button-text-color: var(--color-plain);
+				--button-shine-color: var(--color-plain-rgb);
+
+				&:hover:not(:disabled) {
+					--button-bg-color: hsl(var(--color-plain-hsl), 96%);
+				}
+			}
+
+			&#{$root}--primary {
+				--button-text-color: var(--color-primary);
+				--button-shine-color: var(--color-primary-rgb);
+
+				&:hover:not(:disabled) {
+					--button-bg-color: hsl(var(--color-primary-hsl), 96%);
+				}
+			}
+
+			&#{$root}--secondary {
+				--button-shine-alpha: 0.6;
+				--button-text-color: hsl(var(--color-secondary-hsl), 34%);
+				--button-shine-color: var(--color-secondary-rgb);
+
+				&:hover:not(:disabled) {
+					--button-bg-color: hsl(var(--color-secondary-hsl), 90%);
+				}
+			}
+
+			&#{$root}--failure {
+				--button-shine-alpha: 0.06;
+				--button-text-color: var(--color-failure);
+				--button-shine-color: var(--color-failure-rgb);
+
+				&:hover:not(:disabled) {
+					--button-bg-color: hsl(var(--color-failure-hsl), 96%);
+				}
+			}
+
+			&#{$root}--warning {
+				--button-shine-alpha: 0.1;
+				--button-text-color: var(--color-warn);
+				--button-shine-color: var(--color-warn-rgb);
+
+				&:hover:not(:disabled) {
+					--button-bg-color: hsl(var(--color-warn-hsl), 96%);
+				}
+			}
+
+			&#{$root}--success {
+				--button-shine-alpha: 0.1;
+				--button-text-color: var(--color-success);
+				--button-shine-color: var(--color-success-rgb);
+
+				&:hover:not(:disabled) {
+					--button-bg-color: hsl(var(--color-success-hsl), 96%);
+				}
+			}
+
+			&:disabled {
+				--button-text-color: #b9b9b9;
 			}
 		}
 
-		&--primary {
-			// --button-text-color: var(--color-primary);
-			// --button-bg-color: hsl(var(--color-primary-hsl), 92%);
-			// --button-border-color: hsl(var(--color-primary-hsl), 92%);
-
-			// &:disabled {
-			// 	--button-text-color: #b9b9b9;
-			// 	--button-bg-color: #eeeeee;
-			// 	--button-border-color: #eeeeee;
-			// }
-
-			// &:hover:not(:disabled) {
-			// 	--button-bg-color: hsl(var(--color-primary-hsl), 85%);
-			// }
+		&--outline {
 		}
+
+		&--fill {
+			&#{$root}--primary {
+				--button-shine-alpha: 0.15;
+				--button-text-color: var(--color-primary);
+				--button-shine-color: var(--color-primary-rgb);
+				--button-bg-color: hsl(var(--color-primary-hsl), 92%);
+				--button-border-color: hsl(var(--color-primary-hsl), 92%);
+
+				&:disabled {
+					--button-text-color: #b9b9b9;
+					--button-bg-color: #eeeeee;
+					--button-border-color: #eeeeee;
+				}
+
+				&:hover:not(:disabled) {
+					--button-bg-color: hsl(var(--color-primary-hsl), 85%);
+				}
+			}
+		}
+
+		// TODO: disabled
+		// --button-text-color: #b9b9b9;
+		// --button-bg-color: transparent;
+		// --button-border-color: #eeeeee;
+
+		// TODO: --button-border-color: hsl(var(--color-primary-hsl), 80%);
+		// TODO: primary hover when not disabled) --button-bg-color: hsl(var(--color-primary-hsl), 96%);
 
 		&--secondary {
 			// --button-shine-alpha: 0.7;
