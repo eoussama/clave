@@ -6,9 +6,9 @@ export enum ButtonStyle {
 
   /**
    * @description
-   * The default button style
+   * The text button style
    */
-  Default,
+  Text,
 
   /**
    * @description

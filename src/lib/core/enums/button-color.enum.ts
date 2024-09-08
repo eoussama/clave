@@ -8,7 +8,7 @@ export enum ButtonColor {
    * @description
    * The default button color
    */
-  Default,
+  Plain,
 
   /**
    * @description
