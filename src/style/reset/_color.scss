@@ -3,6 +3,10 @@
 
 
 :root {
+  --color-plain: #{color.$color-plain-light};
+  --color-plain-rgb: #{color.$color-primary-rgb-light};
+  --color-plain-hsl: #{color.$color-plain-hsl-light};
+
   --color-primary: #{color.$color-primary-light};
   --color-primary-rgb: #{color.$color-primary-rgb-light};
   --color-primary-hsl: #{color.$color-primary-hsl-light};
@@ -28,6 +32,10 @@
   --color-warn-hsl: #{color.$color-warn-hsl-light};
 
   .dark {
+    --color-plain: #{color.$color-plain-dark};
+    --color-plain-rgb: #{color.$color-primary-rgb-dark};
+    --color-plain-hsl: #{color.$color-plain-hsl-dark};
+
     --color-primary: #{color.$color-primary-dark};
     --color-primary-rgb: #{color.$color-primary-rgb-dark};
     --color-primary-hsl: #{color.$color-primary-hsl-dark};
