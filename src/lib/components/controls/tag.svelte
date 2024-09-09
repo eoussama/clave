@@ -5,6 +5,7 @@
 	import MdRemove from 'svelte-icons/md/MdRemove.svelte';
 
 	import type { TTag } from '$lib/core/types/tag.type';
+	import { fly } from 'svelte/transition';
 
 	// TODO: disabled
 	// TODO: readonly
@@ -57,7 +58,7 @@
 		</span>
 
 		{#if !readonly && !disabled}
-			<span class="tag__remove">
+			<span class="tag__remove" in:fly={{ x: 5, duration: 200 }} out:fly={{ x: -5, duration: 200 }}>
 				<MdRemove />
 			</span>
 		{/if}
@@ -74,6 +75,7 @@
 
 		cursor: pointer;
 
+		width: auto;
 		height: 20px;
 
 		display: inline-flex;
@@ -88,7 +90,7 @@
 		border: 1px solid var(--tag-border-color);
 
 		transition-duration: 0.2s;
-		transition-property: background-color border-color color;
+		transition-property: background-color border-color color width;
 
 		&__text {
 			max-width: 150px;
