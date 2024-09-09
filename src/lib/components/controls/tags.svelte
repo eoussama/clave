@@ -134,7 +134,7 @@
 	};
 </script>
 
-<span class="tags">
+<span class="tags" class:tags--readonly={readonly}>
 	<div class="tags__wrapper">
 		{#if !readonly}
 			<div
@@ -217,6 +217,9 @@
 
 			display: flex;
 			align-items: end;
+
+			transition-duration: 0.2s;
+			transition-property: height;
 		}
 
 		&__label {
@@ -233,6 +236,12 @@
 
 			#{$root}__item {
 				display: inline;
+			}
+		}
+
+		&--readonly {
+			#{$root}__wrapper {
+				height: 22px;
 			}
 		}
 	}
