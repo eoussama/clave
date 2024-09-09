@@ -13,6 +13,7 @@
 	import Tip from '../layout/tip.svelte';
 	import { TipPositiion } from '$lib/core/enums/tip-position.enum';
 	import { ButtonColor } from '$lib/core/enums/button-color.enum';
+	import { fade, fly } from 'svelte/transition';
 
 	/**
 	 * @description
@@ -134,39 +135,51 @@
 </script>
 
 <span class="tags">
-	{#if !readonly}
-		<div class="tags__input">
-			<Input
-				{label}
-				{error}
-				{errorMsg}
-				{disabled}
-				name="tags-input"
-				on:keyup={onKeyUp}
-				bind:value={newTagtext}
-			/>
+	<div class="tags__wrapper">
+		{#if !readonly}
+			<div
+				class="tags__input"
+				out:fly={{ x: -5, duration: 200 }}
+				in:fly={{ x: 5, duration: 200, delay: 200 }}
+			>
+				<Input
+					{label}
+					{error}
+					{errorMsg}
+					{disabled}
+					name="tags-input"
+					on:keyup={onKeyUp}
+					bind:value={newTagtext}
+				/>
 
-			<div class="tags__btn">
-				<Tip
-					message="Add a new tag"
-					position={TipPositiion.Left}
-					disabled={disabled || newTagtext.length === 0}
-				>
-					<Button
-						icon={MdAdd}
-						ripple={true}
-						size={ButtonSize.Small}
-						style={ButtonStyle.Text}
-						color={ButtonColor.Primary}
+				<div class="tags__btn">
+					<Tip
+						message="Add a new tag"
+						position={TipPositiion.Left}
 						disabled={disabled || newTagtext.length === 0}
-						on:click={onAdd}
-					/>
-				</Tip>
+					>
+						<Button
+							icon={MdAdd}
+							ripple={true}
+							size={ButtonSize.Small}
+							style={ButtonStyle.Text}
+							color={ButtonColor.Primary}
+							disabled={disabled || newTagtext.length === 0}
+							on:click={onAdd}
+						/>
+					</Tip>
+				</div>
 			</div>
-		</div>
-	{:else}
-		<h2 class="tags__label">{label}</h2>
-	{/if}
+		{:else}
+			<h2
+				class="tags__label"
+				out:fly={{ x: -5, duration: 200 }}
+				in:fly={{ x: 5, duration: 200, delay: 200 }}
+			>
+				{label}
+			</h2>
+		{/if}
+	</div>
 
 	<ul class="tags__list">
 		{#each value as tag}
@@ -196,6 +209,14 @@
 			:global(.input__input) {
 				padding-right: 35px;
 			}
+		}
+
+		&__wrapper {
+			height: 37px;
+			position: relative;
+
+			display: flex;
+			align-items: end;
 		}
 
 		&__label {
