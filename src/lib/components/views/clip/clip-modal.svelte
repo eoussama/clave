@@ -304,7 +304,7 @@
 			</div>
 
 			{#if !pageReadonly}
-				<div class="modal__input modal__input--sensitive">
+				<div class="modal__input modal__input--sensitive" transition:fly={{ x: 5, duration: 200 }}>
 					<Toggle
 						label="Sensitive"
 						disabled={loading}
