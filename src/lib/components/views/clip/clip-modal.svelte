@@ -1,18 +1,23 @@
 <script lang="ts">
-	import { fade } from 'svelte/transition';
+	import { fade, fly } from 'svelte/transition';
 	import { createEventDispatcher, onMount } from 'svelte';
 
 	import { field, form } from 'svelte-forms';
 	import { required } from 'svelte-forms/validators';
 
+	import MdEdit from 'svelte-icons/md/MdEdit.svelte';
 	import MdCheck from 'svelte-icons/md/MdCheck.svelte';
 	import MdClose from 'svelte-icons/md/MdClose.svelte';
+	import MdDelete from 'svelte-icons/md/MdDelete.svelte';
+	import MdVisibility from 'svelte-icons/md/MdVisibility.svelte';
+	import MdVisibilityOff from 'svelte-icons/md/MdVisibilityOff.svelte';
 	import MdNotInterested from 'svelte-icons/md/MdNotInterested.svelte';
 
-	import Tags from '../../controls/tags.svelte';
-	import Input from '../../controls/input.svelte';
-	import Button from '../../controls/button.svelte';
-	import Toggle from '../../controls/toggle.svelte';
+	import Tip from '$lib/components/layout/tip.svelte';
+	import Tags from '$lib/components/controls/tags.svelte';
+	import Input from '$lib/components/controls/input.svelte';
+	import Button from '$lib/components/controls/button.svelte';
+	import Toggle from '$lib/components/controls/toggle.svelte';
 
 	import { ClipHelper } from '$lib/core/helpers/clip.helper';
 
@@ -25,6 +30,8 @@
 	import { Interaction } from '$lib/core/enums/interaction.enum';
 	import { ButtonStyle } from '$lib/core/enums/button-style.enum';
 	import { ButtonColor } from '$lib/core/enums/button-color.enum';
+	import { TipPositiion } from '$lib/core/enums/tip-position.enum';
+	import { page } from '$app/stores';
 
 	/**
 	 * @description
@@ -128,6 +135,30 @@
 
 	/**
 	 * @description
+	 * Edits the clip
+	 */
+	const onEdit = () => {
+		mode = Interaction.Update;
+	};
+
+	/**
+	 * @description
+	 * Deletes the clip
+	 */
+	const onDelete = () => {
+		dispatcher('delete');
+	};
+
+	/**
+	 * @description
+	 * Toggles the clip visibility
+	 */
+	const onVisibility = () => {
+		dispatcher('visibility');
+	};
+
+	/**
+	 * @description
 	 * Validates the form
 	 */
 	const onValidate = async () => {
@@ -180,15 +211,71 @@
 		<div class="modal__head">
 			<h3 class="modal__title">{pageTitle}</h3>
 
-			<div class="modal__control modal__control--close" in:fade={{ duration: 200 }}>
-				<Button
-					ripple={true}
-					icon={MdClose}
-					size={ButtonSize.Small}
-					style={ButtonStyle.Fill}
-					color={ButtonColor.Primary}
-					on:click={onClose}
-				/>
+			<div class="modal__controls">
+				{#if pageReadonly}
+					<div
+						class="modal__control modal__control--delete"
+						transition:fly={{ x: -5, duration: 200 }}
+					>
+						<Tip message="Delete" position={TipPositiion.Top}>
+							<Button
+								ripple
+								icon={MdDelete}
+								size={ButtonSize.Small}
+								style={ButtonStyle.Fill}
+								color={ButtonColor.Failure}
+								on:click={onDelete}
+							/>
+						</Tip>
+					</div>
+
+					<div
+						class="modal__control modal__control--edit"
+						transition:fly={{ x: -5, duration: 200, delay: 50 }}
+					>
+						<Tip message="Edit" position={TipPositiion.Top}>
+							<Button
+								ripple
+								icon={MdEdit}
+								size={ButtonSize.Small}
+								style={ButtonStyle.Fill}
+								color={ButtonColor.Primary}
+								on:click={onEdit}
+							/>
+						</Tip>
+					</div>
+
+					<div
+						class:modal__control--hide={!$sensitive.value}
+						class="modal__control modal__control--visibility"
+						transition:fly={{ x: -5, duration: 200, delay: 150 }}
+					>
+						<Tip message="Edit" position={TipPositiion.Top}>
+							<Button
+								ripple
+								disabled={loading}
+								icon={MdVisibility}
+								size={ButtonSize.Small}
+								style={ButtonStyle.Fill}
+								color={ButtonColor.Primary}
+								on:click={onVisibility}
+							/>
+						</Tip>
+					</div>
+				{/if}
+
+				<div class="modal__control modal__control--close" in:fade={{ duration: 200 }}>
+					<Tip message="Close" position={TipPositiion.Top}>
+						<Button
+							ripple
+							icon={MdClose}
+							size={ButtonSize.Small}
+							style={ButtonStyle.Fill}
+							color={ButtonColor.Primary}
+							on:click={onClose}
+						/>
+					</Tip>
+				</div>
 			</div>
 		</div>
 
@@ -216,14 +303,16 @@
 				/>
 			</div>
 
-			<div class="modal__input modal__input--sensitive">
-				<Toggle
-					label="Sensitive"
-					disabled={loading}
-					readonly={pageReadonly}
-					bind:value={$sensitive.value}
-				/>
-			</div>
+			{#if !pageReadonly}
+				<div class="modal__input modal__input--sensitive">
+					<Toggle
+						label="Sensitive"
+						disabled={loading}
+						readonly={pageReadonly}
+						bind:value={$sensitive.value}
+					/>
+				</div>
+			{/if}
 
 			<div class="modal__input modal__input--tags">
 				<Tags
@@ -240,8 +329,8 @@
 			<div class="modal__foot">
 				<div class="modal__control modal__control--reset">
 					<Button
-						label="Reset"
 						ripple
+						label="Reset"
 						icon={MdNotInterested}
 						color={ButtonColor.Plain}
 						disabled={!$clipForm.dirty || loading}
@@ -251,8 +340,8 @@
 
 				<div class="modal__control modal__control--validate">
 					<Button
-						{loading}
 						ripple
+						{loading}
 						icon={MdCheck}
 						label={pageAction}
 						type={ButtonType.Submit}
@@ -287,9 +376,7 @@
 		&__box {
 			$spacing: 16px;
 
-			overflow: hidden;
 			border-radius: 6px;
-
 			background-color: #ffffff;
 			box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
 
@@ -304,6 +391,7 @@
 
 				display: flex;
 				flex-direction: row;
+				align-items: center;
 
 				#{$root}__title {
 					font-size: 16px;
@@ -313,9 +401,20 @@
 					color: var(--color-primary);
 				}
 
-				#{$root}__control {
-					&--close {
-						margin-left: auto;
+				#{$root}__controls {
+					margin-left: auto;
+
+					display: flex;
+					align-items: center;
+					justify-content: center;
+
+					#{$root}__control {
+						margin-left: 4px;
+						display: inline-block;
+
+						&--hide {
+							display: none;
+						}
 					}
 				}
 			}
