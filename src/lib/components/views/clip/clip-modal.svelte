@@ -118,6 +118,7 @@
 	$: pageTitle = getModalTitle();
 	$: pageAction = getModalAction();
 	$: pageReadonly = mode === Interaction.View;
+	$: pageValidation = mode === Interaction.Creation ? true : !$clipForm.dirty;
 
 	const tags = field('tags', clip?.tags ?? []);
 	const title = field('title', clip?.title ?? '');
@@ -347,7 +348,7 @@
 						type={ButtonType.Submit}
 						style={ButtonStyle.Fill}
 						color={ButtonColor.Primary}
-						disabled={!$clipForm.dirty}
+						disabled={!pageValidation}
 						on:click={onValidate}
 					/>
 				</div>
