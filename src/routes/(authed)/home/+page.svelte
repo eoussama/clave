@@ -5,7 +5,7 @@
 
 	import Action from '$lib/components/controls/action.svelte';
 	import ClipList from '$lib/components/views/clip/clip-list.svelte';
-	import ClipModal from '$lib/components/views/clip/clip-modal.svelte';
+	import ClipModal from '$lib/components/views/clip/clip-detail.svelte';
 
 	import { Interaction } from '$lib/core/enums/interaction.enum';
 

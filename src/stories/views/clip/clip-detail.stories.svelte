@@ -1,5 +1,5 @@
 <script context="module">
-	import ClipModal from '$lib/components/views/clip/clip-modal.svelte';
+	import ClipModal from '$lib/components/views/clip/clip-detail.svelte';
 
 	import { EnumHelper } from '$lib/core/helpers/enum.helper';
 	import { Interaction } from '$lib/core/enums/interaction.enum';
@@ -7,7 +7,7 @@
 	const interactionModesMapping = EnumHelper.toObject(Interaction);
 
 	export const meta = {
-		title: 'Views/Clip/Modal',
+		title: 'Views/Clip/Detail',
 		component: ClipModal,
 		tags: ['autodocs'],
 		argTypes: {
