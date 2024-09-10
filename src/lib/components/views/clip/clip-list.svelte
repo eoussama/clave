@@ -9,18 +9,36 @@
 	import { appStore } from '$lib/core/stores/app.store';
 	import type { TClip } from '$lib/core/types/clip.type';
 
+	/**
+	 * @description
+	 * The send transition
+	 */
+	export let send: any;
+
+	/**
+	 * @description
+	 * The receive transition
+	 */
+	export let receive: any;
+
 	const dispatcher = createEventDispatcher();
 
 	export let unfocused: boolean;
 
+	/**
+	 * @description
+	 * The search term
+	 */
 	let searchTerm: string;
 
-	const onEdit = (e: TClip) => {
-		dispatcher('edit', e);
-	};
-
-	const onDelete = (e: TClip) => {
-		dispatcher('delete', e);
+	/**
+	 * @description
+	 * View handler
+	 *
+	 * @param e The clip that was clicked
+	 */
+	const onView = (e: CustomEvent<TClip>) => {
+		dispatcher('view', e.detail);
 	};
 
 	$: filteredClips =
@@ -54,7 +72,7 @@
 			<div class="clips-items">
 				{#each filteredClips as clip}
 					<li class="clips-item" class:clips-item--unfocused={unfocused} in:slide out:slide>
-						<ClipItem {clip} on:edit={() => onEdit(clip)} on:delete={() => onDelete(clip)} />
+						<ClipItem {clip} on:click={onView} />
 					</li>
 				{/each}
 			</div>
