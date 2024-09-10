@@ -77,6 +77,14 @@
 	};
 
 	/**
+	 * @decription
+	 * Click handler
+	 */
+	const onClick = () => {
+		dispatcher('click', clip);
+	};
+
+	/**
 	 * @description
 	 * Copies the clip content
 	 */
@@ -110,7 +118,7 @@
 </script>
 
 <div class="clip" class:clip--sensitive={clip.sensitive}>
-	<button class="clip__box" on:click|stopPropagation|preventDefault={onCopy}>
+	<button class="clip__box" on:click|stopPropagation|preventDefault={onClick}>
 		<div
 			class="clip__ripple"
 			use:rippleDirective={{ color: 'rgba(var(--color-primary-rgb), 0.1)' }}
@@ -130,7 +138,7 @@
 								<Button
 									ripple
 									size={ButtonSize.Small}
-									style={ButtonStyle.Fill}
+									style={ButtonStyle.Text}
 									color={ButtonColor.Primary}
 									icon={visible ? MdVisibilityOff : MdVisibility}
 									on:click={onVisibilityToggle}
