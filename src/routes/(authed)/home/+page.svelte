@@ -5,14 +5,12 @@
 
 	import Action from '$lib/components/controls/action.svelte';
 	import ClipList from '$lib/components/views/clip/clip-list.svelte';
-	import ClipModal from '$lib/components/views/clip/clip-detail.svelte';
+	import ClipDetail from '$lib/components/views/clip/clip-detail.svelte';
 
 	import { Interaction } from '$lib/core/enums/interaction.enum';
 
 	import type { TClip } from '$lib/core/types/clip.type';
 	import type { TNullable } from '$lib/core/types/nullable.type';
-
-	import { ClipHelper } from '$lib/core/helpers/clip.helper';
 
 	let unfocus: boolean;
 	let selectedClip: TNullable<TClip>;
@@ -85,13 +83,15 @@
 	</div>
 
 	<div class="content">
-		<ClipList {receive} {send} unfocused={unfocus} on:view={onView} />
+		{#if !clipModalVisible}
+			<ClipList unfocused={unfocus} on:view={onView} />
+		{/if}
 	</div>
 </div>
 
 {#if clipModalVisible}
 	<div class="overlay" in:fade={{ duration: 200 }} out:fade={{ duration: 200 }}>
-		<ClipModal {receive} {send} mode={clipModalMode} clip={selectedClip} on:close={onClose} />
+		<ClipDetail {receive} {send} mode={clipModalMode} clip={selectedClip} on:close={onClose} />
 	</div>
 {/if}
 

@@ -11,18 +11,14 @@
 
 	/**
 	 * @description
-	 * The send transition
+	 * The event dispatcher
 	 */
-	export let send: any;
+	const dispatcher = createEventDispatcher();
 
 	/**
 	 * @description
-	 * The receive transition
+	 * If the clips are unfocused
 	 */
-	export let receive: any;
-
-	const dispatcher = createEventDispatcher();
-
 	export let unfocused: boolean;
 
 	/**

@@ -21,15 +21,15 @@
 
 	/**
 	 * @description
-	 * Event dispatcher
-	 */
-	const dispatcher = createEventDispatcher();
-
-	/**
-	 * @description
 	 * The clip to display
 	 */
 	export let clip: TClip;
+
+	/**
+	 * @description
+	 * Event dispatcher
+	 */
+	const dispatcher = createEventDispatcher();
 
 	/**
 	 * @description
@@ -117,7 +117,12 @@
 	$: content = clip.sensitive && !visible ? hideContent(clip.content) : clip.content;
 </script>
 
-<div class="clip" class:clip--sensitive={clip.sensitive}>
+<div
+	class="clip"
+	class:clip--sensitive={clip.sensitive}
+	out:send={{ key: 'clipflip', duration: 400 }}
+	in:receive={{ key: 'clipflip', duration: 400 }}
+>
 	<button class="clip__box" on:click|stopPropagation|preventDefault={onClick}>
 		<div
 			class="clip__ripple"
