@@ -31,7 +31,6 @@
 	import { ButtonStyle } from '$lib/core/enums/button-style.enum';
 	import { ButtonColor } from '$lib/core/enums/button-color.enum';
 	import { TipPositiion } from '$lib/core/enums/tip-position.enum';
-	import { page } from '$app/stores';
 
 	/**
 	 * @description
@@ -252,6 +251,8 @@
 						transition:fly={{ x: -5, duration: 200, delay: 150 }}
 					>
 						<Tip message="Edit" position={TipPositiion.Top}>
+							<!-- TODO: hook visibility value -->
+							<!-- TODO: change icon accordingly -->
 							<Button
 								ripple
 								disabled={loading}
