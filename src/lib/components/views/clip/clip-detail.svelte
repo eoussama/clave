@@ -78,7 +78,7 @@
 	 * @description
 	 * Gets the modal title
 	 */
-	const getModalTitle = (): string => {
+	const getModalTitle = (mode: Interaction): string => {
 		switch (mode) {
 			case Interaction.Creation: {
 				return 'Create Clip';
@@ -98,7 +98,7 @@
 	 * @description
 	 * Gets the modal action
 	 */
-	const getModalAction = (): string => {
+	const getModalAction = (mode: Interaction): string => {
 		switch (mode) {
 			case Interaction.Creation: {
 				return 'Create';
@@ -113,11 +113,6 @@
 			}
 		}
 	};
-
-	$: pageTitle = getModalTitle();
-	$: pageAction = getModalAction();
-	$: pageReadonly = mode === Interaction.View;
-	$: pageValidation = mode === Interaction.Creation ? true : !$clipForm.dirty;
 
 	const tags = field('tags', clip?.tags ?? []);
 	const title = field('title', clip?.title ?? '');
@@ -195,6 +190,11 @@
 		newTagtext = '';
 		clipForm.reset();
 	};
+
+	$: pageTitle = getModalTitle(mode);
+	$: pageAction = getModalAction(mode);
+	$: pageReadonly = mode === Interaction.View;
+	$: pageValidation = mode === Interaction.Creation ? true : !$clipForm.dirty;
 
 	onMount(() => {
 		onReset();
