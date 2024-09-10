@@ -20,26 +20,32 @@
 	let clipModalVisible: boolean;
 	let clipModalMode: Interaction;
 
+	/**
+	 * @description
+	 * View handler
+	 *
+	 * @param e The clip to view
+	 */
+	const onView = (e: CustomEvent<TClip>) => {
+		selectedClip = e.detail;
+		clipModalMode = Interaction.View;
+		clipModalVisible = true;
+	};
+
+	/**
+	 * @description
+	 * Creates a new clip
+	 */
 	const onCreate = () => {
 		selectedClip = null;
 		clipModalMode = Interaction.Creation;
 		clipModalVisible = true;
 	};
 
-	const onEdit = (e: CustomEvent) => {
-		selectedClip = e.detail;
-		clipModalMode = Interaction.Update;
-		clipModalVisible = true;
-	};
-
-	const onDelete = (e: CustomEvent) => {
-		selectedClip = e.detail;
-
-		if (confirm('Do you want to delete this clip?')) {
-			ClipHelper.delete(selectedClip as TClip);
-		}
-	};
-
+	/**
+	 * @description
+	 * Closes the modal
+	 */
 	const onClose = () => {
 		clipModalVisible = false;
 	};
@@ -79,7 +85,7 @@
 	</div>
 
 	<div class="content">
-		<ClipList unfocused={unfocus} on:edit={onEdit} on:delete={onDelete} />
+		<ClipList {receive} {send} unfocused={unfocus} on:view={onView} />
 	</div>
 </div>
 
