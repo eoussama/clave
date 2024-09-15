@@ -1,4 +1,7 @@
 <script lang="ts">
+	// TODO: title
+	// TODO: close
+	// TODO: body
 </script>
 
 <div class="modal">
