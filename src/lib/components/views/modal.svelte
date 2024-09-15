@@ -2,6 +2,7 @@
 	// TODO: title
 	// TODO: close
 	// TODO: body
+	// TODO: state
 </script>
 
 <div class="modal">
