@@ -56,5 +56,66 @@
 
 <style lang="scss">
 	.modal {
+		$root: &;
+
+		z-index: 10;
+		position: relative;
+
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		width: 85%;
+		height: 100%;
+
+		margin: auto;
+		max-width: 350px;
+
+		&__element {
+			$spacing: 16px;
+
+			border-radius: 6px;
+			background-color: #ffffff;
+			box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+
+			display: flex;
+			flex-direction: column;
+
+			width: 100%;
+			height: auto;
+
+			#{$root}__head {
+				padding: $spacing $spacing 0 $spacing;
+
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+
+				#{$root}__title {
+					font-size: 16px;
+					text-transform: capitalize;
+					font-weight: var(--font-weight-bold);
+
+					color: var(--color-primary);
+				}
+
+				#{$root}__controls {
+					margin-left: auto;
+
+					display: flex;
+					align-items: center;
+					justify-content: center;
+
+					#{$root}__control {
+						margin-left: 4px;
+						display: inline-block;
+
+						&--hide {
+							display: none;
+						}
+					}
+				}
+			}
+		}
 	}
 </style>
