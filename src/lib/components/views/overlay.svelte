@@ -1,9 +1,18 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
+
+	/**
+	 * @description
+	 * If the overlay should block the content
+	 */
+	export let block: boolean = false;
 </script>
 
 <div class="overlay">
-	<div class="overlay__background"></div>
+	{#if block}
+		<div class="overlay__background" transition:fade={{ duration: 200 }} />
+	{/if}
+
 	<div class="overlay__content">Content</div>
 </div>
 
@@ -18,11 +27,10 @@
 		align-items: center;
 		justify-content: center;
 
-		width: 85%;
+		width: 100%;
 		height: 100%;
 
 		margin: auto;
-		max-width: 350px;
 
 		&__background {
 			position: absolute;
@@ -32,7 +40,12 @@
 			width: 100%;
 			height: 100%;
 
-			background-color: rgba(var(--color-primary-rgb), 0.4);
+			backdrop-filter: blur(8px);
+			background-color: rgba(var(--color-secondary-rgb), 0.4);
+		}
+
+		&__content {
+			z-index: 12;
 		}
 	}
 </style>
