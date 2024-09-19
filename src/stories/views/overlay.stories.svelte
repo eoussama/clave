@@ -44,6 +44,7 @@
 <style lang="scss">
 	.root {
 		padding: 8px;
+		overflow: hidden;
 		position: relative;
 
 		width: 250px;
@@ -53,11 +54,17 @@
 		border: 1px dashed #dddddd;
 
 		.content {
+			display: flex;
 			padding: 20px;
 
 			border-radius: 8px;
 			border: 2px dashed #dddddd;
 			background-color: rgba(255, 255, 255, 0.87);
+
+			top: 50%;
+			left: 50%;
+			position: absolute;
+			transform: translate(-50%, -50%);
 		}
 	}
 </style>
