@@ -8,7 +8,7 @@
 	export let block: boolean = false;
 </script>
 
-<div class="overlay" class:overlay--block={block}>
+<div class="overlay" class:overlay--block={block} transition:fade={{ duration: 200 }}>
 	{#if block}
 		<div class="overlay__background" transition:fade={{ duration: 200 }} />
 	{/if}
