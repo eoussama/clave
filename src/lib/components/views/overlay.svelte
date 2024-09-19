@@ -84,6 +84,9 @@
 
 			opacity: 0;
 
+			transition-duration: 0.2s;
+			transition-property: opacity;
+
 			#{$root}__background {
 				top: 0;
 				left: 0;
@@ -93,9 +96,6 @@
 				height: 100%;
 
 				backdrop-filter: blur(1px);
-
-				transition-duration: 0.2s;
-				transition-property: opacity;
 
 				&--1 {
 					background-color: rgba(var(--color-primary-rgb), 0.2);
