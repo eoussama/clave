@@ -19,11 +19,11 @@
 	</div>
 </Template>
 
-<Story name="Default" />
+<Story name="Default" args={{ block: true }} />
 
 <style lang="scss">
 	.parent {
-		width: 100%;
+		width: 250px;
 		height: 250px;
 	}
 </style>
