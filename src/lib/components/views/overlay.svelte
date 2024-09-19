@@ -8,12 +8,14 @@
 	export let block: boolean = false;
 </script>
 
-<div class="overlay">
+<div class="overlay" class:overlay--block={block}>
 	{#if block}
 		<div class="overlay__background" transition:fade={{ duration: 200 }} />
 	{/if}
 
-	<div class="overlay__content">Content</div>
+	<div class="overlay__content">
+		<slot />
+	</div>
 </div>
 
 <style lang="scss">
@@ -21,7 +23,11 @@
 		$root: &;
 
 		z-index: 10;
-		position: relative;
+		pointer-events: none;
+
+		position: absolute;
+		top: 0;
+		left: 0;
 
 		display: flex;
 		align-items: center;
@@ -46,6 +52,11 @@
 
 		&__content {
 			z-index: 12;
+			pointer-events: all;
+		}
+
+		&--block {
+			pointer-events: all;
 		}
 	}
 </style>
