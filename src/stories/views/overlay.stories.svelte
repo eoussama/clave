@@ -26,12 +26,18 @@
 			labore et
 		</p>
 
-		<button class="toggle" on:click={() => (visible = !visible)}>Toggle Overlay</button>
+		{#if args.toggle}
+			<button class="toggle" on:click={() => (visible = !visible)}>Toggle Overlay</button>
+		{/if}
 
 		{#if visible}
 			<Overlay block={args.block}>
 				<div class="content">
-					Content <button on:click={() => (visible = false)}>X</button>
+					Content
+
+					{#if args.toggle}
+						<button on:click={() => (visible = false)}>X</button>
+					{/if}
 				</div>
 			</Overlay>
 		{/if}
@@ -39,7 +45,7 @@
 </Template>
 
 <Story name="Default" args={{ block: true }} />
-<Story name="Toggleable" args={{ block: true }} />
+<Story name="Toggleable" args={{ block: true, toggle: true }} />
 
 <style lang="scss">
 	.root {
