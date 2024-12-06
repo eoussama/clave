@@ -3,16 +3,14 @@
 
 	import MdAdd from 'svelte-icons/md/MdAdd.svelte';
 
-	import ClipList from '$lib/components/views/clip-list.svelte';
 	import Action from '$lib/components/controls/action.svelte';
-	import ClipModal from '$lib/components/views/clip-modal.svelte';
+	import ClipList from '$lib/components/views/clip/clip-list.svelte';
+	import ClipDetail from '$lib/components/views/clip/clip-detail.svelte';
 
 	import { Interaction } from '$lib/core/enums/interaction.enum';
 
 	import type { TClip } from '$lib/core/types/clip.type';
 	import type { TNullable } from '$lib/core/types/nullable.type';
-
-	import { ClipHelper } from '$lib/core/helpers/clip.helper';
 
 	let unfocus: boolean;
 	let selectedClip: TNullable<TClip>;
@@ -20,26 +18,32 @@
 	let clipModalVisible: boolean;
 	let clipModalMode: Interaction;
 
+	/**
+	 * @description
+	 * View handler
+	 *
+	 * @param e The clip to view
+	 */
+	const onView = (e: CustomEvent<TClip>) => {
+		selectedClip = e.detail;
+		clipModalMode = Interaction.View;
+		clipModalVisible = true;
+	};
+
+	/**
+	 * @description
+	 * Creates a new clip
+	 */
 	const onCreate = () => {
 		selectedClip = null;
 		clipModalMode = Interaction.Creation;
 		clipModalVisible = true;
 	};
 
-	const onEdit = (e: CustomEvent) => {
-		selectedClip = e.detail;
-		clipModalMode = Interaction.Update;
-		clipModalVisible = true;
-	};
-
-	const onDelete = (e: CustomEvent) => {
-		selectedClip = e.detail;
-
-		if (confirm('Do you want to delete this clip?')) {
-			ClipHelper.delete(selectedClip as TClip);
-		}
-	};
-
+	/**
+	 * @description
+	 * Closes the modal
+	 */
 	const onClose = () => {
 		clipModalVisible = false;
 	};
@@ -67,19 +71,27 @@
 				out:send={{ key: 'clipflip', duration: 400 }}
 				in:receive={{ key: 'clipflip', duration: 400 }}
 			>
-				<Action label="Save a new clip..." shine={true} icon={MdAdd} on:click={onCreate} />
+				<Action
+					icon={MdAdd}
+					shine={true}
+					ripple={true}
+					label="Save a new clip..."
+					on:click={onCreate}
+				/>
 			</div>
 		{/if}
 	</div>
 
 	<div class="content">
-		<ClipList unfocused={unfocus} on:edit={onEdit} on:delete={onDelete} />
+		{#if !clipModalVisible}
+			<ClipList unfocused={unfocus} on:view={onView} />
+		{/if}
 	</div>
 </div>
 
 {#if clipModalVisible}
 	<div class="overlay" in:fade={{ duration: 200 }} out:fade={{ duration: 200 }}>
-		<ClipModal {receive} {send} mode={clipModalMode} clip={selectedClip} on:close={onClose} />
+		<ClipDetail {receive} {send} mode={clipModalMode} clip={selectedClip} on:close={onClose} />
 	</div>
 {/if}
 

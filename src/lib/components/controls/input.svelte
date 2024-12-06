@@ -112,6 +112,7 @@
 			{name}
 			bind:value
 			autocorrect="off"
+			spellcheck="false"
 			autocapitalize="off"
 			class="input__input"
 			placeholder={label}

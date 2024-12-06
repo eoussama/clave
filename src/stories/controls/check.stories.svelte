@@ -1,9 +1,9 @@
 <script context="module">
-	import Toggle from '$lib/components/controls/toggle.svelte';
+	import Check from '$lib/components/controls/check.svelte';
 
 	export const meta = {
-		title: 'Controls/Toggle',
-		component: Toggle,
+		title: 'Controls/Check',
+		component: Check,
 		tags: ['autodocs'],
 		argTypes: {
 			label: {
@@ -18,10 +18,11 @@
 </script>
 
 <Template let:args>
-	<Toggle {...args} />
+	<Check {...args} />
 </Template>
 
 <Story name="Default" />
-<Story name="Label" args={{ label: 'Default' }} />
+<Story name="Label" args={{ label: 'Label' }} />
+<Story name="Ripple" args={{ label: 'Ripple', ripple: true }} />
 <Story name="Disabled" args={{ label: 'Disabled', disabled: true }} />
 <Story name="Readonly" args={{ label: 'Readonly', readonly: true, value: true }} />

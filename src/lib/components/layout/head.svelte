@@ -1,11 +1,15 @@
 <script lang="ts">
 	import MdMoreVert from 'svelte-icons/md/MdMoreVert.svelte';
+
 	import Button from '../controls/button.svelte';
 
 	import { AuthHelper } from '$lib/core/helpers/auth.helper';
+
 	import { appStore } from '$lib/core/stores/app.store';
-	import { ButtonStyle } from '$lib/core/enums/button-style.enum';
+
 	import { ButtonSize } from '$lib/core/enums/button-size.enum';
+	import { ButtonStyle } from '$lib/core/enums/button-style.enum';
+	import { ButtonColor } from '$lib/core/enums/button-color.enum';
 
 	/**
 	 * @description
@@ -32,9 +36,11 @@
 
 	<div class="right">
 		<Button
+			ripple
 			icon={MdMoreVert}
 			size={ButtonSize.Small}
-			style={ButtonStyle.Primary}
+			style={ButtonStyle.Fill}
+			color={ButtonColor.Primary}
 			on:click={onLogout}
 		/>
 	</div>

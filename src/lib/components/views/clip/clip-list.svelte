@@ -2,25 +2,39 @@
 	import { slide } from 'svelte/transition';
 	import { createEventDispatcher } from 'svelte';
 
-	import Empty from './empty.svelte';
+	import Empty from '../empty.svelte';
 	import ClipItem from './clip-item.svelte';
-	import ClipSearch from '../controls/clip-search.svelte';
+	import ClipSearch from './clip-search.svelte';
 
 	import { appStore } from '$lib/core/stores/app.store';
 	import type { TClip } from '$lib/core/types/clip.type';
 
+	/**
+	 * @description
+	 * The event dispatcher
+	 */
 	const dispatcher = createEventDispatcher();
 
+	/**
+	 * @description
+	 * If the clips are unfocused
+	 */
 	export let unfocused: boolean;
 
+	/**
+	 * @description
+	 * The search term
+	 */
 	let searchTerm: string;
 
-	const onEdit = (e: TClip) => {
-		dispatcher('edit', e);
-	};
-
-	const onDelete = (e: TClip) => {
-		dispatcher('delete', e);
+	/**
+	 * @description
+	 * View handler
+	 *
+	 * @param e The clip that was clicked
+	 */
+	const onView = (e: CustomEvent<TClip>) => {
+		dispatcher('view', e.detail);
 	};
 
 	$: filteredClips =
@@ -48,13 +62,13 @@
 
 		<ul slot="content" class="clips-list">
 			<li class="clips-item clips-item--search" class:clips-item--unfocused={unfocused}>
-				<ClipSearch bind:searchTerm />
+				<ClipSearch />
 			</li>
 
 			<div class="clips-items">
 				{#each filteredClips as clip}
 					<li class="clips-item" class:clips-item--unfocused={unfocused} in:slide out:slide>
-						<ClipItem {clip} on:edit={() => onEdit(clip)} on:delete={() => onDelete(clip)} />
+						<ClipItem {clip} on:click={onView} />
 					</li>
 				{/each}
 			</div>

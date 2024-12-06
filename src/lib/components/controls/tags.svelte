@@ -1,10 +1,19 @@
 <script lang="ts">
 	import Tag from './tag.svelte';
 	import Input from './input.svelte';
+	import Button from './button.svelte';
+
+	import MdAdd from 'svelte-icons/md/MdAdd.svelte';
 
 	import { TagHelper } from '$lib/core/helpers/tag.helper';
 
 	import type { TTag } from '$lib/core/types/tag.type';
+	import { ButtonSize } from '$lib/core/enums/button-size.enum';
+	import { ButtonStyle } from '$lib/core/enums/button-style.enum';
+	import Tip from '../layout/tip.svelte';
+	import { TipPositiion } from '$lib/core/enums/tip-position.enum';
+	import { ButtonColor } from '$lib/core/enums/button-color.enum';
+	import { fade, fly } from 'svelte/transition';
 
 	/**
 	 * @description
@@ -55,6 +64,10 @@
 	 * @param name The name of the tag
 	 */
 	const createTag = (name: string): void => {
+		if (value.find((e) => e.text === name.toLowerCase())) {
+			throw new Error('Tag already exists');
+		}
+
 		const tag = TagHelper.create(name);
 		value = [...value, tag];
 	};
@@ -87,21 +100,27 @@
 			case ';':
 			case 'enter': {
 				newTagtext = newTagtext.replace(/[,;]/g, '');
-
-				if (newTagtext.length > 0) {
-					try {
-						createTag(newTagtext);
-						clearInput();
-
-						errorMsg = '';
-					} catch (err: any) {
-						errorMsg = err.message;
-					} finally {
-						error = errorMsg.length > 0;
-					}
-				}
+				onAdd();
 
 				break;
+			}
+		}
+	};
+
+	/**
+	 * @decription
+	 * Adds a tag
+	 */
+	const onAdd = () => {
+		if (newTagtext.length > 0) {
+			try {
+				createTag(newTagtext);
+				clearInput();
+				errorMsg = '';
+			} catch (err: any) {
+				errorMsg = err.message;
+			} finally {
+				error = errorMsg.length > 0;
 			}
 		}
 	};
@@ -115,22 +134,52 @@
 	};
 </script>
 
-<span class="tags">
-	{#if !readonly}
-		<div class="tags__input">
-			<Input
+<span class="tags" class:tags--readonly={readonly}>
+	<div class="tags__wrapper">
+		{#if !readonly}
+			<div
+				class="tags__input"
+				out:fly={{ x: -5, duration: 200 }}
+				in:fly={{ x: 5, duration: 200, delay: 200 }}
+			>
+				<Input
+					{label}
+					{error}
+					{errorMsg}
+					{disabled}
+					name="tags-input"
+					on:keyup={onKeyUp}
+					bind:value={newTagtext}
+				/>
+
+				<div class="tags__btn">
+					<Tip
+						message="Add a new tag"
+						position={TipPositiion.Left}
+						disabled={disabled || newTagtext.length === 0}
+					>
+						<Button
+							icon={MdAdd}
+							ripple={true}
+							size={ButtonSize.Small}
+							style={ButtonStyle.Text}
+							color={ButtonColor.Primary}
+							disabled={disabled || newTagtext.length === 0}
+							on:click={onAdd}
+						/>
+					</Tip>
+				</div>
+			</div>
+		{:else}
+			<h2
+				class="tags__label"
+				out:fly={{ x: -5, duration: 200 }}
+				in:fly={{ x: 5, duration: 200, delay: 200 }}
+			>
 				{label}
-				{error}
-				{errorMsg}
-				{disabled}
-				name="tags-input"
-				on:keyup={onKeyUp}
-				bind:value={newTagtext}
-			/>
-		</div>
-	{:else}
-		<h2 class="tags__label">{label}</h2>
-	{/if}
+			</h2>
+		{/if}
+	</div>
 
 	<ul class="tags__list">
 		{#each value as tag}
@@ -148,7 +197,29 @@
 		--tags-label-color: hsl(var(--color-primary-hsl), 70%);
 
 		&__input {
+			position: relative;
 			width: 100%;
+
+			#{$root}__btn {
+				position: absolute;
+				right: 7px;
+				top: 7px;
+			}
+
+			:global(.input__input) {
+				padding-right: 35px;
+			}
+		}
+
+		&__wrapper {
+			height: 37px;
+			position: relative;
+
+			display: flex;
+			align-items: end;
+
+			transition-duration: 0.2s;
+			transition-property: height;
 		}
 
 		&__label {
@@ -165,6 +236,12 @@
 
 			#{$root}__item {
 				display: inline;
+			}
+		}
+
+		&--readonly {
+			#{$root}__wrapper {
+				height: 22px;
 			}
 		}
 	}

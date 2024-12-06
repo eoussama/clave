@@ -2,6 +2,7 @@
 	import MdPlayArrow from 'svelte-icons/md/MdPlayArrow.svelte';
 	import Button from '$lib/components/controls/button.svelte';
 
+	const buttonColordMapping = EnumHelper.toObject(ButtonColor);
 	const buttonStylesMapping = EnumHelper.toObject(ButtonStyle);
 	const buttonSizesMapping = EnumHelper.toObject(ButtonSize);
 	const buttonTypesMapping = EnumHelper.toObject(ButtonType);
@@ -17,7 +18,7 @@
 				options: Object.keys(buttonStylesMapping)
 			},
 			size: {
-        control: { type: 'radio' },
+				control: { type: 'radio' },
 				mapping: buttonSizesMapping,
 				options: Object.keys(buttonSizesMapping)
 			},
@@ -26,12 +27,17 @@
 				mapping: buttonTypesMapping,
 				options: Object.keys(buttonTypesMapping)
 			},
-      icon: {
-        control: false
-      },
-      loadingLabel: {
+			color: {
+				control: { type: 'select' },
+				mapping: buttonColordMapping,
+				options: Object.keys(buttonColordMapping)
+			},
+			icon: {
+				control: false
+			},
+			loadingLabel: {
 				control: { type: 'text' },
-        if: { arg: 'loading', truthy: true }
+				if: { arg: 'loading', truthy: true }
 			}
 		}
 	};
@@ -44,6 +50,7 @@
 	import { ButtonSize } from '$lib/core/enums/button-size.enum';
 	import { ButtonType } from '$lib/core/enums/button-type.enum';
 	import { ButtonStyle } from '$lib/core/enums/button-style.enum';
+	import { ButtonColor } from '$lib/core/enums/button-color.enum';
 </script>
 
 <Template let:args>
@@ -51,9 +58,10 @@
 </Template>
 
 <Story name="Default" args={{ label: 'Default' }} />
-<Story name="Primary" args={{ style: ButtonStyle.Primary, label: 'Primary' }} />
-<Story name="Secondary" args={{ style: ButtonStyle.Secondary, label: 'Secondary' }} />
-<Story name="Shine" args={{ shine: true }} />
+<Story name="Style" args={{ label: 'Style', style: ButtonStyle.Fill }} />
+<Story name="Color" args={{ color: ButtonColor.Primary, label: 'Color' }} />
+<Story name="Shine" args={{ shine: true, label: 'Shine' }} />
+<Story name="Ripple" args={{ ripple: true, label: 'Ripple' }} />
 <Story name="Disabled" args={{ disabled: true, label: 'Disabled' }} />
 <Story name="Loading" args={{ loading: true, loadingLabel: 'Loading...' }} />
 <Story name="Icon & Text" args={{ icon: MdPlayArrow, label: 'Play' }} />

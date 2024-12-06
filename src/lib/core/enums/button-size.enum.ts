@@ -6,13 +6,13 @@ export enum ButtonSize {
 
   /**
    * @description
-   * The default size of the button
-   */
-  Default,
+   * The small size of the button
+  */
+  Small,
 
   /**
    * @description
-   * The small size of the button
+   * The normal size of the button
    */
-  Small
+  Normal
 }

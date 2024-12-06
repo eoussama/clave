@@ -1,9 +1,11 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	
+
+	import Tip from '../layout/tip.svelte';
 	import MdRemove from 'svelte-icons/md/MdRemove.svelte';
 
 	import type { TTag } from '$lib/core/types/tag.type';
+	import { fly } from 'svelte/transition';
 
 	// TODO: disabled
 	// TODO: readonly
@@ -43,23 +45,25 @@
 	};
 </script>
 
-<button
-	class="tag"
-	class:tag--disabled={disabled}
-	class:tag--readonly={readonly}
-	disabled={disabled || readonly}
-	on:click={onClick}
->
-	<span class="tag__text">
-		{tag.text}
-	</span>
-
-	{#if !readonly && !disabled}
-		<span class="tag__remove">
-			<MdRemove />
+<Tip message={tag.text} disabled={tag.text.length < 23}>
+	<button
+		class="tag"
+		class:tag--disabled={disabled}
+		class:tag--readonly={readonly}
+		disabled={disabled || readonly}
+		on:click={onClick}
+	>
+		<span class="tag__text">
+			{tag.text}
 		</span>
-	{/if}
-</button>
+
+		{#if !readonly && !disabled}
+			<span class="tag__remove" in:fly={{ x: 5, duration: 200 }} out:fly={{ x: -5, duration: 200 }}>
+				<MdRemove />
+			</span>
+		{/if}
+	</button>
+</Tip>
 
 <style lang="scss">
 	.tag {
@@ -71,6 +75,7 @@
 
 		cursor: pointer;
 
+		width: auto;
 		height: 20px;
 
 		display: inline-flex;
@@ -85,16 +90,21 @@
 		border: 1px solid var(--tag-border-color);
 
 		transition-duration: 0.2s;
-		transition-property: background-color border-color color;
+		transition-property: background-color border-color color width;
 
 		&__text {
+			max-width: 150px;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+
 			font-size: 10px;
 			text-transform: uppercase;
 			font-weight: var(--font-weight-light);
 		}
 
 		&__remove {
-			width: 100%;
+			width: auto;
 			height: 100%;
 
 			display: flex;
